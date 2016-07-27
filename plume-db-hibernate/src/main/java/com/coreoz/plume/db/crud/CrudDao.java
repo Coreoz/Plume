@@ -20,8 +20,8 @@ public class CrudDao<T> {
 
 	private final OrderSpecifier<?> defaultOrder;
 
-	public CrudDao(EntityPathBase<T> queryDslEntity, TransactionManager dbExecutor) {
-		this(queryDslEntity, dbExecutor, null);
+	public CrudDao(EntityPathBase<T> queryDslEntity, TransactionManager transactionManager) {
+		this(queryDslEntity, transactionManager, null);
 	}
 
 	public CrudDao(EntityPathBase<T> queryDslEntity, TransactionManager transactionManager, OrderSpecifier<?> defaultOrder) {
