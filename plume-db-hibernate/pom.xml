@@ -20,8 +20,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.coreoz</groupId>
-            <artifactId>plume-conf</artifactId>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
         </dependency>
 
 		<dependency>
