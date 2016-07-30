@@ -8,7 +8,7 @@ public class ErrorResponse {
 	private final List<String> statusArguments;
 	
 	public ErrorResponse(WsError error, List<String> statusArguments) {
-		this.errorCode = error.getKey();
+		this.errorCode = error.name();
 		this.statusArguments = statusArguments;
 	}
 

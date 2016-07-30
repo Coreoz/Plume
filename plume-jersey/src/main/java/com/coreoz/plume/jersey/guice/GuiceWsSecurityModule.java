@@ -1,5 +1,9 @@
-package com.coreoz.plume.jersey.security;
+package com.coreoz.plume.jersey.guice;
 
+import com.coreoz.plume.jersey.security.WsAuthenticator;
+import com.coreoz.plume.jersey.security.WsPermissionAuthenticator;
+import com.coreoz.plume.jersey.security.WsRequestPermissionProvider;
+import com.coreoz.plume.jersey.security.WsSecurityFeature;
 import com.google.inject.AbstractModule;
 
 /**
@@ -10,7 +14,7 @@ import com.google.inject.AbstractModule;
  * 	<li>que la configuration de Jersey inscrive l'instance de {@link WsSecurityFeature} : {@code register(guiceFactory.getInstance(WsSecurityFeature.class));} </li>
  * </ol>
  */
-public class WsSecurityModule extends AbstractModule {
+public class GuiceWsSecurityModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

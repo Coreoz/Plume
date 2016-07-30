@@ -1,9 +1,10 @@
-package com.coreoz.plume.conf;
+package com.coreoz.plume.conf.guice;
 
+import com.coreoz.plume.conf.ConfigProvider;
 import com.google.inject.AbstractModule;
 import com.typesafe.config.Config;
 
-public class ConfModule extends AbstractModule {
+public class GuiceConfModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

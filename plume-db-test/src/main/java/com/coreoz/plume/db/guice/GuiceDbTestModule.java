@@ -1,8 +1,9 @@
-package com.coreoz.plume.db;
+package com.coreoz.plume.db.guice;
 
+import com.coreoz.plume.db.InitializeDatabase;
 import com.google.inject.AbstractModule;
 
-public class DbTestModule extends AbstractModule {
+public class GuiceDbTestModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

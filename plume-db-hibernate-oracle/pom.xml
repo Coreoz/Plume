@@ -38,6 +38,11 @@
 			<artifactId>plume-db-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-conf</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
