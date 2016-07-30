@@ -12,7 +12,7 @@ public class CrudService<T> {
 	}
 
 	public List<T> fetchAll() {
-		return crudDao.fetchAll();
+		return crudDao.findAll();
 	}
 
 	public T findById(Long id) {
@@ -26,12 +26,8 @@ public class CrudService<T> {
 		return Optional.ofNullable(crudDao.findById(id));
 	}
 
-	public T insert(T entityToInsert) {
-		return crudDao.insert(entityToInsert);
-	}
-
-	public T update(T entityToUpdate) {
-		return crudDao.update(entityToUpdate);
+	public T save(T entityToSave) {
+		return crudDao.save(entityToSave);
 	}
 
 	public void delete(Long id) {

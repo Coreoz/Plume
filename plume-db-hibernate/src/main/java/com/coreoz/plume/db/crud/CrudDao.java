@@ -34,12 +34,12 @@ public class CrudDao<T> {
 
 	// API
 
-	public List<T> fetchAll() {
+	public List<T> findAll() {
 		return search();
 	}
 
 	public T findById(Long id) {
-		return findOne(idPath.eq(id));
+		return searchOne(idPath.eq(id));
 	}
 
 	public T save(T entityToUpdate) {
@@ -64,10 +64,6 @@ public class CrudDao<T> {
 
 	// protected
 
-	protected long count(Predicate... predicates) {
-		return withPredicate(HibernateQuery::fetchCount, predicates);
-	}
-
 	protected List<T> search(Predicate... predicates) {
 		return withPredicate(
 			fetchQuery -> {
@@ -81,7 +77,11 @@ public class CrudDao<T> {
 		);
 	}
 
-	protected T findOne(Predicate... predicates) {
+	protected long searchCount(Predicate... predicates) {
+		return withPredicate(HibernateQuery::fetchCount, predicates);
+	}
+
+	protected T searchOne(Predicate... predicates) {
 		return withPredicate(HibernateQuery::fetchOne, predicates);
 	}
 
