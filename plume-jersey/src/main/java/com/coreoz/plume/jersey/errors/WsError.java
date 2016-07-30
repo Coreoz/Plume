@@ -1,30 +1,29 @@
 package com.coreoz.plume.jersey.errors;
 
 /**
- * Centralise les erreurs pouvant être levées dans les WS
- * @author amanteaux
+ * Reference errors that can be raised in a web-service
  */
 public interface WsError {
 
 	// erreurs communes
-	public static final WsError INTERNAL_ERROR = new WsErrorInternal("internal_error");
+	WsError INTERNAL_ERROR = new WsErrorInternal("INTERNAL_ERROR");
 
 	/**
-	 * Retourne la clé de l'erreur
+	 * Returns the name of the error
 	 */
-	String getKey();
+	String name();
 
-	static class WsErrorInternal implements WsError {
+	class WsErrorInternal implements WsError {
 
-		private final String key;
+		private final String name;
 
-		public WsErrorInternal(String key) {
-			this.key = key;
+		public WsErrorInternal(String name) {
+			this.name = name;
 		}
 
 		@Override
-		public String getKey() {
-			return key;
+		public String name() {
+			return name;
 		}
 	}
 
