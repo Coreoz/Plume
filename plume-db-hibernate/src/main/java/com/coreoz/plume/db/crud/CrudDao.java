@@ -42,22 +42,12 @@ public class CrudDao<T> {
 		return findOne(idPath.eq(id));
 	}
 
-	public T insert(T entityToInsert) {
-		return transactionManager.executeAndReturn(em -> insert(entityToInsert, em));
+	public T save(T entityToUpdate) {
+		return transactionManager.executeAndReturn(em -> save(entityToUpdate, em));
 	}
 
-	public T insert(T entityToInsert, EntityManager em) {
-		em.persist(entityToInsert);
-		return entityToInsert;
-	}
-
-	public T update(T entityToUpdate) {
-		return transactionManager.executeAndReturn(em -> update(entityToUpdate, em));
-	}
-
-	public T update(T entityToUpdate, EntityManager em) {
-		em.merge(entityToUpdate);
-		return entityToUpdate;
+	public T save(T entityToUpdate, EntityManager em) {
+		return em.merge(entityToUpdate);
 	}
 
 	public void delete(Long id) {
