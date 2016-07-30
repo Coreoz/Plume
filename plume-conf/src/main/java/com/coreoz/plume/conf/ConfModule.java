@@ -1,4 +1,4 @@
-package com.coreoz.plume;
+package com.coreoz.plume.conf;
 
 import com.google.inject.AbstractModule;
 import com.typesafe.config.Config;
