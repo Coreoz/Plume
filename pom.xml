@@ -10,19 +10,27 @@
 
 	<name>Plume parent</name>
 
+	<description>Plume Framework is a lightweight modular framework</description>
+
+	<url>https://github.com/Coreoz/Plume</url>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<additionalparam>-Xdoclint:none</additionalparam>
 
-		<slf4j.version>1.7.20</slf4j.version>
 		<guice.version>4.1.0</guice.version>
 		<dagger.version>2.6</dagger.version>
-		<config.version>1.3.0</config.version>
 		<guava.version>19.0</guava.version>
+		<config.version>1.3.0</config.version>
+		<slf4j.version>1.7.20</slf4j.version>
+		<logback.version>1.1.7</logback.version>
 		<hikaricp.version>2.4.7</hikaricp.version>
 		<jackson.version>2.8.1</jackson.version>
+
+		<junit.version>4.12</junit.version>
+		<fest-assert.version>1.4</fest-assert.version>
 	</properties>
 
 	<licenses>
@@ -48,31 +56,26 @@
 				<artifactId>plume-conf</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-db-pool</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-db-hibernate</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-db-hibernate-oracle</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-db-test</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-jersey</artifactId>
@@ -105,9 +108,53 @@
 				<version>${slf4j.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.zaxxer</groupId>
 				<artifactId>HikariCP</artifactId>
 				<version>${hikaricp.version}</version>
+			</dependency>
+			<!-- jackson -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.jaxrs</groupId>
+				<artifactId>jackson-jaxrs-json-provider</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jsr310</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<!-- Tests -->
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.easytesting</groupId>
+				<artifactId>fest-assert</artifactId>
+				<version>${fest-assert.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
