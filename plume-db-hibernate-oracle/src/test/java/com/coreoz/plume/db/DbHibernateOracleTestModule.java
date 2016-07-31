@@ -1,12 +1,11 @@
 package com.coreoz.plume.db;
 
-import javax.sql.DataSource;
-
 import com.coreoz.plume.conf.guice.GuiceConfModule;
-import org.junit.Ignore;
-
 import com.coreoz.plume.db.guice.GuiceDbTestModule;
 import com.google.inject.AbstractModule;
+import org.junit.Ignore;
+
+import javax.sql.DataSource;
 
 @Ignore
 public class DbHibernateOracleTestModule extends AbstractModule {
