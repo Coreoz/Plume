@@ -1,11 +1,10 @@
 package com.coreoz.plume.db;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import com.coreoz.plume.db.TransactionManager;
 import com.coreoz.plume.db.datasource.HibernateOracleFactory;
 import com.typesafe.config.Config;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Singleton
 public class TransactionManagerOracle extends TransactionManager {

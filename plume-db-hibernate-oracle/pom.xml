@@ -18,6 +18,20 @@
             <artifactId>plume-db-hibernate</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.sql2o.extensions</groupId>
+            <artifactId>sql2o-oracle</artifactId>
+            <version>${sql2o.version}</version>
+            <exclusions>
+                <!-- oracle dependency is excluded so tests can be executed on Travis -->
+                <!-- anyway, the oracle driver should be provided since it is not on maven central -->
+                <exclusion>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc6</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- Driver Oracle pour la connexion à la base -->
         <dependency>
             <groupId>com.oracle</groupId>
@@ -29,10 +43,15 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
 		
         <!-- Tests -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-db-test</artifactId>

@@ -1,16 +1,13 @@
 package com.coreoz.plume.db;
 
-import javax.inject.Inject;
-
+import com.carlosbecker.guice.GuiceModules;
+import com.carlosbecker.guice.GuiceTestRunner;
+import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sql2o.Connection;
 
-import com.carlosbecker.guice.GuiceModules;
-import com.carlosbecker.guice.GuiceTestRunner;
-import com.coreoz.plume.db.TransactionManager;
-
-import junit.framework.TestCase;
+import javax.inject.Inject;
 
 @RunWith(GuiceTestRunner.class)
 @GuiceModules(DbHibernateTestModule.class)
