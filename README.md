@@ -1,6 +1,8 @@
 Plume Framework
 ===============
 
+[![Build Status](https://travis-ci.org/Coreoz/Plume.svg?branch=master)](https://travis-ci.org/Coreoz/Plume)
+
 Plume Framework is a lightweight modular framework. It aims to remain as simple as possible while it can be customized 
 enough to fit exactly your application need.
 Plume is mainly aggregating (great) JVM libraries. This way, the Plume code base is limited to the minimum
