@@ -53,3 +53,22 @@ Plume modules
 
 This module is based on the [Config](https://github.com/typesafehub/config) library
 and handles the application configuration.
+
+### [Plume Jersey](plume-jersey/)
+
+Contains everything you need to build REST web-services with [Jersey](https://jersey.java.net/)
+and expose your documentation with [Swagger](http://swagger.io/).
+
+### [Plume Hibernate](plume-db-hibernate/)
+
+The best known Java ORM [Hibernate](http://hibernate.org/)
+with [QueryDSL](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa)
+and [Sql2o](http://www.sql2o.org/) to ease its usage.
+
+### [Plume Hibernate Oracle](plume-db-hibernate-oracle/)
+
+This module comes on top of the Plume Hibernate module to provide Oracle specific data converters.
+
+### [Plume Database test](plume-db-test/)
+
+Use [Flyway](https://flywaydb.org/) to help you make integration tests with a database.
