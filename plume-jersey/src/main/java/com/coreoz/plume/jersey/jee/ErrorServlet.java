@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.servlet;
+package com.coreoz.plume.jersey.jee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
