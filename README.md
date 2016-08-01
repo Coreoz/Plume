@@ -3,7 +3,7 @@ Plume Framework
 
 [![Build Status](https://travis-ci.org/Coreoz/Plume.svg?branch=master)](https://travis-ci.org/Coreoz/Plume)
 
-Plume Framework is a lightweight modular framework. It aims to remain as simple as possible while it can be customized 
+Plume Framework is a lightweight modular Java framework. It aims to remain as simple as possible while it can be customized 
 enough to fit exactly your application need.
 Plume is mainly aggregating (great) JVM libraries. This way, the Plume code base is limited to the minimum
 so that the aggregated libraries can function together.  
@@ -34,7 +34,7 @@ This package is for you if you want:
 - your dev team to already know about all the technology inside your tech stack,
 - to easily expose your API documentation.
 
-If you don't already know Swagger, check out their API documentation example: <http://petstore.swagger.io/>
+If you don't already know Swagger, check out their API documentation example: <http://petstore.swagger.io/>.
 
 TODO link to the archetype
 
@@ -43,8 +43,8 @@ Dependency injection
 TODO explain how Guice should be used
 
 For Dagger, you are on your own, just know there is a DaggerModule for each GuiceModule.
-Moreover, the Dagger documentation is available at <http://google.github.io/dagger/users-guide.html>
-Also to use Dagger the annotation processor should be enabled in your IDE: <https://immutables.github.io/apt.html>
+Moreover, the Dagger documentation is available at <http://google.github.io/dagger/users-guide.html>.
+Also to use Dagger the annotation processor should be enabled in your IDE: <https://immutables.github.io/apt.html>.
 
 Plume modules
 -------------
