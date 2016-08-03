@@ -221,7 +221,7 @@
 			</dependency>
 			<dependency>
 				<groupId>io.swagger</groupId>
-				<artifactId>swagger-jersey2-jaxrs</artifactId>
+				<artifactId>swagger-jaxrs</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
 			<dependency>
