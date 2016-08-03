@@ -60,18 +60,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Intégration Guice et Jersey : TODO move to archetype -->
-		<dependency>
-			<groupId>org.glassfish.hk2</groupId>
-			<artifactId>guice-bridge</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>guice</artifactId>
-					<groupId>com.google.inject</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
