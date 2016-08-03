@@ -55,7 +55,7 @@
 		<module>plume-db-hibernate</module>
 		<module>plume-db-hibernate-oracle</module>
 		<module>plume-db-test</module>
-		<module>plume-jersey</module>
+		<module>plume-web-jersey</module>
 	</modules>
 
 	<profiles>

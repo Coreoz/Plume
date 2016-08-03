@@ -9,20 +9,17 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plume-jersey</artifactId>
+	<artifactId>plume-web-jersey</artifactId>
 	<packaging>jar</packaging>
-	<name>Intégration de Jersey-Swagger-Guice pour les web-services</name>
+	<name>Plume web jersey</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
-		<!-- jersey (pour mettre en place les web-services REST) et intégration 
-			avec jackson -->
+		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -35,6 +32,8 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
+
+		<!-- jersey -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
@@ -48,18 +47,6 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 		</dependency>
 
-		<!-- swagger -->
-		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-jersey2-jaxrs</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>joda-time</artifactId>
-					<groupId>joda-time</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
@@ -70,8 +57,15 @@
 			<artifactId>dagger</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

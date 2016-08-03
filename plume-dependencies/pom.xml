@@ -61,7 +61,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-jersey</artifactId>
+				<artifactId>plume-web-jersey</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

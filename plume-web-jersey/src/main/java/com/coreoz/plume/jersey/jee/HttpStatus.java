@@ -28,7 +28,7 @@
  *
  */
 
-package com.coreoz.plume.jersey.utils;
+package com.coreoz.plume.jersey.jee;
 
 /**
  * Constants enumerating the HTTP status codes.
@@ -38,12 +38,12 @@ package com.coreoz.plume.jersey.utils;
  * @author Unascribed
  * @author <a href="mailto:mbowler@GargoyleSoftware.com">Mike Bowler</a>
  * @author <a href="mailto:jsdever@apache.org">Jeff Dever</a>
- * 
- * TODO: Internationalization of reason phrases 
- * 
+ *
+ * TODO: Internationalization of reason phrases
+ *
  * @version $Id: HttpStatus.java 480424 2006-11-29 05:56:49Z bayard $
  */
-public class HttpStatus {
+class HttpStatus {
 
 
     // -------------------------------------------------------- Class Variables
@@ -63,14 +63,14 @@ public class HttpStatus {
 
     /**
      * Get the reason phrase for a particular status code.
-     * 
+     *
      * This method always returns the English text as specified in the
      * relevent RFCs and is not internationalized.
-     * 
+     *
      * @param statusCode the numeric status code
      * @return the reason phrase associated with the given status code
      * or null if the status code is not recognized.
-     * 
+     *
      * TODO: getStatusText should be called getReasonPhrase to match RFC
      */
     public static String getStatusText(int statusCode) {
@@ -80,7 +80,7 @@ public class HttpStatus {
         }
         int classIndex = statusCode / 100;
         int codeIndex = statusCode - classIndex * 100;
-        if (classIndex < 1 || classIndex > (REASON_PHRASES.length - 1) 
+        if (classIndex < 1 || classIndex > (REASON_PHRASES.length - 1)
             || codeIndex < 0 || codeIndex > (REASON_PHRASES[classIndex].length - 1)) {
             return null;
         }
@@ -128,7 +128,7 @@ public class HttpStatus {
     public static final int SC_RESET_CONTENT = 205;
     /** <tt>206 Partial Content</tt> (HTTP/1.1 - RFC 2616) */
     public static final int SC_PARTIAL_CONTENT = 206;
-    /** 
+    /**
      * <tt>207 Multi-Status</tt> (WebDAV - RFC 2518) or <tt>207 Partial Update
      * OK</tt> (HTTP/1.1 - draft-ietf-http-v11-spec-rev-01?)
      */
@@ -273,9 +273,9 @@ public class HttpStatus {
         addStatusCodeMap(SC_USE_PROXY, "Use Proxy");
         addStatusCodeMap(SC_PAYMENT_REQUIRED, "Payment Required");
         addStatusCodeMap(SC_NOT_ACCEPTABLE, "Not Acceptable");
-        addStatusCodeMap(SC_PROXY_AUTHENTICATION_REQUIRED, 
+        addStatusCodeMap(SC_PROXY_AUTHENTICATION_REQUIRED,
             "Proxy Authentication Required");
-        addStatusCodeMap(SC_REQUEST_TIMEOUT, 
+        addStatusCodeMap(SC_REQUEST_TIMEOUT,
             "Request Timeout");
 
         addStatusCodeMap(SC_SWITCHING_PROTOCOLS, "Switching Protocols");
