@@ -47,138 +47,16 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<additionalparam>-Xdoclint:none</additionalparam>
-
-		<guice.version>4.1.0</guice.version>
-		<dagger.version>2.6</dagger.version>
-		<guava.version>19.0</guava.version>
-		<config.version>1.3.0</config.version>
-		<slf4j.version>1.7.20</slf4j.version>
-		<logback.version>1.1.7</logback.version>
-		<hikaricp.version>2.4.7</hikaricp.version>
-		<jackson.version>2.8.1</jackson.version>
-		<sql2o.version>1.6.0-RC2</sql2o.version>
-
-		<junit.version>4.12</junit.version>
-		<fest-assert.version>1.4</fest-assert.version>
 	</properties>
 
 	<modules>
+		<module>plume-dependencies</module>
 		<module>plume-conf</module>
 		<module>plume-db-hibernate</module>
 		<module>plume-db-hibernate-oracle</module>
 		<module>plume-db-test</module>
 		<module>plume-jersey</module>
 	</modules>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-conf</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-db-pool</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-db-hibernate</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-db-hibernate-oracle</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-db-test</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-jersey</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.google.inject</groupId>
-				<artifactId>guice</artifactId>
-				<version>${guice.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.dagger</groupId>
-				<artifactId>dagger</artifactId>
-				<version>${dagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.typesafe</groupId>
-				<artifactId>config</artifactId>
-				<version>${config.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.zaxxer</groupId>
-				<artifactId>HikariCP</artifactId>
-				<version>${hikaricp.version}</version>
-			</dependency>
-			<!-- jackson -->
-			<dependency>
-				<groupId>com.fasterxml.jackson.jaxrs</groupId>
-				<artifactId>jackson-jaxrs-json-provider</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-annotations</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.datatype</groupId>
-				<artifactId>jackson-datatype-jsr310</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-
-			<!-- Tests -->
-
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.easytesting</groupId>
-				<artifactId>fest-assert</artifactId>
-				<version>${fest-assert.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<profiles>
 		<profile>
