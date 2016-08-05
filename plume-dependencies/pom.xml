@@ -31,6 +31,9 @@
 		<hk2-guice-bridge.version>2.4.0-b31</hk2-guice-bridge.version>
 		<swagger.version>1.5.4</swagger.version>
 		<swagger-ui.version>2.1.5</swagger-ui.version>
+		<javassist.version>3.20.0-GA</javassist.version>
+		<commons-validator.version>1.5.1</commons-validator.version>
+		<jbcrypt.version>0.4.1</jbcrypt.version>
 
 		<junit.version>4.12</junit.version>
 		<fest-assert.version>1.4</fest-assert.version>
@@ -191,17 +194,17 @@
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
-    			<artifactId>jersey-container-servlet-core</artifactId>
+				<artifactId>jersey-container-servlet-core</artifactId>
 				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
-    			<artifactId>jersey-server</artifactId>
+				<artifactId>jersey-server</artifactId>
 				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
-    			<artifactId>jersey-common</artifactId>
+				<artifactId>jersey-common</artifactId>
 				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
@@ -228,6 +231,21 @@
 				<groupId>org.webjars</groupId>
 				<artifactId>swagger-ui</artifactId>
 				<version>${swagger-ui.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>${javassist.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-validator</groupId>
+				<artifactId>commons-validator</artifactId>
+				<version>${commons-validator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.svenkubiak</groupId>
+				<artifactId>jBCrypt</artifactId>
+				<version>${jbcrypt.version}</version>
 			</dependency>
 
 			<!-- Tests -->

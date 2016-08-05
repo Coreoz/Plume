@@ -5,8 +5,10 @@ package com.coreoz.plume.jersey.errors;
  */
 public interface WsError {
 
-	// erreurs communes
+	// common errors
 	WsError INTERNAL_ERROR = new WsErrorInternal("INTERNAL_ERROR");
+	WsError FIELD_REQUIRED = new WsErrorInternal("FIELD_REQUIRED");
+	WsError EMAIL_INVALID = new WsErrorInternal("EMAIL_INVALID");
 
 	/**
 	 * Returns the name of the error
