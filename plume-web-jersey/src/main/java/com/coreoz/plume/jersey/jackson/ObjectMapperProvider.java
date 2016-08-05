@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+// check https://github.com/FasterXML/jackson-databind/issues/779 to see when we can have the SafeObjectMapper
 @Singleton
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
 
