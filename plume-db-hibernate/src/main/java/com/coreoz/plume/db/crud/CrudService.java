@@ -11,7 +11,7 @@ public class CrudService<T> {
 		this.crudDao = crudDao;
 	}
 
-	public List<T> fetchAll() {
+	public List<T> findAll() {
 		return crudDao.findAll();
 	}
 
