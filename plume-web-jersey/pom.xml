@@ -11,7 +11,7 @@
 
 	<artifactId>plume-web-jersey</artifactId>
 	<packaging>jar</packaging>
-	<name>Plume web jersey</name>
+	<name>Plume Jersey</name>
 
 	<dependencies>
 		<dependency>

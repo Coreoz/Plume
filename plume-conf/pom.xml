@@ -11,7 +11,8 @@
 
 	<artifactId>plume-conf</artifactId>
 	<packaging>jar</packaging>
-	<name>File configuration with Typesafe Config</name>
+	<name>Plume Conf</name>
+	<description>File configuration with Typesafe Config</description>
 
 	<dependencies>
 		<dependency>

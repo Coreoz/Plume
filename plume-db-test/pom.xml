@@ -11,7 +11,8 @@
 
 	<artifactId>plume-db-test</artifactId>
 	<packaging>jar</packaging>
-	<name>Simplify the integration tests with a database</name>
+	<name>Plume Database Test</name>
+	<description>Simplify the integration tests with a database</description>
 
 	<dependencies>
 		<dependency>

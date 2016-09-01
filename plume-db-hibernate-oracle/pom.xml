@@ -10,7 +10,8 @@
 
     <artifactId>plume-db-hibernate-oracle</artifactId>
     <packaging>jar</packaging>
-    <name>Oracle database connection toolkit</name>
+    <name>Plume Hibernate with Oracle</name>
+    <description>Oracle database connection toolkit</description>
 
     <dependencies>
         <dependency>

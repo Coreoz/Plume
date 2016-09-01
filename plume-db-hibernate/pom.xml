@@ -10,7 +10,8 @@
 
     <artifactId>plume-db-hibernate</artifactId>
     <packaging>jar</packaging>
-    <name>Hibernate/QueryDSL/Sql2o toolkit</name>
+    <name>Plume Hibernate</name>
+    <description>Hibernate/QueryDSL/Sql2o toolkit</description>
 
     <dependencies>
         <dependency>

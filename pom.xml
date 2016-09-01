@@ -8,7 +8,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Plume parent</name>
+	<name>Plume Parent</name>
 	<description>Plume Framework is a lightweight modular Java framework</description>
 	<url>https://github.com/Coreoz/Plume</url>
 

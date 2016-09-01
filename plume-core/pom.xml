@@ -11,7 +11,7 @@
 
 	<artifactId>plume-core</artifactId>
 	<packaging>jar</packaging>
-	<name>Plume core</name>
+	<name>Plume Core</name>
 	<description>Contains transverse features that are often needed in projects or libraries.</description>
 
 	<dependencies>
