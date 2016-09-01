@@ -46,6 +46,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.coreoz</groupId>
+				<artifactId>plume-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.coreoz</groupId>
 				<artifactId>plume-conf</artifactId>
 				<version>${project.version}</version>
 			</dependency>
