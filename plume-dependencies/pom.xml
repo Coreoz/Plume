@@ -39,6 +39,7 @@
 		<commons-validator.version>1.5.1</commons-validator.version>
 		<jbcrypt.version>0.4.1</jbcrypt.version>
 		<java-jwt.version>2.2.0</java-jwt.version>
+		<jjwt.version>0.6.0</jjwt.version>
 		<lombok.version>1.16.10</lombok.version>
 
 		<junit.version>4.12</junit.version>
@@ -78,7 +79,7 @@
 				<artifactId>plume-web-jersey</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-scheduler</artifactId>
@@ -280,9 +281,9 @@
 				<version>${jbcrypt.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.auth0</groupId>
-				<artifactId>java-jwt</artifactId>
-				<version>${java-jwt.version}</version>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jjwt.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
