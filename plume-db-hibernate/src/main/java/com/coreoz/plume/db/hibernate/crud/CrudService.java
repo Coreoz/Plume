@@ -1,13 +1,13 @@
-package com.coreoz.plume.db.crud;
+package com.coreoz.plume.db.hibernate.crud;
 
 import java.util.List;
 import java.util.Optional;
 
 public class CrudService<T> {
 
-	private final CrudDao<T> crudDao;
+	private final CrudDaoHibernate<T> crudDao;
 
-	public CrudService(CrudDao<T> crudDao) {
+	public CrudService(CrudDaoHibernate<T> crudDao) {
 		this.crudDao = crudDao;
 	}
 

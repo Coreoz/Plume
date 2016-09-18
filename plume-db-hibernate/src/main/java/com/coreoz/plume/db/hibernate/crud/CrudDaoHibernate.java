@@ -1,30 +1,30 @@
-package com.coreoz.plume.db.crud;
+package com.coreoz.plume.db.hibernate.crud;
 
 import java.util.List;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 
-import com.coreoz.plume.db.TransactionManager;
+import com.coreoz.plume.db.hibernate.TransactionManagerHibernate;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 
-public class CrudDao<T> {
+public class CrudDaoHibernate<T> {
 
 	private final EntityPathBase<T> queryDslEntity;
 	private final IdPath idPath;
-	protected final TransactionManager transactionManager;
+	protected final TransactionManagerHibernate transactionManager;
 
 	private final OrderSpecifier<?> defaultOrder;
 
-	public CrudDao(EntityPathBase<T> queryDslEntity, TransactionManager transactionManager) {
+	public CrudDaoHibernate(EntityPathBase<T> queryDslEntity, TransactionManagerHibernate transactionManager) {
 		this(queryDslEntity, transactionManager, null);
 	}
 
-	public CrudDao(EntityPathBase<T> queryDslEntity, TransactionManager transactionManager, OrderSpecifier<?> defaultOrder) {
+	public CrudDaoHibernate(EntityPathBase<T> queryDslEntity, TransactionManagerHibernate transactionManager, OrderSpecifier<?> defaultOrder) {
 		this.queryDslEntity = queryDslEntity;
 		this.transactionManager = transactionManager;
 		this.defaultOrder = defaultOrder;

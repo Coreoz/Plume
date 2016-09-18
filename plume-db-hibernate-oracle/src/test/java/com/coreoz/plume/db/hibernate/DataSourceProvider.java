@@ -1,4 +1,4 @@
-package com.coreoz.plume.db;
+package com.coreoz.plume.db.hibernate;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 import org.junit.Ignore;
 
-import com.coreoz.plume.db.TransactionManagerOracle;
+import com.coreoz.plume.db.hibernate.TransactionManagerOracle;
 
 @Ignore
 @Singleton

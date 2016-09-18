@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.pagination;
+package com.coreoz.plume.db.hibernate.pagination;
 
 import java.util.List;
 

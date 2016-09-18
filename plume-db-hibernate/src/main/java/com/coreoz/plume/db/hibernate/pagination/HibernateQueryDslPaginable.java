@@ -1,18 +1,18 @@
-package com.coreoz.plume.db.pagination;
+package com.coreoz.plume.db.hibernate.pagination;
 
 import java.util.List;
 import java.util.function.Function;
 
-import com.coreoz.plume.db.TransactionManager;
+import com.coreoz.plume.db.hibernate.TransactionManagerHibernate;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 import com.querydsl.jpa.hibernate.HibernateQueryFactory;
 
-public class QueryDslPaginable<T> implements Paginable<T> {
+public class HibernateQueryDslPaginable<T> implements Paginable<T> {
 
-	private final TransactionManager dbExecutor;
+	private final TransactionManagerHibernate dbExecutor;
 	private final Function<HibernateQueryFactory, HibernateQuery<T>> baseQuery;
 
-	public QueryDslPaginable(TransactionManager dbExecutor, Function<HibernateQueryFactory, HibernateQuery<T>> baseQuery) {
+	public HibernateQueryDslPaginable(TransactionManagerHibernate dbExecutor, Function<HibernateQueryFactory, HibernateQuery<T>> baseQuery) {
 		this.dbExecutor = dbExecutor;
 		this.baseQuery = baseQuery;
 	}

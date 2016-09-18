@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.sql2o;
+package com.coreoz.plume.db.hibernate.sql2o;
 
 import org.sql2o.converters.Converter;
 import org.sql2o.converters.ConverterException;

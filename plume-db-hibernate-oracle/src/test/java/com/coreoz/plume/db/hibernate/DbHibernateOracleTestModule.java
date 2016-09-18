@@ -1,4 +1,4 @@
-package com.coreoz.plume.db;
+package com.coreoz.plume.db.hibernate;
 
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.guice.GuiceDbTestModule;

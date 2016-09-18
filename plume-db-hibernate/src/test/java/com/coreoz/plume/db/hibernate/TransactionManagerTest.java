@@ -1,7 +1,9 @@
-package com.coreoz.plume.db;
+package com.coreoz.plume.db.hibernate;
 
 import com.carlosbecker.guice.GuiceModules;
 import com.carlosbecker.guice.GuiceTestRunner;
+import com.coreoz.plume.db.hibernate.TransactionManagerHibernate;
+
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +16,7 @@ import javax.inject.Inject;
 public class TransactionManagerTest {
 
 	@Inject
-	private TransactionManager transactionManager;
+	private TransactionManagerHibernate transactionManager;
 
 	@Test
 	public void check_that_the_transaction_manager_is_correctly_initialized() {

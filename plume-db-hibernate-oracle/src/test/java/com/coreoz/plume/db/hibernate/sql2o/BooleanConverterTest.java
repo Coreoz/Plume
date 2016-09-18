@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.sql2o;
+package com.coreoz.plume.db.hibernate.sql2o;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -10,8 +10,8 @@ import org.sql2o.Connection;
 
 import com.carlosbecker.guice.GuiceModules;
 import com.carlosbecker.guice.GuiceTestRunner;
-import com.coreoz.plume.db.DbHibernateOracleTestModule;
-import com.coreoz.plume.db.TransactionManagerOracle;
+import com.coreoz.plume.db.hibernate.DbHibernateOracleTestModule;
+import com.coreoz.plume.db.hibernate.TransactionManagerOracle;
 
 @RunWith(GuiceTestRunner.class)
 @GuiceModules(DbHibernateOracleTestModule.class)

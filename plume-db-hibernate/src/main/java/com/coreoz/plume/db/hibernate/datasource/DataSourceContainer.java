@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.datasource;
+package com.coreoz.plume.db.hibernate.datasource;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
