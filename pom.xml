@@ -51,7 +51,7 @@
 
 	<modules>
 		<module>plume-dependencies</module>
-		<module>plume-core</module>
+		<module>plume-services</module>
 		<module>plume-conf</module>
 		<module>plume-db</module>
 		<module>plume-db-querydsl</module>

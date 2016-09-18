@@ -9,10 +9,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plume-core</artifactId>
+	<artifactId>plume-services</artifactId>
 	<packaging>jar</packaging>
-	<name>Plume Core</name>
-	<description>Contains transverse features that are often needed in projects or libraries.</description>
+	<name>Plume Services</name>
+	<description>Common services that are often needed in projects or libraries.</description>
 
 	<dependencies>
 		<dependency>

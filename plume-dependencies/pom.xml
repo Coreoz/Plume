@@ -51,7 +51,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-core</artifactId>
+				<artifactId>plume-services</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
