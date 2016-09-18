@@ -10,6 +10,6 @@ public interface CrudDao<T> {
 
 	T save(T entityToUpdate);
 
-	void delete(Long id);
+	long delete(Long id);
 
 }

@@ -55,12 +55,12 @@ public class CrudDaoHibernate<T> implements CrudDao<T> {
 	}
 
 	@Override
-	public void delete(Long id) {
-		transactionManager.execute(em -> delete(id, em));
+	public long delete(Long id) {
+		return transactionManager.executeAndReturn(em -> delete(id, em));
 	}
 
-	public void delete(Long id, EntityManager em) {
-		transactionManager
+	public long delete(Long id, EntityManager em) {
+		return transactionManager
 			.queryDsl(em)
 			.delete(queryDslEntity)
 			.where(idPath.eq(id))

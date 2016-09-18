@@ -43,7 +43,7 @@
 		<lombok.version>1.16.10</lombok.version>
 
 		<junit.version>4.12</junit.version>
-		<fest-assert.version>1.4</fest-assert.version>
+		<assertj.version>3.5.2</assertj.version>
 		<guice-runner.version>1.1</guice-runner.version>
 	</properties>
 
@@ -162,6 +162,16 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-java8</artifactId>
 				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-sql</artifactId>
+				<version>${querydsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-sql-codegen</artifactId>
+				<version>${querydsl.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.querydsl</groupId>
@@ -303,9 +313,9 @@
 				<version>${junit.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.easytesting</groupId>
-				<artifactId>fest-assert</artifactId>
-				<version>${fest-assert.version}</version>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>${assertj.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.carlosbecker</groupId>

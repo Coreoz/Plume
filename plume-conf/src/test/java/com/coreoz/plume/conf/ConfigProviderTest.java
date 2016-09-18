@@ -1,9 +1,10 @@
 package com.coreoz.plume.conf;
 
-import com.typesafe.config.Config;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import com.typesafe.config.Config;
 
 public class ConfigProviderTest {
 

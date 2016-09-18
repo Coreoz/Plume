@@ -1,6 +1,6 @@
 package com.coreoz.plume.db.hibernate.sql2o;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.inject.Inject;
 

@@ -9,50 +9,45 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plume-db-test</artifactId>
+	<artifactId>plume-db-querydsl</artifactId>
 	<packaging>jar</packaging>
-	<name>Plume Database Test</name>
-	<description>Simplify the integration tests with a database</description>
+	<name>Plume Querydsl</name>
+	<description>Database querying with Querydsl fluent API</description>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-db</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+		</dependency>
+		<!-- TODO: move this part to a dedicated module, so this dependency
+			is removed from runtime execution -->
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql-codegen</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Tests -->
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-db-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.carlosbecker</groupId>
-			<artifactId>guice-junit-test-runner</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>guice</artifactId>
-					<groupId>com.google.inject</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-conf</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
