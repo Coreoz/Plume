@@ -14,7 +14,7 @@ import org.sql2o.Sql2o;
 import com.coreoz.plume.db.hibernate.datasource.DataSourceContainer;
 import com.coreoz.plume.db.hibernate.datasource.HibernateFactory;
 import com.coreoz.plume.db.hibernate.pagination.HibernateQueryDslPaginable;
-import com.coreoz.plume.db.hibernate.pagination.Paginable;
+import com.coreoz.plume.db.pagination.Paginable;
 import com.google.common.base.Throwables;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 import com.querydsl.jpa.hibernate.HibernateQueryFactory;

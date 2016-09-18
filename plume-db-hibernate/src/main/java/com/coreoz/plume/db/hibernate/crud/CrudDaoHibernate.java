@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 
+import com.coreoz.plume.db.crud.CrudDao;
 import com.coreoz.plume.db.hibernate.TransactionManagerHibernate;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
@@ -12,7 +13,7 @@ import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 
-public class CrudDaoHibernate<T> {
+public class CrudDaoHibernate<T> implements CrudDao<T> {
 
 	private final EntityPathBase<T> queryDslEntity;
 	private final IdPath idPath;
@@ -34,14 +35,17 @@ public class CrudDaoHibernate<T> {
 
 	// API
 
+	@Override
 	public List<T> findAll() {
 		return search();
 	}
 
+	@Override
 	public T findById(Long id) {
 		return searchOne(idPath.eq(id));
 	}
 
+	@Override
 	public T save(T entityToUpdate) {
 		return transactionManager.executeAndReturn(em -> save(entityToUpdate, em));
 	}
@@ -50,6 +54,7 @@ public class CrudDaoHibernate<T> {
 		return em.merge(entityToUpdate);
 	}
 
+	@Override
 	public void delete(Long id) {
 		transactionManager.execute(em -> delete(id, em));
 	}

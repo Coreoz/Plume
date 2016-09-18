@@ -53,6 +53,7 @@
 		<module>plume-dependencies</module>
 		<module>plume-core</module>
 		<module>plume-conf</module>
+		<module>plume-db</module>
 		<module>plume-db-hibernate</module>
 		<module>plume-db-hibernate-oracle</module>
 		<module>plume-db-test</module>

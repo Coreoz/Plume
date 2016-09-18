@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.coreoz.plume.db.hibernate.TransactionManagerHibernate;
+import com.coreoz.plume.db.pagination.Paginable;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 import com.querydsl.jpa.hibernate.HibernateQueryFactory;
 

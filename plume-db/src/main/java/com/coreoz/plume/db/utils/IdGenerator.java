@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.hibernate.utils;
+package com.coreoz.plume.db.utils;
 
 import java.net.InetAddress;
 import java.util.concurrent.ThreadLocalRandom;

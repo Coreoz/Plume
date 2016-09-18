@@ -6,6 +6,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
+import com.coreoz.plume.db.utils.IdGenerator;
+
 public class HibernateIdGenerator implements IdentifierGenerator {
 
 	public static final String NAME = "plume";
