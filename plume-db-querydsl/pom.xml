@@ -25,8 +25,8 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-sql</artifactId>
 		</dependency>
-		<!-- TODO: move this part to a dedicated module, so this dependency
-			is removed from runtime execution -->
+		<!-- TODO: move this part to a dedicated module, so this dependency is 
+			removed from runtime execution -->
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-sql-codegen</artifactId>
@@ -35,6 +35,12 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 			<optional>true</optional>
 		</dependency>
 
