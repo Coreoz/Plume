@@ -45,7 +45,7 @@ public class IdBeanSerializer extends ExtendedBeanSerializer {
 		}
 	}
 
-
+	@SuppressWarnings("rawtypes")
 	protected void injectJacksonAnnotation(EntityType model) {
 		JsonSerialize jacksonAnnotation = new JsonSerialize() {
 			@Override
@@ -103,6 +103,7 @@ public class IdBeanSerializer extends ExtendedBeanSerializer {
 				return null;
 			}
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public Inclusion include() {
 				return null;
@@ -117,9 +118,8 @@ public class IdBeanSerializer extends ExtendedBeanSerializer {
 		}
 	}
 
-	public IdBeanSerializer setUseJacksonAnnotation(boolean useJacksonAnnotation) {
+	public void setUseJacksonAnnotation(boolean useJacksonAnnotation) {
 		this.useJacksonAnnotation = useJacksonAnnotation;
-		return this;
 	}
 
 }
