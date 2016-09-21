@@ -118,8 +118,9 @@ public class IdBeanSerializer extends ExtendedBeanSerializer {
 		}
 	}
 
-	public void setUseJacksonAnnotation(boolean useJacksonAnnotation) {
+	public IdBeanSerializer setUseJacksonAnnotation(boolean useJacksonAnnotation) {
 		this.useJacksonAnnotation = useJacksonAnnotation;
+		return this;
 	}
 
 }
