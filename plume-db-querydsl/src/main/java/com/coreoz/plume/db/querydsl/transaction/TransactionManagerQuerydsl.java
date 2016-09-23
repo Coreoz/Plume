@@ -11,6 +11,7 @@ import com.coreoz.plume.db.transaction.TransactionManager;
 import com.google.common.base.Throwables;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.RelationalPath;
+import com.querydsl.sql.SQLCloseListener;
 import com.querydsl.sql.SQLQuery;
 import com.querydsl.sql.dml.SQLDeleteClause;
 import com.querydsl.sql.dml.SQLInsertClause;
@@ -51,7 +52,9 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	}
 
 	public <Q> SQLQuery<Q> selectQuery(Connection connection) {
-		return new SQLQuery<Q>(connection, querydslConfiguration);
+		SQLQuery<Q> query = new SQLQuery<Q>(connection, querydslConfiguration);
+		query.addListener(SQLCloseListener.DEFAULT);
+		return query;
 	}
 
 	public SQLDeleteClause delete(RelationalPath<?> path) {
@@ -63,7 +66,9 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	}
 
 	public SQLDeleteClause delete(RelationalPath<?> path, Connection connection) {
-		return new SQLDeleteClause(connection, querydslConfiguration, path);
+		SQLDeleteClause query = new SQLDeleteClause(connection, querydslConfiguration, path);
+		query.addListener(SQLCloseListener.DEFAULT);
+		return query;
 	}
 
 	public SQLInsertClause insert(RelationalPath<?> path) {
@@ -75,7 +80,9 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	}
 
 	public SQLInsertClause insert(RelationalPath<?> path, Connection connection) {
-		return new SQLInsertClause(connection, querydslConfiguration, path);
+		SQLInsertClause query = new SQLInsertClause(connection, querydslConfiguration, path);
+		query.addListener(SQLCloseListener.DEFAULT);
+		return query;
 	}
 
 	public SQLUpdateClause update(RelationalPath<?> path) {
@@ -87,7 +94,9 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	}
 
 	public SQLUpdateClause update(RelationalPath<?> path, Connection connection) {
-		return new SQLUpdateClause(connection, querydslConfiguration, path);
+		SQLUpdateClause query = new SQLUpdateClause(connection, querydslConfiguration, path);
+		query.addListener(SQLCloseListener.DEFAULT);
+		return query;
 	}
 
 }
