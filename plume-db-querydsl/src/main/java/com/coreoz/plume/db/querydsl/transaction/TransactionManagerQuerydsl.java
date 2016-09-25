@@ -13,6 +13,7 @@ import com.querydsl.sql.Configuration;
 import com.querydsl.sql.RelationalPath;
 import com.querydsl.sql.SQLCloseListener;
 import com.querydsl.sql.SQLQuery;
+import com.querydsl.sql.dml.AbstractSQLClause;
 import com.querydsl.sql.dml.SQLDeleteClause;
 import com.querydsl.sql.dml.SQLInsertClause;
 import com.querydsl.sql.dml.SQLUpdateClause;
@@ -44,59 +45,52 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	// API
 
 	public <Q> SQLQuery<Q> selectQuery() {
-		try {
-			return selectQuery(dataSource().getConnection());
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+		SQLQuery<Q> query = selectQuery(getConnection());
+		query.addListener(SQLCloseListener.DEFAULT);
+		return query;
 	}
 
 	public <Q> SQLQuery<Q> selectQuery(Connection connection) {
-		SQLQuery<Q> query = new SQLQuery<Q>(connection, querydslConfiguration);
-		query.addListener(SQLCloseListener.DEFAULT);
-		return query;
+		return new SQLQuery<Q>(connection, querydslConfiguration);
 	}
 
 	public SQLDeleteClause delete(RelationalPath<?> path) {
-		try {
-			return delete(path, dataSource().getConnection());
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+		return autoCloseQuery(delete(path, getConnection()));
 	}
 
 	public SQLDeleteClause delete(RelationalPath<?> path, Connection connection) {
-		SQLDeleteClause query = new SQLDeleteClause(connection, querydslConfiguration, path);
-		query.addListener(SQLCloseListener.DEFAULT);
-		return query;
+		return new SQLDeleteClause(connection, querydslConfiguration, path);
 	}
 
 	public SQLInsertClause insert(RelationalPath<?> path) {
-		try {
-			return insert(path, dataSource().getConnection());
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+		return autoCloseQuery(insert(path, getConnection()));
 	}
 
 	public SQLInsertClause insert(RelationalPath<?> path, Connection connection) {
-		SQLInsertClause query = new SQLInsertClause(connection, querydslConfiguration, path);
-		query.addListener(SQLCloseListener.DEFAULT);
-		return query;
+		return new SQLInsertClause(connection, querydslConfiguration, path);
 	}
 
 	public SQLUpdateClause update(RelationalPath<?> path) {
-		try {
-			return update(path, dataSource().getConnection());
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+		return autoCloseQuery(update(path, getConnection()));
 	}
 
 	public SQLUpdateClause update(RelationalPath<?> path, Connection connection) {
-		SQLUpdateClause query = new SQLUpdateClause(connection, querydslConfiguration, path);
+		return new SQLUpdateClause(connection, querydslConfiguration, path);
+	}
+
+	// internal
+
+	private <T extends AbstractSQLClause<?>> T autoCloseQuery(T query) {
 		query.addListener(SQLCloseListener.DEFAULT);
 		return query;
+	}
+
+	private Connection getConnection() {
+		try {
+			return dataSource().getConnection();
+		} catch (SQLException e) {
+			throw Throwables.propagate(e);
+		}
 	}
 
 }
