@@ -2,7 +2,6 @@ package com.coreoz.plume.db.querydsl.crud;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import com.coreoz.plume.db.crud.CrudDao;
 import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
@@ -11,39 +10,28 @@ import com.google.common.base.Throwables;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.sql.RelationalPath;
-import com.querydsl.sql.SQLQuery;
 
-public class CrudDaoQuerydsl<T extends CrudEntity> implements CrudDao<T> {
+public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implements CrudDao<T> {
 
-	protected final TransactionManagerQuerydsl transactionManagerQuerydsl;
-	protected final RelationalPath<T> table;
+	private final NumberPath<Long> idPath;
 
-	private final OrderSpecifier<?> defaultOrder;
-	private final IdPath idPath;
-
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl, RelationalPath<T> table) {
+	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl,
+			RelationalPath<T> table) {
 		this(transactionManagerQuerydsl, table, null);
 	}
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl, RelationalPath<T> table,
-			OrderSpecifier<?> defaultOrder) {
+	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl,
+			RelationalPath<T> table, OrderSpecifier<?> defaultOrder) {
 		this(transactionManagerQuerydsl, table, defaultOrder, new IdPath(table));
 	}
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl, RelationalPath<T> table,
-			OrderSpecifier<?> defaultOrder, IdPath idPath) {
-		this.transactionManagerQuerydsl = transactionManagerQuerydsl;
-		this.table = table;
-		this.defaultOrder = defaultOrder;
+	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl,
+			RelationalPath<T> table, OrderSpecifier<?> defaultOrder, NumberPath<Long> idPath) {
+		super(transactionManagerQuerydsl, table, defaultOrder);
 		this.idPath = idPath;
 	}
 
 	// API
-
-	@Override
-	public List<T> findAll() {
-		return selectFrom().fetch();
-	}
 
 	@Override
 	public T findById(Long id) {
@@ -64,7 +52,7 @@ public class CrudDaoQuerydsl<T extends CrudEntity> implements CrudDao<T> {
 	public T save(T entityToUpdate, Connection connection) {
 		if(entityToUpdate.getId() == null) {
 			// insert
-			entityToUpdate.setId(IdGenerator.generate());
+			entityToUpdate.setId(generateIdentifier());
 			transactionManagerQuerydsl
 				.insert(table, connection)
 				.populate(entityToUpdate)
@@ -97,17 +85,8 @@ public class CrudDaoQuerydsl<T extends CrudEntity> implements CrudDao<T> {
 
 	// dao API
 
-	protected SQLQuery<T> selectFrom() {
-		SQLQuery<T> query = transactionManagerQuerydsl
-			.selectQuery()
-			.select(table)
-			.from(table);
-
-		if(defaultOrder != null) {
-			query.orderBy(defaultOrder);
-		}
-
-		return query;
+	protected long generateIdentifier() {
+		return IdGenerator.generate();
 	}
 
 	// internal
