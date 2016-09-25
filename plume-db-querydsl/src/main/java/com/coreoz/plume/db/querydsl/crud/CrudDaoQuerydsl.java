@@ -13,19 +13,19 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 
 	private final NumberPath<Long> idPath;
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl,
+	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManager,
 			RelationalPath<T> table) {
-		this(transactionManagerQuerydsl, table, null);
+		this(transactionManager, table, null);
 	}
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl,
+	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManager,
 			RelationalPath<T> table, OrderSpecifier<?> defaultOrder) {
-		this(transactionManagerQuerydsl, table, defaultOrder, new IdPath(table));
+		this(transactionManager, table, defaultOrder, new IdPath(table));
 	}
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManagerQuerydsl,
+	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManager,
 			RelationalPath<T> table, OrderSpecifier<?> defaultOrder, NumberPath<Long> idPath) {
-		super(transactionManagerQuerydsl, table, defaultOrder);
+		super(transactionManager, table, defaultOrder);
 		this.idPath = idPath;
 	}
 
@@ -40,7 +40,7 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 
 	@Override
 	public T save(T entityToUpdate) {
-		return transactionManagerQuerydsl.executeAndReturn(connection ->
+		return transactionManager.executeAndReturn(connection ->
 			save(entityToUpdate, connection)
 		);
 	}
@@ -49,14 +49,14 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 		if(entityToUpdate.getId() == null) {
 			// insert
 			entityToUpdate.setId(generateIdentifier());
-			transactionManagerQuerydsl
+			transactionManager
 				.insert(table, connection)
 				.populate(entityToUpdate)
 				.execute();
 			return entityToUpdate;
 		}
 		// update
-		transactionManagerQuerydsl
+		transactionManager
 			.update(table, connection)
 			.populate(entityToUpdate)
 			.execute();
@@ -65,13 +65,13 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 
 	@Override
 	public long delete(Long id) {
-		return transactionManagerQuerydsl.executeAndReturn(connection ->
+		return transactionManager.executeAndReturn(connection ->
 			delete(id, connection)
 		);
 	}
 
 	public long delete(Long id, Connection connection) {
-		return transactionManagerQuerydsl
+		return transactionManager
 			.delete(table, connection)
 			.where(idPath.eq(id))
 			.execute();

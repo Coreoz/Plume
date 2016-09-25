@@ -9,18 +9,18 @@ import com.querydsl.sql.SQLQuery;
 
 public class QueryDslDao<T> {
 
-	protected final TransactionManagerQuerydsl transactionManagerQuerydsl;
+	protected final TransactionManagerQuerydsl transactionManager;
 	protected final RelationalPath<T> table;
 
 	private final OrderSpecifier<?> defaultOrder;
 
-	public QueryDslDao(TransactionManagerQuerydsl transactionManagerQuerydsl, RelationalPath<T> table) {
-		this(transactionManagerQuerydsl, table, null);
+	public QueryDslDao(TransactionManagerQuerydsl transactionManager, RelationalPath<T> table) {
+		this(transactionManager, table, null);
 	}
 
 	public QueryDslDao(TransactionManagerQuerydsl transactionManagerQuerydsl, RelationalPath<T> table,
 			OrderSpecifier<?> defaultOrder) {
-		this.transactionManagerQuerydsl = transactionManagerQuerydsl;
+		this.transactionManager = transactionManagerQuerydsl;
 		this.table = table;
 		this.defaultOrder = defaultOrder;
 	}
@@ -34,7 +34,7 @@ public class QueryDslDao<T> {
 	// dao API
 
 	protected SQLQuery<T> selectFrom() {
-		SQLQuery<T> query = transactionManagerQuerydsl
+		SQLQuery<T> query = transactionManager
 			.selectQuery()
 			.select(table)
 			.from(table);
