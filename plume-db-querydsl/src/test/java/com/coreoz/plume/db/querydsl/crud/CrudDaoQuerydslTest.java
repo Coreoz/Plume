@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.querydsl;
+package com.coreoz.plume.db.querydsl.crud;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import com.carlosbecker.guice.GuiceModules;
 import com.carlosbecker.guice.GuiceTestRunner;
+import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
 import com.coreoz.plume.db.querydsl.dao.UserDao;
 import com.coreoz.plume.db.querydsl.generated.User;
 

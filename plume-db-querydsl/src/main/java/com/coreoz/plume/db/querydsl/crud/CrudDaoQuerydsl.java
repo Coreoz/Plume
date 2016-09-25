@@ -1,12 +1,10 @@
 package com.coreoz.plume.db.querydsl.crud;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import com.coreoz.plume.db.crud.CrudDao;
 import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
 import com.coreoz.plume.db.utils.IdGenerator;
-import com.google.common.base.Throwables;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.sql.RelationalPath;
@@ -42,11 +40,9 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 
 	@Override
 	public T save(T entityToUpdate) {
-		try {
-			return save(entityToUpdate, transactionManagerQuerydsl.dataSource().getConnection());
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+		return transactionManagerQuerydsl.executeAndReturn(connection ->
+			save(entityToUpdate, connection)
+		);
 	}
 
 	public T save(T entityToUpdate, Connection connection) {
@@ -69,11 +65,9 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 
 	@Override
 	public long delete(Long id) {
-		try {
-			return delete(id, transactionManagerQuerydsl.dataSource().getConnection());
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+		return transactionManagerQuerydsl.executeAndReturn(connection ->
+			delete(id, connection)
+		);
 	}
 
 	public long delete(Long id, Connection connection) {
