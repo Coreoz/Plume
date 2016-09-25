@@ -14,6 +14,7 @@ import com.carlosbecker.guice.GuiceModules;
 import com.carlosbecker.guice.GuiceTestRunner;
 import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
 import com.coreoz.plume.db.querydsl.dao.UserDao;
+import com.coreoz.plume.db.querydsl.generated.QUser;
 import com.coreoz.plume.db.querydsl.generated.User;
 
 @RunWith(GuiceTestRunner.class)
@@ -25,30 +26,48 @@ public class CrudDaoQuerydslTest {
 
 	@Test
 	public void should_list_users() {
+		User user = new User();
+		user.setName("To fetch");
+		User insertedUser = userDao.save(user);
+
 		List<User> users = userDao.findAll();
 
-		assertThat(users.size()).isEqualTo(1);
-		assertThat(users.get(0).getName()).isEqualTo("User test");
+		assertThat(users).contains(insertedUser);
 	}
 
 	@Test
 	public void should_find_user_by_id() {
-		User user = userDao.findById(1L);
+		User user = new User();
+		user.setName("To fetch by id");
+		User insertedUser = userDao.save(user);
 
-		assertThat(user).isNotNull();
-		assertThat(user.getName()).isEqualTo("User test");
-		assertThat(user.getActive()).isTrue();
+		User userDb = userDao.findById(insertedUser.getId());
+
+		assertThat(userDb).isNotNull();
+		assertThat(userDb.getName()).isEqualTo("To fetch by id");
 	}
 
 	@Test
 	public void should_read_local_date() {
-		User user = userDao.findById(1L);
+		LocalDateTime currentDate = LocalDateTime.now();
+		Long userId = 198165421L;
 
-		assertThat(user.getCreationDate()).isBeforeOrEqualTo(LocalDateTime.now());
+		userDao
+			.transactionManager
+			.insert(QUser.user)
+			.columns(QUser.user.id, QUser.user.creationDate)
+			.values(userId, currentDate)
+			.execute();
+
+		User user = userDao.findById(userId);
+
+		assertThat(user.getCreationDate()).isEqualTo(currentDate);
 	}
 
 	@Test
 	public void should_insert_user() {
+		int nbUsersBeforeTest = userDao.findAll().size();
+
 		User user = new User();
 		user.setActive(true);
 		user.setName("To insert");
@@ -56,23 +75,24 @@ public class CrudDaoQuerydslTest {
 
 		List<User> users = userDao.findAll();
 
-		assertThat(users.size()).isEqualTo(2);
+		assertThat(users.size()).isEqualTo(nbUsersBeforeTest + 1);
 		assertThat(users).contains(insertedUser);
 	}
 
 	@Test
 	public void should_update_user() {
 		User user = new User();
-		user.setActive(false);
+		user.setActive(true);
 		user.setName("To update");
-		user.setId(1L);
-		userDao.save(user);
+		User insertedUser = userDao.save(user);
 
-		List<User> users = userDao.findAll();
+		insertedUser.setActive(false);
+		userDao.save(insertedUser);
 
-		assertThat(users.size()).isEqualTo(1);
-		assertThat(users.get(0).getName()).isEqualTo("To update");
-		assertThat(users.get(0).getActive()).isFalse();
+		User userDb = userDao.findById(insertedUser.getId());
+
+		assertThat(userDb.getName()).isEqualTo("To update");
+		assertThat(userDb.getActive()).isFalse();
 	}
 
 }
