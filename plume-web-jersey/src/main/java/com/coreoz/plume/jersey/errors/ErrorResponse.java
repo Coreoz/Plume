@@ -1,13 +1,11 @@
 package com.coreoz.plume.jersey.errors;
 
-import java.util.List;
-
 public class ErrorResponse {
-	
+
 	private final String errorCode;
-	private final List<String> statusArguments;
-	
-	public ErrorResponse(WsError error, List<String> statusArguments) {
+	private final Iterable<String> statusArguments;
+
+	public ErrorResponse(WsError error, Iterable<String> statusArguments) {
 		this.errorCode = error.name();
 		this.statusArguments = statusArguments;
 	}
@@ -16,7 +14,7 @@ public class ErrorResponse {
 		return errorCode;
 	}
 
-	public List<String> getStatusArguments() {
+	public Iterable<String> getStatusArguments() {
 		return statusArguments;
 	}
 

@@ -1,7 +1,5 @@
 package com.coreoz.plume.jersey.errors;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -11,15 +9,19 @@ import com.google.common.collect.ImmutableList;
 public class WsException extends RuntimeException {
 
 	private static final long serialVersionUID = -5694734210679299708L;
-	
+
 	private final WsError error;
-	private final List<String> statusArguments;
-	
+	private final Iterable<String> statusArguments;
+
 	public WsException(WsError error) {
 		this(error, ImmutableList.of());
 	}
 
-	public WsException(WsError error, List<String> statusArguments) {
+	public WsException(WsError error, String... statusArguments) {
+		this(error, ImmutableList.copyOf(statusArguments));
+	}
+
+	public WsException(WsError error, Iterable<String> statusArguments) {
 		this.error = error;
 		this.statusArguments = statusArguments;
 	}
@@ -28,8 +30,8 @@ public class WsException extends RuntimeException {
 		return error;
 	}
 
-	public List<String> getStatusArguments() {
+	public Iterable<String> getStatusArguments() {
 		return statusArguments;
 	}
-	
+
 }
