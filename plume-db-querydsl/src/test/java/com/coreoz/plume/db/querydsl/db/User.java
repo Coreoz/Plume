@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.querydsl.generated;
+package com.coreoz.plume.db.querydsl.db;
 
 import javax.annotation.Generated;
 import com.querydsl.sql.Column;

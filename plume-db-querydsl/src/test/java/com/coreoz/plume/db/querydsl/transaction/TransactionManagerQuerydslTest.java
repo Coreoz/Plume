@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import com.carlosbecker.guice.GuiceModules;
 import com.carlosbecker.guice.GuiceTestRunner;
 import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
-import com.coreoz.plume.db.querydsl.generated.QUser;
+import com.coreoz.plume.db.querydsl.db.QUser;
 
 @RunWith(GuiceTestRunner.class)
 @GuiceModules(DbQuerydslTestModule.class)

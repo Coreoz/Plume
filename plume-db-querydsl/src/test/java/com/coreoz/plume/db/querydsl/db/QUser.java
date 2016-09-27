@@ -1,4 +1,4 @@
-package com.coreoz.plume.db.querydsl.generated;
+package com.coreoz.plume.db.querydsl.db;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 

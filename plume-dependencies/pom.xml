@@ -71,6 +71,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.coreoz</groupId>
+				<artifactId>plume-db-querydsl-codegen</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.coreoz</groupId>
 				<artifactId>plume-db-hibernate</artifactId>
 				<version>${project.version}</version>
 			</dependency>

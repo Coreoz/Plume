@@ -9,38 +9,26 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plume-db-querydsl</artifactId>
+	<artifactId>plume-db-querydsl-codegen</artifactId>
 	<packaging>jar</packaging>
-	<name>Plume Querydsl</name>
-	<description>Database querying with Querydsl fluent API</description>
+	<name>Plume Querydsl Codegen</name>
+	<description>Querydsl code generation from a SQL database</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.coreoz</groupId>
-			<artifactId>plume-db</artifactId>
+			<artifactId>plume-db-querydsl</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-sql</artifactId>
+			<artifactId>querydsl-sql-codegen</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 			<optional>true</optional>
-		</dependency>
-
-		<!-- Tests -->
-		<dependency>
-			<groupId>com.coreoz</groupId>
-			<artifactId>plume-db-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.coreoz</groupId>
-			<artifactId>plume-conf</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
