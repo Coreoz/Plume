@@ -9,6 +9,7 @@ public interface WsError {
 	WsError INTERNAL_ERROR = new WsErrorInternal("INTERNAL_ERROR");
 	WsError FIELD_REQUIRED = new WsErrorInternal("FIELD_REQUIRED");
 	WsError EMAIL_INVALID = new WsErrorInternal("EMAIL_INVALID");
+	WsError COLOR_INVALID = new WsErrorInternal("COLOR_INVALID");
 
 	/**
 	 * Returns the name of the error
