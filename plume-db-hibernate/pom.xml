@@ -19,6 +19,12 @@
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-db</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-db-querydsl</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- TODO : à supprimer quand sql2o ne référencera plus joda time : https://github.com/aaberg/sql2o/issues/215 -->
 		<dependency>
@@ -64,6 +70,11 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.google.dagger</groupId>
+			<artifactId>dagger</artifactId>
 			<optional>true</optional>
 		</dependency>
 
