@@ -20,7 +20,6 @@
 			<artifactId>plume-db</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-sql</artifactId>

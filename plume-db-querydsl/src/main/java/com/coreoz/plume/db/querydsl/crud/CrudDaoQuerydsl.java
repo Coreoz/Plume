@@ -59,6 +59,7 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 		transactionManager
 			.update(table, connection)
 			.populate(entityToUpdate)
+			.where(idPath.eq(entityToUpdate.getId()))
 			.execute();
 		return entityToUpdate;
 	}
