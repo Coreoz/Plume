@@ -19,7 +19,7 @@
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-db</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-db-querydsl</artifactId>
@@ -60,6 +60,10 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
 		</dependency>
 
 		<dependency>
