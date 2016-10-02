@@ -15,11 +15,11 @@
 	<description>Gather versions of various libraries used directly of indirectly by Plume Framework</description>
 
 	<properties>
-		<plume-scheduler.version>1.0.0-SNAPSHOT</plume-scheduler.version>
 		<plume-file.version>1.0.0-SNAPSHOT</plume-file.version>
 		<plume-admin.version>1.0.0-SNAPSHOT</plume-admin.version>
+		<wisp.version>1.0.0-SNAPSHOT</wisp.version>
 		<guice.version>4.1.0</guice.version>
-		<dagger.version>2.6</dagger.version>
+		<dagger.version>2.7</dagger.version>
 		<guava.version>19.0</guava.version>
 		<logback.version>1.1.7</logback.version>
 		<slf4j.version>1.7.21</slf4j.version>
@@ -97,11 +97,6 @@
 
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-scheduler</artifactId>
-				<version>${plume-scheduler.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
 				<artifactId>plume-file</artifactId>
 				<version>${plume-file.version}</version>
 			</dependency>
@@ -109,6 +104,12 @@
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-admin</artifactId>
 				<version>${plume-admin.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.coreoz</groupId>
+				<artifactId>wisp</artifactId>
+				<version>${wisp.version}</version>
 			</dependency>
 
 			<dependency>
