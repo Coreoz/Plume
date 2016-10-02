@@ -3,7 +3,7 @@ Plume Conf
 
 This module is based on the [Config](https://github.com/typesafehub/config) library.
 
-The summarize, the Config library do everything you'll ever want from a Java configuration library.
+To summarize, the Config library do everything you'll ever want from a Java configuration library.
 The main features are:
 
 - parse simple data as well as more advance types (list, duration, size...),
@@ -13,7 +13,7 @@ The main features are:
 Getting started
 ---------------
 
-Include the Plume Config dependency in your project:
+Include Plume Config in your project:
 ```xml
 <dependency>
     <groupId>com.coreoz</groupId>
@@ -21,7 +21,7 @@ Include the Plume Config dependency in your project:
 </dependency
 ```
 
-Install the Guice or Dagger module in your application:
+Install Guice or Dagger module in your application:
 
 - Guice: `install(new GuiceConfModule())`
 - Dagger: `@Component(modules = DaggerConfModule.class)`
