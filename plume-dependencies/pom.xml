@@ -14,9 +14,9 @@
 	<description>Gather versions of various libraries used directly of indirectly by Plume Framework</description>
 
 	<properties>
-		<plume-file.version>1.0.0-SNAPSHOT</plume-file.version>
-		<plume-admin.version>1.0.0-SNAPSHOT</plume-admin.version>
-		<wisp.version>1.0.0-SNAPSHOT</wisp.version>
+		<plume-file.version>1.0.0-rc1</plume-file.version>
+		<plume-admin.version>1.0.0-alpha1</plume-admin.version>
+		<wisp.version>1.0.0-rc1</wisp.version>
 		<guice.version>4.1.0</guice.version>
 		<dagger.version>2.7</dagger.version>
 		<guava.version>19.0</guava.version>
