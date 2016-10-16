@@ -22,21 +22,8 @@ TODO
 Getting started
 ---------------
 
-There are many options you can choose when using Plume Framework.
-If you do not have time to review these options, just choose the Guice/Jersey/Hibernate one,
-it is the more common one.
-
-### Standard application with a REST API documented with [Swagger](http://swagger.io/)
-
-This package is for you if you want:
- 
-- to be able to package a WAR web-app,
-- your dev team to already know about all the technology inside your tech stack,
-- to easily expose your API documentation.
-
-If you don't already know Swagger, check out their API documentation example: <http://petstore.swagger.io/>.
-
-TODO link to the archetype
+The best way to get started it to use a
+[Maven archetype for Plume Framework](https://github.com/Coreoz/Plume-archetypes).
 
 Dependency injection
 --------------------
@@ -49,26 +36,50 @@ Also to use Dagger the annotation processor should be enabled in your IDE: <http
 Plume modules
 -------------
 
+### [Plume Dependencies](plume-dependencies/)
+
+Reference all libraries versions used directly or indirectly by Plume Framework.
+It will help you avoid dependency conflict in your `pom.xml` file.
+
 ### [Plume Conf](plume-conf/)
 
 This module is based on the [Config](https://github.com/typesafehub/config) library
 and handles the application configuration.
 
-### [Plume Jersey](plume-jersey/)
+### [Plume Jersey](plume-web-jersey/)
 
 Contains everything you need to build REST web-services with [Jersey](https://jersey.java.net/)
 and expose your documentation with [Swagger](http://swagger.io/).
 
+### [Plume Database](plume-db/)
+
+Basic utilities to pool SQL connections with [HikariCP](https://github.com/brettwooldridge/HikariCP)
+and manage transactions.
+
+### [Plume Querydsl](plume-db-querydsl/)
+
+Integration with [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-sql)
+for SQL only (no JPA :).
+
+### [Plume Querydsl Codegen](plume-db-querydsl-codegen/)
+
+Code generation for [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-sql)
+for SQL only.
+
+### [Plume Database test](plume-db-test/)
+
+Use [Flyway](https://flywaydb.org/) to help you make integration tests with a database.
+
 ### [Plume Hibernate](plume-db-hibernate/)
 
 The best known Java ORM [Hibernate](http://hibernate.org/)
-with [QueryDSL](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa)
+with [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa)
 and [Sql2o](http://www.sql2o.org/) to ease its usage.
 
 ### [Plume Hibernate Oracle](plume-db-hibernate-oracle/)
 
 This module comes on top of the Plume Hibernate module to provide Oracle specific data converters.
 
-### [Plume Database test](plume-db-test/)
+### [Plume Services](plume-services/)
 
-Use [Flyway](https://flywaydb.org/) to help you make integration tests with a database.
+Common services that are often needed in projects or libraries.
