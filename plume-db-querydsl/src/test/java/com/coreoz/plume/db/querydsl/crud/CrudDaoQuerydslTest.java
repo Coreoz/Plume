@@ -95,4 +95,20 @@ public class CrudDaoQuerydslTest {
 		assertThat(userDb.getActive()).isFalse();
 	}
 
+	@Test
+	public void should_support_update_with_null_values() {
+		User user = new User();
+		user.setName("To update to null");
+		User insertedUser = userDao.save(user);
+
+		User userDb = userDao.findById(insertedUser.getId());
+		assertThat(userDb.getName()).isEqualTo("To update to null");
+
+		insertedUser.setName(null);
+		userDao.save(insertedUser);
+
+		userDb = userDao.findById(insertedUser.getId());
+		assertThat(userDb.getName()).isNull();;
+	}
+
 }

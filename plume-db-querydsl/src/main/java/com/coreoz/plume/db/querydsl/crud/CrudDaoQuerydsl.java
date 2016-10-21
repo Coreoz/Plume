@@ -8,6 +8,7 @@ import com.coreoz.plume.db.utils.IdGenerator;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.sql.RelationalPath;
+import com.querydsl.sql.dml.DefaultMapper;
 
 public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implements CrudDao<T> {
 
@@ -58,7 +59,7 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 		// update
 		transactionManager
 			.update(table, connection)
-			.populate(entityToUpdate)
+			.populate(entityToUpdate, DefaultMapper.WITH_NULL_BINDINGS)
 			.where(idPath.eq(entityToUpdate.getId()))
 			.execute();
 		return entityToUpdate;
