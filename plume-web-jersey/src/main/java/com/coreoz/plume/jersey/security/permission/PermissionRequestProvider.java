@@ -7,7 +7,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 /**
  * Extract permissions from the user corresponding to the current HTTP request
  */
-public interface WsPermissionRequestProvider {
+public interface PermissionRequestProvider {
 
 	/**
 	 * Fetch user permissions corresponding to the current HTTP request.

@@ -22,23 +22,23 @@ import org.slf4j.LoggerFactory;
  *
  * @param <A> The annotation type from which a permission will be fetched
  */
-public class WsPermissionFeature<A extends Annotation> implements DynamicFeature {
+public class PermissionFeature<A extends Annotation> implements DynamicFeature {
 
-	private static final Logger logger = LoggerFactory.getLogger(WsPermissionFeature.class);
+	private static final Logger logger = LoggerFactory.getLogger(PermissionFeature.class);
 
-	private final WsPermissionRequestProvider requestPermissionProvider;
+	private final PermissionRequestProvider requestPermissionProvider;
 	private final Class<A> permissionAnnotationType;
 	private final Function<A, String> permissionAnnotationExtractor;
 
-	public WsPermissionFeature(WsPermissionRequestProvider requestPermissionProvider,
+	public PermissionFeature(PermissionRequestProvider requestPermissionProvider,
 			Class<A> permissionAnnotationType, Function<A, String> permissionAnnotationExtractor) {
 		this.requestPermissionProvider = requestPermissionProvider;
 		this.permissionAnnotationType = permissionAnnotationType;
 		this.permissionAnnotationExtractor = permissionAnnotationExtractor;
 	}
 
-	public static WsPermissionFeature<RestrictTo> restictTo(WsPermissionRequestProvider requestPermissionProvider) {
-		return new WsPermissionFeature<>(
+	public static PermissionFeature<RestrictTo> restictTo(PermissionRequestProvider requestPermissionProvider) {
+		return new PermissionFeature<>(
 			requestPermissionProvider,
 			RestrictTo.class,
 			RestrictTo::value
@@ -63,7 +63,7 @@ public class WsPermissionFeature<A extends Annotation> implements DynamicFeature
 	private boolean addPermissionFilter(AnnotatedElement annotatedElement, FeatureContext methodResourcecontext) {
 		A permissionAnnotation = annotatedElement.getAnnotation(permissionAnnotationType);
 		if (permissionAnnotation != null) {
-			methodResourcecontext.register(new WsSecurityRequestFilter(
+			methodResourcecontext.register(new PermissionRequestFilter(
 				permissionAnnotationExtractor.apply(permissionAnnotation),
 				requestPermissionProvider
 			));
@@ -72,13 +72,13 @@ public class WsPermissionFeature<A extends Annotation> implements DynamicFeature
 		return false;
 	}
 
-	private static class WsSecurityRequestFilter implements ContainerRequestFilter {
+	private static class PermissionRequestFilter implements ContainerRequestFilter {
 
 		private final String resourcePermission;
-		private final WsPermissionRequestProvider requestPermissionProvider;
+		private final PermissionRequestProvider requestPermissionProvider;
 
-		public WsSecurityRequestFilter(String resourcePermission,
-			WsPermissionRequestProvider requestPermissionProvider) {
+		public PermissionRequestFilter(String resourcePermission,
+			PermissionRequestProvider requestPermissionProvider) {
 			this.resourcePermission = resourcePermission;
 			this.requestPermissionProvider = requestPermissionProvider;
 		}
