@@ -36,50 +36,55 @@ Also to use Dagger the annotation processor should be enabled in your IDE: <http
 Plume modules
 -------------
 
-### [Plume Dependencies](plume-dependencies/)
+### General modules
+
+#### [Plume Dependencies](plume-dependencies/)
 
 Reference all libraries versions used directly or indirectly by Plume Framework.
 It will help you avoid dependency conflict in your `pom.xml` file.
 
-### [Plume Conf](plume-conf/)
+#### [Plume Conf](plume-conf/)
 
 This module is based on the [Config](https://github.com/typesafehub/config) library
 and handles the application configuration.
 
-### [Plume Jersey](plume-web-jersey/)
+#### [Plume Jersey](plume-web-jersey/)
 
-Contains everything you need to build REST web-services with [Jersey](https://jersey.java.net/)
-and expose your documentation with [Swagger](http://swagger.io/).
+Enable to build REST web-services with [Jersey](https://jersey.java.net/)
+and expose the documentation with [Swagger](http://swagger.io/).
 
-### [Plume Database](plume-db/)
+#### [Plume Services](plume-services/)
+
+Common services that are often needed in projects or libraries.
+
+### Database modules
+
+#### [Plume Database](plume-db/)
 
 Basic utilities to pool SQL connections with [HikariCP](https://github.com/brettwooldridge/HikariCP)
 and manage transactions.
 
-### [Plume Querydsl](plume-db-querydsl/)
+#### [Plume Querydsl](plume-db-querydsl/)
 
 Integration with [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-sql)
 for SQL only (no JPA :).
 
-### [Plume Querydsl Codegen](plume-db-querydsl-codegen/)
+#### [Plume Querydsl Codegen](plume-db-querydsl-codegen/)
 
 Code generation for [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-sql)
 for SQL only.
 
-### [Plume Database test](plume-db-test/)
+#### [Plume Database test](plume-db-test/)
 
 Use [Flyway](https://flywaydb.org/) to help you make integration tests with a database.
 
-### [Plume Hibernate](plume-db-hibernate/)
+#### [Plume Hibernate](plume-db-hibernate/)
 
 The best known Java ORM [Hibernate](http://hibernate.org/)
 with [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa)
 and [Sql2o](http://www.sql2o.org/) to ease its usage.
 
-### [Plume Hibernate Oracle](plume-db-hibernate-oracle/)
+#### [Plume Hibernate Oracle](plume-db-hibernate-oracle/)
 
 This module comes on top of the Plume Hibernate module to provide Oracle specific data converters.
 
-### [Plume Services](plume-services/)
-
-Common services that are often needed in projects or libraries.
