@@ -1,6 +1,7 @@
 package com.coreoz.plume.mail;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -10,7 +11,6 @@ import javax.inject.Singleton;
 import org.simplejavamail.internal.util.ConfigLoader;
 import org.simplejavamail.mailer.Mailer;
 
-import com.google.common.base.Charsets;
 import com.typesafe.config.Config;
 
 @Singleton
@@ -31,7 +31,7 @@ public class MailerProvider implements Provider<Mailer> {
 	private static Mailer initializeMailer(Config config) {
 		ConfigLoader.loadProperties(
 			// Properties are in ISO 8859 1
-			new ByteArrayInputStream(readMailConfiguration(config).getBytes(Charsets.ISO_8859_1)),
+			new ByteArrayInputStream(readMailConfiguration(config).getBytes(StandardCharsets.ISO_8859_1)),
 			true
 		);
 
