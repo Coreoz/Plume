@@ -10,15 +10,22 @@ import javax.sql.DataSource;
 
 public class DataSourceMocked implements DataSource {
 
-	private final Connection connection;
+	private final ConnectionMocked connection;
+	private boolean isConnectionUsed;
 
-	public DataSourceMocked(Connection connection) {
+	public DataSourceMocked(ConnectionMocked connection) {
 		this.connection = connection;
+		this.isConnectionUsed = false;
 	}
 
 	@Override
 	public Connection getConnection() throws SQLException {
+		isConnectionUsed = true;
 		return connection;
+	}
+
+	public boolean isConnectionAvailable() {
+		return isConnectionUsed ? connection.isCloseCalled() : true;
 	}
 
 	// stub

@@ -22,6 +22,78 @@ public class TransactionManagerQuerydslTest {
 	@Inject
 	private DataSource dataSource;
 
+	// exception release checks
+
+	@Test
+	public void check_that_connection_is_released_after_exception_during_select_query() throws SQLException {
+		TransactionInstancesHolder testInstancesHolder = new TransactionInstancesHolder(dataSource);
+
+		try {
+			testInstancesHolder
+				.getTransactionManager()
+				.selectQuery();
+
+			throw new Exception();
+		} catch (Exception e) {
+			// as expected
+		}
+
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
+	}
+
+	@Test
+	public void check_that_connection_is_released_after_exception_during_delete_query() throws SQLException {
+		TransactionInstancesHolder testInstancesHolder = new TransactionInstancesHolder(dataSource);
+
+		try {
+			testInstancesHolder
+				.getTransactionManager()
+				.delete(QUser.user);
+
+			throw new Exception();
+		} catch (Exception e) {
+			// as expected
+		}
+
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
+	}
+
+	@Test
+	public void check_that_connection_is_released_after_exception_during_update_query() throws SQLException {
+		TransactionInstancesHolder testInstancesHolder = new TransactionInstancesHolder(dataSource);
+
+		try {
+			testInstancesHolder
+				.getTransactionManager()
+				.update(QUser.user);
+
+			throw new Exception();
+		} catch (Exception e) {
+			// as expected
+		}
+
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
+	}
+
+	@Test
+	public void check_that_connection_is_released_after_exception_during_insert_query() throws SQLException {
+		TransactionInstancesHolder testInstancesHolder = new TransactionInstancesHolder(dataSource);
+
+		try {
+			testInstancesHolder
+				.getTransactionManager()
+				.insert(QUser.user);
+
+			throw new Exception();
+		} catch (Exception e) {
+			// as expected
+		}
+
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
+	}
+
+	// release checks
+
 	@Test
 	public void check_that_connection_is_released_after_select_query() throws SQLException {
 		TransactionInstancesHolder testInstancesHolder = new TransactionInstancesHolder(dataSource);
@@ -33,7 +105,7 @@ public class TransactionManagerQuerydslTest {
 			.from(QUser.user)
 			.fetchFirst();
 
-		assertThat(testInstancesHolder.getMockedConnection().isCloseCalled()).isTrue();
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
 	}
 
 	@Test
@@ -61,7 +133,7 @@ public class TransactionManagerQuerydslTest {
 			.set(QUser.user.active, true)
 			.execute();
 
-		assertThat(testInstancesHolder.getMockedConnection().isCloseCalled()).isTrue();
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
 	}
 
 	@Test
@@ -88,7 +160,7 @@ public class TransactionManagerQuerydslTest {
 			.where(QUser.user.id.eq(123456L))
 			.execute();
 
-		assertThat(testInstancesHolder.getMockedConnection().isCloseCalled()).isTrue();
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
 	}
 
 	@Test
@@ -116,7 +188,7 @@ public class TransactionManagerQuerydslTest {
 			.values(65165465L)
 			.execute();
 
-		assertThat(testInstancesHolder.getMockedConnection().isCloseCalled()).isTrue();
+		assertThat(testInstancesHolder.getMockedDataSource().isConnectionAvailable()).isTrue();
 	}
 
 	@Test

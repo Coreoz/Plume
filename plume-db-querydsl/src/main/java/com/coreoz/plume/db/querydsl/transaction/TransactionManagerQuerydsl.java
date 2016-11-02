@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.sql.DataSource;
 
@@ -45,17 +46,17 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	// API
 
 	public <Q> SQLQuery<Q> selectQuery() {
-		SQLQuery<Q> query = selectQuery(getConnection());
+		SQLQuery<Q> query = new SQLQuery<>(getConnectionProvider(), querydslConfiguration);
 		query.addListener(SQLCloseListener.DEFAULT);
 		return query;
 	}
 
 	public <Q> SQLQuery<Q> selectQuery(Connection connection) {
-		return new SQLQuery<Q>(connection, querydslConfiguration);
+		return new SQLQuery<>(connection, querydslConfiguration);
 	}
 
 	public SQLDeleteClause delete(RelationalPath<?> path) {
-		return autoCloseQuery(delete(path, getConnection()));
+		return autoCloseQuery(new SQLDeleteClause(getConnectionProvider(), querydslConfiguration, path));
 	}
 
 	public SQLDeleteClause delete(RelationalPath<?> path, Connection connection) {
@@ -63,7 +64,7 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	}
 
 	public SQLInsertClause insert(RelationalPath<?> path) {
-		return autoCloseQuery(insert(path, getConnection()));
+		return autoCloseQuery(new SQLInsertClause(getConnectionProvider(), querydslConfiguration, path));
 	}
 
 	public SQLInsertClause insert(RelationalPath<?> path, Connection connection) {
@@ -71,7 +72,7 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	}
 
 	public SQLUpdateClause update(RelationalPath<?> path) {
-		return autoCloseQuery(update(path, getConnection()));
+		return autoCloseQuery(new SQLUpdateClause(getConnectionProvider(), querydslConfiguration, path));
 	}
 
 	public SQLUpdateClause update(RelationalPath<?> path, Connection connection) {
@@ -85,12 +86,14 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 		return query;
 	}
 
-	private Connection getConnection() {
-		try {
-			return dataSource().getConnection();
-		} catch (SQLException e) {
-			throw Throwables.propagate(e);
-		}
+	private Provider<Connection> getConnectionProvider() {
+		return () -> {
+			try {
+				return dataSource().getConnection();
+			} catch (SQLException e) {
+				throw Throwables.propagate(e);
+			}
+		};
 	}
 
 }

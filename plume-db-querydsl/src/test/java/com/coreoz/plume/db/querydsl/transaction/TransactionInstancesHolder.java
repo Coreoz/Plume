@@ -12,7 +12,7 @@ import com.querydsl.sql.H2Templates;
 
 public class TransactionInstancesHolder {
 
-	private DataSource mockedDataSource;
+	private DataSourceMocked mockedDataSource;
 	private ConnectionMocked mockedConnection;
 	private TransactionManagerQuerydsl transactionManager;
 
@@ -31,7 +31,7 @@ public class TransactionInstancesHolder {
 		}
 	}
 
-	public DataSource getMockedDataSource() {
+	public DataSourceMocked getMockedDataSource() {
 		return mockedDataSource;
 	}
 
