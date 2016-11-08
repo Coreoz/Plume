@@ -19,6 +19,6 @@ simplejavamail.smtp.port=25
 simplejavamail.defaults.from.address=contact@your-company.com
 ```
 
-You should noticed that in the [Config](https://github.com/typesafehub/config) configuration,
+You should noticed that in the Config configuration,
 Simple Java Mail **properties are wrapped in quotes**. This is important, else mail properties
 will be ignored.
