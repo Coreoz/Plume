@@ -57,6 +57,11 @@ and expose the documentation with [Swagger](http://swagger.io/).
 
 Common services that are often needed in projects or libraries.
 
+#### [Plume Mail](plume-mail/)
+
+Expose a `Mailer` object from [Simple Java Mail](http://www.simplejavamail.org/)
+through a [Config](https://github.com/typesafehub/config) configuration.
+
 ### Database modules
 
 #### [Plume Database](plume-db/)
