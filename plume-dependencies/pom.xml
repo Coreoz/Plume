@@ -16,7 +16,7 @@
 
 	<properties>
 		<plume-file.version>1.0.0-rc2</plume-file.version>
-		<plume-admin.version>1.0.0-alpha3</plume-admin.version>
+		<plume-admin.version>1.0.0-alpha4</plume-admin.version>
 		<wisp.version>1.0.0-rc2</wisp.version>
 		<guice.version>4.1.0</guice.version>
 		<dagger.version>2.7</dagger.version>
