@@ -39,8 +39,6 @@ package com.coreoz.plume.jersey.jee;
  * @author <a href="mailto:mbowler@GargoyleSoftware.com">Mike Bowler</a>
  * @author <a href="mailto:jsdever@apache.org">Jeff Dever</a>
  *
- * TODO: Internationalization of reason phrases
- *
  * @version $Id: HttpStatus.java 480424 2006-11-29 05:56:49Z bayard $
  */
 class HttpStatus {
@@ -71,7 +69,6 @@ class HttpStatus {
      * @return the reason phrase associated with the given status code
      * or null if the status code is not recognized.
      *
-     * TODO: getStatusText should be called getReasonPhrase to match RFC
      */
     public static String getStatusText(int statusCode) {
 
