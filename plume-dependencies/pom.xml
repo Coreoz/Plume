@@ -14,8 +14,8 @@
 	<description>Gather versions of various libraries used directly of indirectly by Plume Framework</description>
 
 	<properties>
-		<plume-file.version>1.0.0-rc2</plume-file.version>
-		<plume-admin.version>1.0.0-alpha4</plume-admin.version>
+		<plume-file.version>1.0.0-SNAPSHOT</plume-file.version>
+		<plume-admin.version>1.0.0-SNAPSHOT</plume-admin.version>
 		<wisp.version>1.0.0-rc2</wisp.version>
 		<guice.version>4.1.0</guice.version>
 		<dagger.version>2.7</dagger.version>
@@ -101,9 +101,15 @@
 
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-file</artifactId>
+				<artifactId>plume-file-core</artifactId>
 				<version>${plume-file.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.coreoz</groupId>
+				<artifactId>plume-file-gallery</artifactId>
+				<version>${plume-file.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-admin</artifactId>
