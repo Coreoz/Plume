@@ -11,8 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Ajoute le header X-UA-Compatible:IE=Edge à chaque requête HTTP pour être sûr
- * qu'IE s'execute avec la dernière version de son moteur de rendu
+ * Add a <code>X-UA-Compatible: IE=Edge</code> header to each HTTP request
+ * to make sure IE is executing with its latest rendering engine
  */
 public class IeFilter implements Filter {
 
@@ -21,16 +21,18 @@ public class IeFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		httpServletResponse.addHeader("X-UA-Compatible", "IE=Edge");
-		
+
 		chain.doFilter(request, response);
 	}
-	
-	// inutile
-	
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {}
 
 	@Override
-	public void destroy() {}
+	public void init(FilterConfig filterConfig) throws ServletException {
+		// unused
+	}
+
+	@Override
+	public void destroy() {
+		// unused
+	}
 
 }
