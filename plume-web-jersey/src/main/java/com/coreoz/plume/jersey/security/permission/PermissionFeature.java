@@ -90,7 +90,7 @@ public class PermissionFeature<A extends Annotation> implements DynamicFeature {
 			}
 		}
 
-		boolean authorize(ContainerRequestContext requestContext, String permissionRequiredToAccessResource) {
+		private boolean authorize(ContainerRequestContext requestContext, String permissionRequiredToAccessResource) {
 			Collection<String> userPermissions = requestPermissionProvider.correspondingPermissions(requestContext);
 			boolean isAuthorized = userPermissions.contains(permissionRequiredToAccessResource);
 

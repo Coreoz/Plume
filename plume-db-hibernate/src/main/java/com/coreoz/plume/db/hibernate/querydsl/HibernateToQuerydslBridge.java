@@ -34,7 +34,7 @@ public class HibernateToQuerydslBridge implements Provider<TransactionManagerQue
 
 	private SQLTemplates toSQLTemplates(String hibernateDialect) {
 		if(hibernateDialect == null) {
-			throw new RuntimeException(" config key 'db.\"hibernate.dialect\"' have to be definied to use "
+			throw new IllegalArgumentException(" config key 'db.\"hibernate.dialect\"' have to be definied to use "
 					+ "the hibernate to querydsl bridge");
 		}
 
@@ -55,7 +55,7 @@ public class HibernateToQuerydslBridge implements Provider<TransactionManagerQue
 			return SQLServerTemplates.DEFAULT;
 		}
 
-		throw new RuntimeException("Hibernate dialect " + hibernateDialect + " is not recognized");
+		throw new IllegalArgumentException("Hibernate dialect " + hibernateDialect + " is not recognized");
 	}
 
 	@Override

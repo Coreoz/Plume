@@ -108,7 +108,7 @@ public class CrudDaoQuerydslTest {
 		userDao.save(insertedUser);
 
 		userDb = userDao.findById(insertedUser.getId());
-		assertThat(userDb.getName()).isNull();;
+		assertThat(userDb.getName()).isNull();
 	}
 
 }
