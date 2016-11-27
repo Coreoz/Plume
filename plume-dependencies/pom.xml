@@ -109,7 +109,7 @@
 				<artifactId>plume-file-gallery</artifactId>
 				<version>${plume-file.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-admin</artifactId>
@@ -284,6 +284,11 @@
 			<dependency>
 				<groupId>org.glassfish.jersey.media</groupId>
 				<artifactId>jersey-media-json-jackson</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<artifactId>jersey-container-grizzly2-http</artifactId>
 				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
