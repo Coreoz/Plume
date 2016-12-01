@@ -17,7 +17,7 @@ and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2
 Demo
 ----
 
-TODO
+Sample projets can be found here: <https://github.com/Coreoz/Plume-demo>
 
 Getting started
 ---------------
