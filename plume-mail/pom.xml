@@ -55,7 +55,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-dependencies</artifactId>
+				<artifactId>plume-framework-dependencies</artifactId>
 				<version>${project.version}</version>
 				<scope>import</scope>
 				<type>pom</type>

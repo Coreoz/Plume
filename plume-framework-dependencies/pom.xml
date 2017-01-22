@@ -9,15 +9,12 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plume-dependencies</artifactId>
+	<artifactId>plume-framework-dependencies</artifactId>
 	<packaging>pom</packaging>
-	<name>Plume Dependencies</name>
-	<description>Gather versions of various libraries used directly of indirectly by Plume Framework</description>
+	<name>Plume Framework Dependencies</name>
+	<description>Gather versions of various libraries used by Plume Framework</description>
 
 	<properties>
-		<plume-file.version>1.0.0-rc3</plume-file.version>
-		<plume-admin.version>1.0.0-alpha5</plume-admin.version>
-		<wisp.version>1.0.0-rc2</wisp.version>
 		<guice.version>4.1.0</guice.version>
 		<dagger.version>2.7</dagger.version>
 		<guava.version>19.0</guava.version>
@@ -35,13 +32,8 @@
 		<jersey.version>2.24</jersey.version>
 		<grizzly.version>2.3.23</grizzly.version>
 		<hk2-guice-bridge.version>2.5.0-b05</hk2-guice-bridge.version>
-		<swagger.version>1.5.10</swagger.version>
-		<swagger-ui.version>2.1.5</swagger-ui.version>
-		<javassist.version>3.20.0-GA</javassist.version>
+
 		<commons-validator.version>1.5.1</commons-validator.version>
-		<jbcrypt.version>0.4.1</jbcrypt.version>
-		<jjwt.version>0.7.0</jjwt.version>
-		<lombok.version>1.16.10</lombok.version>
 
 		<junit.version>4.12</junit.version>
 		<assertj.version>3.5.2</assertj.version>
@@ -99,29 +91,6 @@
 				<groupId>com.coreoz</groupId>
 				<artifactId>plume-web-jersey</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-file-core</artifactId>
-				<version>${plume-file.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-file-gallery</artifactId>
-				<version>${plume-file.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>plume-admin</artifactId>
-				<version>${plume-admin.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.coreoz</groupId>
-				<artifactId>wisp</artifactId>
-				<version>${wisp.version}</version>
 			</dependency>
 
 			<dependency>
@@ -309,44 +278,9 @@
 				<version>${hk2-guice-bridge.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-annotations</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-jaxrs</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.webjars</groupId>
-				<artifactId>swagger-ui</artifactId>
-				<version>${swagger-ui.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.javassist</groupId>
-				<artifactId>javassist</artifactId>
-				<version>${javassist.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>commons-validator</groupId>
 				<artifactId>commons-validator</artifactId>
 				<version>${commons-validator.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.svenkubiak</groupId>
-				<artifactId>jBCrypt</artifactId>
-				<version>${jbcrypt.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.jsonwebtoken</groupId>
-				<artifactId>jjwt</artifactId>
-				<version>${jjwt.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${lombok.version}</version>
 			</dependency>
 
 			<!-- Tests -->
@@ -368,3 +302,4 @@
 		</dependencies>
 	</dependencyManagement>
 </project>
+

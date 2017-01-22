@@ -59,7 +59,7 @@
 	</properties>
 
 	<modules>
-		<module>plume-dependencies</module>
+		<module>plume-framework-dependencies</module>
 		<module>plume-services</module>
 		<module>plume-conf</module>
 		<module>plume-mail</module>
