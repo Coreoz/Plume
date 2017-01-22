@@ -52,7 +52,8 @@ public class TransactionManagerHibernate {
 			} catch (Throwable e2) {
 				// tant pis si on ne pas fermer la transaction
 			}
-			throw Throwables.propagate(e);
+			Throwables.throwIfUnchecked(e);
+			throw new RuntimeException(e);
 		} finally {
 			entityManager.close();
 		}
@@ -91,9 +92,9 @@ public class TransactionManagerHibernate {
 	public Sql2o sql2o() {
 		return dataSourceContainer.getSql2o();
 	}
-	
+
 	// datasource
-	
+
 	public DataSource dataSource() {
 		return dataSourceContainer.getDataSource();
 	}

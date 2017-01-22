@@ -1,12 +1,12 @@
 package com.coreoz.plume.db.querydsl.transaction;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
 import com.coreoz.plume.db.querydsl.mock.ConnectionMocked;
 import com.coreoz.plume.db.querydsl.mock.DataSourceMocked;
-import com.google.common.base.Throwables;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.H2Templates;
 
@@ -26,8 +26,8 @@ public class TransactionInstancesHolder {
 				mockedDataSource,
 				new Configuration(H2Templates.DEFAULT)
 			);
-		} catch (Exception e) {
-			throw Throwables.propagate(e);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 

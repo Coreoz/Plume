@@ -52,7 +52,8 @@ public class TransactionManager {
 			} catch (Throwable e2) {
 				// never mind if the connection cannot be rolled back
 			}
-			throw Throwables.propagate(e);
+			Throwables.throwIfUnchecked(e);
+			throw new RuntimeException(e);
 		} finally {
 			if(connection != null) {
 				try {

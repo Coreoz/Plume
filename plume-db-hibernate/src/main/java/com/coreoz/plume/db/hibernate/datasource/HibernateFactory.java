@@ -14,7 +14,6 @@ import org.hibernate.jpa.internal.EntityManagerImpl;
 import org.sql2o.Sql2o;
 import org.sql2o.quirks.NoQuirks;
 
-import com.google.common.base.Throwables;
 import com.typesafe.config.Config;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -59,8 +58,8 @@ public class HibernateFactory {
 			Field dataSourceField = HikariCPConnectionProvider.class.getDeclaredField("hds");
 			dataSourceField.setAccessible(true);
 			return (HikariDataSource) dataSourceField.get(hikariCPConnectionProvider);
-		} catch (Exception e) {
-			throw Throwables.propagate(e);
+		} catch (NoSuchFieldException | IllegalAccessException e) {
+			throw new RuntimeException(e);
 		} finally {
 			entityManagerImpl.close();
 		}

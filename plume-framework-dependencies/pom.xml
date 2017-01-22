@@ -16,27 +16,26 @@
 
 	<properties>
 		<guice.version>4.1.0</guice.version>
-		<dagger.version>2.7</dagger.version>
-		<guava.version>19.0</guava.version>
-		<logback.version>1.1.7</logback.version>
-		<slf4j.version>1.7.21</slf4j.version>
+		<dagger.version>2.8</dagger.version>
+		<guava.version>21.0</guava.version>
+		<logback.version>1.1.9</logback.version>
+		<slf4j.version>1.7.22</slf4j.version>
 		<config.version>1.3.1</config.version>
 		<simple-java-mail.version>4.1.2</simple-java-mail.version>
 		<hikaricp.version>2.5.1</hikaricp.version>
-		<hibernate.version>5.1.2.Final</hibernate.version>
+		<hibernate.version>5.1.3.Final</hibernate.version>
 		<querydsl.version>4.1.4</querydsl.version>
-		<sql2o.version>1.6.0-RC2</sql2o.version>
+		<sql2o.version>1.6.0-RC3</sql2o.version>
 		<flyway.version>4.0.3</flyway.version>
 		<h2.version>1.4.193</h2.version>
-		<jackson.version>2.8.5</jackson.version>
-		<jersey.version>2.24</jersey.version>
-		<grizzly.version>2.3.23</grizzly.version>
-		<hk2-guice-bridge.version>2.5.0-b05</hk2-guice-bridge.version>
+		<jackson.version>2.8.6</jackson.version>
+		<jersey.version>2.25</jersey.version>
+		<hk2-guice-bridge.version>2.5.0-b30</hk2-guice-bridge.version>
 
 		<commons-validator.version>1.5.1</commons-validator.version>
 
 		<junit.version>4.12</junit.version>
-		<assertj.version>3.5.2</assertj.version>
+		<assertj.version>3.6.1</assertj.version>
 		<guice-runner.version>1.1</guice-runner.version>
 	</properties>
 
@@ -266,11 +265,6 @@
 				<groupId>org.glassfish.jersey.containers</groupId>
 				<artifactId>jersey-container-grizzly2-http</artifactId>
 				<version>${jersey.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.grizzly</groupId>
-				<artifactId>grizzly-websockets</artifactId>
-				<version>${grizzly.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.hk2</groupId>

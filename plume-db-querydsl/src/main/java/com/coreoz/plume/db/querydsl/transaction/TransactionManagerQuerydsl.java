@@ -9,7 +9,6 @@ import javax.inject.Singleton;
 import javax.sql.DataSource;
 
 import com.coreoz.plume.db.transaction.TransactionManager;
-import com.google.common.base.Throwables;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.RelationalPath;
 import com.querydsl.sql.SQLCloseListener;
@@ -91,7 +90,7 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 			try {
 				return dataSource().getConnection();
 			} catch (SQLException e) {
-				throw Throwables.propagate(e);
+				throw new RuntimeException(e);
 			}
 		};
 	}
