@@ -1,10 +1,11 @@
 package com.coreoz.plume.conf;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 /**
  * Handle the configuration loading.
@@ -21,6 +22,7 @@ public class ConfigProvider implements Provider<Config> {
 
 	private Config config;
 
+	@Inject
 	public ConfigProvider() {
 		this.config = ConfigFactory.load();
 	}

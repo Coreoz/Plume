@@ -1,5 +1,6 @@
 package com.coreoz.plume.jersey.jackson;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
@@ -12,11 +13,16 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @Singleton
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
 
-	private final ObjectMapper objectMapper = new ObjectMapper()
-		.registerModule(new JavaTimeModule())
-		.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-		.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-		.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+	private final ObjectMapper objectMapper;
+
+	@Inject
+	public ObjectMapperProvider() {
+		this.objectMapper = new ObjectMapper()
+			.registerModule(new JavaTimeModule())
+			.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+			.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+			.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+	}
 
 	@Override
 	public ObjectMapper get() {
@@ -24,3 +30,4 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
 	}
 
 }
+

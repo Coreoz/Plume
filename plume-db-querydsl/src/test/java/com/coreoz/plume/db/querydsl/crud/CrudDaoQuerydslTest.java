@@ -22,7 +22,7 @@ import com.coreoz.plume.db.querydsl.db.UserDao;
 public class CrudDaoQuerydslTest {
 
 	@Inject
-	private UserDao userDao;
+	UserDao userDao;
 
 	@Test
 	public void should_list_users() {

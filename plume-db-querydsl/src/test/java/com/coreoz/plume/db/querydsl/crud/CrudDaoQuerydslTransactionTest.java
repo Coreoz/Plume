@@ -25,7 +25,7 @@ import com.coreoz.plume.db.querydsl.transaction.TransactionInstancesHolder;
 public class CrudDaoQuerydslTransactionTest {
 
 	@Inject
-	private DataSource dataSource;
+	DataSource dataSource;
 
 	@Test
 	public void check_that_connection_is_released_after_findAll() throws SQLException {

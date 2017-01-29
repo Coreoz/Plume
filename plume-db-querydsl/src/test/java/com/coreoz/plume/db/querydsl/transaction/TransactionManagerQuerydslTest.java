@@ -20,7 +20,7 @@ import com.coreoz.plume.db.querydsl.db.QUser;
 public class TransactionManagerQuerydslTest {
 
 	@Inject
-	private DataSource dataSource;
+	DataSource dataSource;
 
 	// exception release checks
 
