@@ -22,3 +22,42 @@ simplejavamail.defaults.from.address=contact@your-company.com
 You should noticed that in the Config configuration,
 Simple Java Mail **properties are wrapped in quotes**. This is important, else mail properties
 will be ignored.
+
+Getting started
+---------------
+Include Plume Mail in your project:
+```xml
+<dependency>
+    <groupId>com.coreoz</groupId>
+    <artifactId>plume-mail</artifactId>
+</dependency
+```
+
+Configure the Mailer default properties in your `application.conf` file:
+```INI
+mail."smtp.host" = "127.0.0.1"
+mail."smtp.port" = 25
+mail."defaults.from.address" = "contact@your-company.com"
+```
+
+Create a mail service class that sends mails:
+```java
+@Singleton
+public class EmailService {
+
+  private final Mailer mailer;
+
+  @Inject
+  public EmailService(Mailer mailer) {
+    this.mailer = mailer;
+  }
+
+  public void sendEmail() {
+    Email email = new Email();
+    email.addRecipient("Russell Powell", "rpowell0@whitehouse.gov", Message.RecipientType.TO);
+    email.setSubject("Plume Framework");
+    email.setText("You should check out this awesome framework!");
+    mailer.sendMail(email, true);
+  }
+}
+```
