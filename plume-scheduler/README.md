@@ -1,12 +1,12 @@
 Plume Scheduler
 ===============
 
-Integrate [Wisp Scheduler](https://github.com/Coreoz/Wisp) into Plume Framework.
-Wisp Scheduler is a Java job scheduler that execute recurring Java tasks.
+Integrate [Wisp Scheduler](https://github.com/Coreoz/Wisp)
+is a Java job scheduler that execute recurring Java tasks.
 
-This module enables to provide a `Scheduler` object through dependency injection.
+This module provides a `Scheduler` object through dependency injection.
 
-Full documentation on how the `Scheduler` object should be used is available at:
+The full documentation about Wisp Scheduler is available at:
 <https://github.com/Coreoz/Wisp>.
 
 Getting started
