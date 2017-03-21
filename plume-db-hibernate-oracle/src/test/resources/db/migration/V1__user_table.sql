@@ -1,8 +1,0 @@
-CREATE TABLE "USER" (	
-	ID NUMBER(8) not null, 
-	NAME VARCHAR2(100),
-	ACTIVE CHAR(1),
-	PRIMARY KEY (ID)
-);
-
-INSERT INTO "USER" VALUES(1, 'User test', 'O');

@@ -82,11 +82,6 @@
 			</dependency>
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-db-hibernate-oracle</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.coreoz</groupId>
 				<artifactId>plume-db-test</artifactId>
 				<version>${project.version}</version>
 			</dependency>
