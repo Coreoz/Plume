@@ -46,9 +46,9 @@ Plume core modules
 
 ### General modules
 
-#### [Plume Dependencies](plume-dependencies/)
+#### [Plume Framework Dependencies](plume-framework-dependencies/)
 
-Reference all libraries versions used directly or indirectly by Plume Framework.
+Reference all libraries versions used by Plume Framework.
 It will help you avoid dependency conflicts in your `pom.xml` file.
 
 #### [Plume Conf](plume-conf/)
