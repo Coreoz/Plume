@@ -3,6 +3,11 @@ package com.coreoz.plume.db.crud;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A generic service that expose {@link CrudDao} operations.
+ *
+ * The common use is to extend this service.
+ */
 public class CrudService<T> {
 
 	private final CrudDao<T> crudDao;

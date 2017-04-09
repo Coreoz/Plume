@@ -5,6 +5,9 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.sql.DataSource;
 
+/**
+ * Expose a {@link DataSource} Object through dependency injection.
+ */
 @Singleton
 public class DataSourceProvider implements Provider<DataSource> {
 

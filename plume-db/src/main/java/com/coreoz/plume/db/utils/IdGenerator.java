@@ -4,7 +4,7 @@ import java.net.InetAddress;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Genere un id unique sur 64bits censé être unique, meme à travers un cluster.
+ * Handle long identifiers generation that should be unique.
  *
  * @author <a href="mike@baroukh.com">Mike Baroukh</a>
  */

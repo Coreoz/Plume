@@ -3,35 +3,29 @@ package com.coreoz.plume.db.pagination;
 import java.util.List;
 
 /**
- * Permet de gérer simplement une pagination sur un ensemble d'objets.
+ * Describe an object that handles pagination.
  *
- * @author amanteaux
- *
- * @param <E>
- *            Le type d'élément qui est paginé
+ * @param <E> The paginable element
  */
 public interface Paginable<E> {
 
 	/**
-	 * @return Le nombre d'éléments disponibles
+	 * Returns the number of elements available
 	 */
 	long count();
 
 	/**
-	 * @return La liste contenant l'ensemble des éléments disponibles
+	 * Returns all the available elements list.
 	 */
 	List<E> fetch();
 
 	/**
-	 * Récupère une page de résultat
+	 * Fetch a page of elements.
 	 *
-	 * @param page
-	 *            La page cherchée, commence à 0
-	 * @param pageSize
-	 *            Le nombre d'élément par page
-	 * @return La liste contenant la page demandée
-	 * @throws IndexOutOfBoundsException
-	 *             si page &lt; 0 ou si page*pageSize &gt; {@link #count()}
+	 * @param page The page sought, starts at 0
+	 * @param pageSize The number of elements by page
+	 * @return the elements list on the page sought
+	 * @throws IndexOutOfBoundsException If page &lt; 0 or if page*pageSize &gt; {@link #count()}
 	 */
 	List<E> fetch(int page, int pageSize);
 

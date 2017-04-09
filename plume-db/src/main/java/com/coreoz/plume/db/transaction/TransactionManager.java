@@ -12,6 +12,9 @@ import javax.sql.DataSource;
 import com.google.common.base.Throwables;
 import com.typesafe.config.Config;
 
+/**
+ * Handle transactions over a classic JDBC {@link Connection}.
+ */
 @Singleton
 public class TransactionManager {
 

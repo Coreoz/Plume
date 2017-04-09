@@ -10,6 +10,9 @@ import com.typesafe.config.Config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+/**
+ * Provide a way to load a HikariCP {@link DataSource} from a {@link Config} Object.
+ */
 public class HikariDataSources {
 
 	public static DataSource fromConfig(Config config, String prefix) {
