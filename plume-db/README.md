@@ -73,7 +73,7 @@ db.product.hikari."dataSource.user"=login
 db.product.hikari."dataSource.password"=password
 ```
 
-### Example
+### Usage example
 Now when you want to use the `stats` database, just reference the `StatsTransactionManager`:
 ```java
 @Singleton
