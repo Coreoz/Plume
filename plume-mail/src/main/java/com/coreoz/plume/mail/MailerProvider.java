@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-import org.simplejavamail.internal.util.ConfigLoader;
 import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.util.ConfigLoader;
 
 import com.typesafe.config.Config;
 
