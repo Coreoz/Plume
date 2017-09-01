@@ -50,31 +50,15 @@ Configuration
 -------------
 The properties `db.dialect` can one value among : `MYSQL`, `H2`, `ORACLE`, `POSTGRE`, `SQL_SERVEUR`.
 
-Other properties are for Hikari connection pool, [see the full properties list](https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby).
-The Hikari properties are prefixed with `db.hikari.`,
-then the rest of the Hikari property should be wrapped with double quote: `db.hikari."dataSource.user"=sa`
-The double quote is required, it enables the configuration system to extract the HikariCP keys
-and pass them directly to HikariCP.
-
-A configuration example:
-```properties
-db.dialect="H2"
-db.hikari."dataSourceClassName"="org.h2.jdbcx.JdbcDataSource"
-db.hikari."dataSource.url"="jdbc:h2:mem:test"
-db.hikari."dataSource.user"=sa
-db.hikari."dataSource.password"=sa
-```
+Please see the [Plume Database configuration](https://github.com/Coreoz/Plume/tree/master/plume-db#configuration)
+for other values.
 
 Connection to multiple databases
 --------------------------------
-To connect to multiple databases, `TransactionManagerQuerydsl` should be extended for each databases connection.
-The constructor `TransactionManagerQuerydsl(Config config, String prefix)` enables to choose the prefix
-to load the configuration which is by default `db`.
+See how it is done with [Plume Database](https://github.com/Coreoz/Plume/tree/master/plume-db#multiple-databases)
 
 Code generation
 ---------------
 To generate Querydsl entities, a good choice is to use this
 [Querydsl code generator](https://github.com/Coreoz/Plume/tree/master/plume-db-querydsl-codegen)
-
-
 
