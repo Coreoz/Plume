@@ -1,7 +1,8 @@
 Plume Querydsl
 ==============
 
-This module helps integrate Querydsl SQL with Plume Framework and HikariCP.
+This module helps integrate [Querydsl SQL](https://github.com/querydsl/querydsl/tree/master/querydsl-sql)
+with [Plume Database](https://github.com/Coreoz/Plume/tree/master/plume-db).
 It contains mainly:
 - `TransactionManagerQuerydsl`: the main class of this module; it will
 read the configuration, initialize the SQL connection pool
@@ -13,7 +14,7 @@ Querydsl queries can be created:
 from the SQL connection pool. The `Connection` object will be automaticely released in the pool
 once the query is executed.
 - **with a `Connection`**: that means that the query will be executed on this supplied connection.
-This mode is almost always used when a transaction is needed:
+This mode is almost always used when a **transaction** is needed:
 ```java
 transactionManager.execute(connection -> {
   transactionManager.insert(QTable.table, connection).populate(bean).execute();
@@ -22,11 +23,12 @@ transactionManager.execute(connection -> {
 });
 ```
 
-To use the CRUD DAO, `CrudDaoQuerydsl`, entities must have a primary key on a column named `id` with the Java type `long`.
+To use the CRUD DAO `CrudDaoQuerydsl`, entities must have a primary key on a column named `id`
+mapped with the Java type `long`.
 A [CRUD DAO example](https://github.com/Coreoz/Plume-demo/blob/master/plume-demo-full-guice-jersey/src/main/java/com/coreoz/demo/db/dao/CityDao.java)
 is provided in the demo project.
 
-For Querydsl documentation, have a look at [the official Querydsl documentation](https://github.com/querydsl/querydsl/tree/master/querydsl-sql).
+For Querydsl documentation, see [the official Querydsl documentation](https://github.com/querydsl/querydsl/tree/master/querydsl-sql).
 
 Installation
 ------------
@@ -50,15 +52,15 @@ Configuration
 -------------
 The properties `db.dialect` can one value among : `MYSQL`, `H2`, `ORACLE`, `POSTGRE`, `SQL_SERVEUR`.
 
-Please see the [Plume Database configuration](https://github.com/Coreoz/Plume/tree/master/plume-db#configuration)
-for other values.
+See the [Plume Database configuration](https://github.com/Coreoz/Plume/tree/master/plume-db#configuration)
+for other configuration keys.
 
 Connection to multiple databases
 --------------------------------
-See how it is done with [Plume Database](https://github.com/Coreoz/Plume/tree/master/plume-db#multiple-databases)
+See how it is done with [Plume Database](https://github.com/Coreoz/Plume/tree/master/plume-db#multiple-databases).
 
 Code generation
 ---------------
 To generate Querydsl entities, a good choice is to use this
-[Querydsl code generator](https://github.com/Coreoz/Plume/tree/master/plume-db-querydsl-codegen)
+[Querydsl code generator](https://github.com/Coreoz/Plume/tree/master/plume-db-querydsl-codegen).
 
