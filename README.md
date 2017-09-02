@@ -13,6 +13,21 @@ Plume Framework require at least Java 8. Its modules contains connectors for
 Plume Framework is maintained by [Coreoz](http://coreoz.com/)
 and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
+Philosophy
+----------
+The goal of Plume Framework is to maximize the reusability of its modules.
+For example Plume Framework components can be easily used
+with [Play Framework](https://github.com/playframework/playframework)
+or with [Spark Java](https://github.com/perwendel/spark).
+In these cases the [Plume Jersey module](plume-web-jersey/) will be replaced
+with the corresponding Play and Spark engines.
+
+To make modules reusable in other contexts,
+we tried to limit to the minimum the dependencies between each module.
+
+Tough Plume Framework only offers dependency injection connectors to Guice and Dragger,
+it is possible to adapt these connectors to work with Spring or CDI.
+
 Demo
 ----
 Sample projects can be found here: <https://github.com/Coreoz/Plume-demo>.
@@ -24,7 +39,7 @@ The best way to get started is to use a
 
 Dependency injection
 --------------------
-If you are not familiar with the dependency injection concept, please read the
+If you are not familiar with the dependency injection concept, read the
 [Guice Motivation Guice](https://github.com/google/guice/wiki/Motivation).
 
 Dependency injection takes a central place in Plume Framework.
@@ -37,7 +52,7 @@ which enables to detect dependency injection problems at compile time.
 To use Dagger the annotation processor should be enabled in your IDE: <https://immutables.github.io/apt.html>.
 However note that Dagger may be more difficult to use than Guice.
 
-In Plume Framework documentation, many examples use Guice modules.
+In Plume Framework documentation, examples use Guice modules.
 Most of the time there is a corresponding Dagger module to each Guice module.
 For example, the corresponding Dagger module for `GuiceConfModule` is `DaggerConfModule`.
 
