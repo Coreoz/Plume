@@ -1,6 +1,7 @@
 Plume Framework
 ===============
 [![Build Status](https://travis-ci.org/Coreoz/Plume.svg?branch=master)](https://travis-ci.org/Coreoz/Plume)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.coreoz/plume-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.coreoz/plume-parent)
 
 Plume Framework is a lightweight modular Java framework. It aims to remain as simple as possible while it can be customized 
 enough to fit exactly your application need.
