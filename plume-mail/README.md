@@ -33,6 +33,8 @@ Include Plume Mail in your project:
 </dependency
 ```
 
+Install Guice module: `install(new GuiceMailModule());`
+
 Configure the Mailer default properties in your `application.conf` file:
 ```INI
 mail."smtp.host" = "127.0.0.1"
