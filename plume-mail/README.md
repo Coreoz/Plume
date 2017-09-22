@@ -56,7 +56,7 @@ public class EmailService {
 
   public void sendEmail() {
     Email email = new Email();
-    email.addRecipient("Russell Powell", "rpowell0@whitehouse.gov", Message.RecipientType.TO);
+    email.addNamedToRecipients("Russell Powell", "rpowell0@whitehouse.gov");
     email.setSubject("Plume Framework");
     email.setText("You should check out this awesome framework!");
     mailer.sendMail(email, true);
