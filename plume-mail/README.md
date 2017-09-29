@@ -30,7 +30,7 @@ Include Plume Mail in your project:
 <dependency>
     <groupId>com.coreoz</groupId>
     <artifactId>plume-mail</artifactId>
-</dependency
+</dependency>
 ```
 
 Install Guice module: `install(new GuiceMailModule());`
