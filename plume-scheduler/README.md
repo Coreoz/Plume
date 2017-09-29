@@ -16,7 +16,7 @@ Include Plume Scheduler in your project:
 <dependency>
     <groupId>com.coreoz</groupId>
     <artifactId>plume-scheduler</artifactId>
-</dependency
+</dependency>
 ```
 
 Create a `ScheduledJobs` class:
