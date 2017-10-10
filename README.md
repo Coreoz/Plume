@@ -26,7 +26,7 @@ with the corresponding Play and Spark engines.
 To make modules reusable in other contexts,
 we tried to limit to the minimum the dependencies between each module.
 
-Tough Plume Framework only offers dependency injection connectors to Guice and Dragger,
+Though Plume Framework only offers dependency injection connectors to Guice and Dragger,
 it is possible to adapt these connectors to work with Spring or CDI.
 
 Demo
