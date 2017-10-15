@@ -2,6 +2,7 @@ package com.coreoz.plume.jersey.java8;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -12,6 +13,7 @@ public class TimeParamProvider implements ParamConverterProvider {
 
 	private static final LocalDateConverter LOCAL_DATE_CONVERTER = new LocalDateConverter();
 	private static final LocalDateTimeConverter LOCAL_DATE_TIME_CONVERTER = new LocalDateTimeConverter();
+	private static final InstantConverter INSTANT_CONVERTER = new InstantConverter();
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -21,6 +23,9 @@ public class TimeParamProvider implements ParamConverterProvider {
 		}
 		if (rawType == LocalDateTime.class) {
 			return (ParamConverter<T>) LOCAL_DATE_TIME_CONVERTER;
+		}
+		if (rawType == Instant.class) {
+			return (ParamConverter<T>) INSTANT_CONVERTER;
 		}
 		return null;
 	}

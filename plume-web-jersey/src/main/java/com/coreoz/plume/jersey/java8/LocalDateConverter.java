@@ -4,13 +4,23 @@ import java.time.LocalDate;
 
 import javax.ws.rs.ext.ParamConverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Strings;
 
 public class LocalDateConverter implements ParamConverter<LocalDate> {
 
+	private static final Logger logger = LoggerFactory.getLogger(LocalDateConverter.class);
+
 	@Override
 	public LocalDate fromString(String value) {
-		return Strings.isNullOrEmpty(value) ? null : LocalDate.parse(value);
+		try {
+			return Strings.isNullOrEmpty(value) ? null : LocalDate.parse(value);
+		} catch (Exception e) {
+			logger.warn("Cannot parse LocalDate from {}", value, e);
+			return null;
+		}
 	}
 
 	@Override
