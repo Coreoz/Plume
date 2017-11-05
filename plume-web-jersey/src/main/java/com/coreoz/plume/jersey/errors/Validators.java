@@ -5,6 +5,10 @@ import org.apache.commons.validator.routines.EmailValidator;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Provides common validators that will throw {@link WsException}
+ * when the input data does not pass the validator.
+ */
 public class Validators {
 
 	public static<T> T checkRequired(T parameter) {

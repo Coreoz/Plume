@@ -22,10 +22,10 @@ public class WsResultExceptionMapper implements ExceptionMapper<Throwable> {
 		if (e instanceof WsException) {
 			WsException wsException = (WsException) e;
 			return Response
-					.status(Status.BAD_REQUEST)
-					.entity(new ErrorResponse(wsException.getError(), wsException.getStatusArguments()))
-					.type(MediaType.APPLICATION_JSON_TYPE)
-					.build();
+				.status(Status.BAD_REQUEST)
+				.entity(new ErrorResponse(wsException.getError(), wsException.getStatusArguments()))
+				.type(MediaType.APPLICATION_JSON_TYPE)
+				.build();
 		}
 		if(e instanceof WebApplicationException) {
 			return ((WebApplicationException) e).getResponse();
@@ -34,10 +34,10 @@ public class WsResultExceptionMapper implements ExceptionMapper<Throwable> {
 		logger.error("Erreur inconnue sur le WS", e);
 
 		return Response
-				.status(Status.INTERNAL_SERVER_ERROR)
-				.entity(new ErrorResponse(WsError.INTERNAL_ERROR, ImmutableList.of()))
-				.type(MediaType.APPLICATION_JSON_TYPE)
-				.build();
+			.status(Status.INTERNAL_SERVER_ERROR)
+			.entity(new ErrorResponse(WsError.INTERNAL_ERROR, ImmutableList.of()))
+			.type(MediaType.APPLICATION_JSON_TYPE)
+			.build();
 	}
 
 }

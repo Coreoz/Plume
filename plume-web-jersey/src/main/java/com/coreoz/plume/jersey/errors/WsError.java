@@ -1,7 +1,8 @@
 package com.coreoz.plume.jersey.errors;
 
 /**
- * Reference errors that can be raised in a web-service
+ * Reference common errors that can be raised in a web-service.
+ * This interface should be implemented inside an enum.
  */
 public interface WsError {
 

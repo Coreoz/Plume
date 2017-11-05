@@ -3,8 +3,9 @@ package com.coreoz.plume.jersey.errors;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Une exception qui empêche le traitement normal d'un web-service
- * et dont le code d'erreur doit remonter à l'utilisateur
+ * A {@link RuntimeException} that stops the execution of the web-service
+ * and provides at the same time information of the error to the web-service consumer.
+ * @see WsResultExceptionMapper
  */
 public class WsException extends RuntimeException {
 
@@ -35,3 +36,4 @@ public class WsException extends RuntimeException {
 	}
 
 }
+

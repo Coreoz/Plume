@@ -16,7 +16,43 @@ Jackson
 -------
 The module `GuiceJacksonModule` provides an injectable Jackson `ObjectMapper` with common defaults, especially:
 - a support for Java 8 Time objects,
-- unknown attributes handling non-mandatory. 
+- unknown attributes handling non-mandatory.
+
+Data validation
+---------------
+To validate web-service input data, an easy solution is to use `WsException`:
+it is a `RuntimeException` that will be serialized into a nice error with a 400 HTTP response to the web-service consumer.
+To use this feature, `WsResultExceptionMapper` must be registered in Jersey:
+`resourceConfig.register(WsResultExceptionMapper.class);`
+
+Usage example:
+
+**Error enum definition:**
+```java
+public enum ProjectWsError implements WsError {
+  WRONG_LOGIN_OR_PASSWORD,
+}
+```
+
+**Web-service:**
+```java
+@POST
+public void create(Use userToCreate) {
+  Validators.checkRequired("Login", userToCreate.getLogin());
+  Validators.checkRequired("Password", userToCreate.getPassword());
+  if(!userToCreate.getPassword().equals(userToCreate.getPasswordConfirmation())) {
+    throw new WsException(
+      ProjectWsError.PASSWORDS_DO_NOT_MATCH,
+      ImmutableList.of(
+        "Password",
+        "Password confirmation"
+      )
+    );
+  }
+
+  userService.create(userToCreate);
+}
+```
 
 Asynchronous web-services
 -------------------------
@@ -33,6 +69,7 @@ This utilities functions are available in `AsyncJersey` and `AsyncOkHttp`.
 Do note that to use `AsyncOkHttp` the dependency to [OkHttp](https://github.com/square/okhttp) must be added manually.
 
 Here is a usage example:
+
 **In the API class:**
 ```java
 public CompletableFuture<String> fetchDataAsync() {

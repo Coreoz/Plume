@@ -1,5 +1,8 @@
 package com.coreoz.plume.jersey.errors;
 
+/**
+ * Represent an error that should be serialized by Jersey
+ */
 public class ErrorResponse {
 
 	private final String errorCode;
