@@ -1,7 +1,7 @@
 Plume Web Jersey
 ================
 
-This module provides multiple utilities to use Jersey, Grizzly, Servlets.
+This module provides multiple utilities to use Jersey, Grizzly and Servlets.
 
 Setup
 -----
