@@ -41,8 +41,10 @@ public class TransactionManager {
 
 	public <T> T executeAndReturn(Function<Connection, T> toExecuteOnDb) {
 		Connection connection = null;
+		Boolean initialAutoCommit = null;
 		try {
 			connection = dataSource.getConnection();
+			initialAutoCommit = connection.getAutoCommit();
 			connection.setAutoCommit(false);
 			T result = toExecuteOnDb.apply(connection);
 			connection.commit();
@@ -60,6 +62,9 @@ public class TransactionManager {
 		} finally {
 			if(connection != null) {
 				try {
+					if(initialAutoCommit != null) {
+						connection.setAutoCommit(initialAutoCommit);
+					}
 					connection.close();
 				} catch (SQLException e) {
 					// never mind if the connection cannot be closed
