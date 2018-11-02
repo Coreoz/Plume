@@ -8,6 +8,7 @@ public interface WsError {
 
 	// common errors
 	WsError INTERNAL_ERROR = new WsErrorInternal("INTERNAL_ERROR");
+	WsError REQUEST_INVALID = new WsErrorInternal("REQUEST_INVALID");
 	WsError FIELD_REQUIRED = new WsErrorInternal("FIELD_REQUIRED");
 	WsError EMAIL_INVALID = new WsErrorInternal("EMAIL_INVALID");
 	WsError COLOR_INVALID = new WsErrorInternal("COLOR_INVALID");

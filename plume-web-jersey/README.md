@@ -54,6 +54,9 @@ public void create(Use userToCreate) {
 }
 ```
 
+To have an HTTP 400 error (instead of a 500 error) when an input JSON is provided,
+use `WsJacksonJsonProvider` instead of `JacksonJaxbJsonProvider` as Jersey JSON provider. 
+
 Asynchronous web-services
 -------------------------
 Non blocking web-services enable to address this use case:

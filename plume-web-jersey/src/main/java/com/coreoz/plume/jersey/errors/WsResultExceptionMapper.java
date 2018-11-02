@@ -30,6 +30,13 @@ public class WsResultExceptionMapper implements ExceptionMapper<Throwable> {
 		if(e instanceof WebApplicationException) {
 			return ((WebApplicationException) e).getResponse();
 		}
+		if(e instanceof JsonRequestParseException) {
+			return Response
+				.status(Status.BAD_REQUEST)
+				.entity(new ErrorResponse(WsError.REQUEST_INVALID, ImmutableList.of("JSON object supplied in request is invalid")))
+				.type(MediaType.APPLICATION_JSON_TYPE)
+				.build();
+		}
 
 		logger.error("Erreur inconnue sur le WS", e);
 
