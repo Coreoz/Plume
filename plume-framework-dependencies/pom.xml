@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,28 +17,30 @@
 
 	<properties>
 		<wisp.version>1.0.0</wisp.version>
-		<guice.version>4.1.0</guice.version>
-		<dagger.version>2.12</dagger.version>
-		<guava.version>23.3-jre</guava.version>
-		<lombok.version>1.16.18</lombok.version>
+		<guice.version>4.2.2</guice.version>
+		<dagger.version>2.20</dagger.version>
+		<guava.version>27.0.1-jre</guava.version>
+		<lombok.version>1.18.4</lombok.version>
 		<logback.version>1.2.3</logback.version>
 		<slf4j.version>1.7.25</slf4j.version>
-		<config.version>1.3.2</config.version>
-		<simple-java-mail.version>4.4.5</simple-java-mail.version>
-		<hikaricp.version>2.7.2</hikaricp.version>
+		<config.version>1.3.3</config.version>
+		<simple-java-mail.version>5.1.3</simple-java-mail.version>
+		<hikaricp.version>3.3.0</hikaricp.version>
 		<hibernate.version>5.1.10.Final</hibernate.version>
-		<querydsl.version>4.1.4</querydsl.version>
-		<sql2o.version>1.6.0-RC3</sql2o.version>
-		<flyway.version>4.2.0</flyway.version>
-		<h2.version>1.4.196</h2.version>
-		<jackson.version>2.9.2</jackson.version>
-		<jersey.version>2.25.1</jersey.version>
-		<swagger.version>1.5.16</swagger.version>
-		<hk2-guice-bridge.version>2.5.0-b30</hk2-guice-bridge.version>
+		<querydsl.version>4.2.1</querydsl.version>
+		<sql2o.version>1.6.0</sql2o.version>
+		<flyway.version>5.2.4</flyway.version>
+		<h2.version>1.4.197</h2.version>
+		<jackson.version>2.9.8</jackson.version>
+		<jersey.version>2.27</jersey.version>
+		<swagger.version>1.5.21</swagger.version>
+		<hk2-guice-bridge.version>2.5.0</hk2-guice-bridge.version>
 		<commons-validator.version>1.6</commons-validator.version>
+		<javax-activation.version>1.2.0</javax-activation.version>
+		<javax-xml.version>2.2.11</javax-xml.version>
 
 		<junit.version>4.12</junit.version>
-		<assertj.version>3.8.0</assertj.version>
+		<assertj.version>3.11.1</assertj.version>
 		<guice-runner.version>1.1</guice-runner.version>
 	</properties>
 
@@ -92,7 +96,7 @@
 				<artifactId>plume-web-jersey</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.coreoz</groupId>
 				<artifactId>wisp</artifactId>
@@ -274,6 +278,11 @@
 				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.glassfish.jersey.inject</groupId>
+				<artifactId>jersey-hk2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
 				<artifactId>jersey-container-grizzly2-http</artifactId>
 				<version>${jersey.version}</version>
@@ -287,6 +296,12 @@
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-jaxrs</artifactId>
 				<version>${swagger.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.ws.rs</groupId>
+						<artifactId>jsr311-api</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.hk2</groupId>
@@ -297,6 +312,27 @@
 				<groupId>commons-validator</groupId>
 				<artifactId>commons-validator</artifactId>
 				<version>${commons-validator.version}</version>
+			</dependency>
+			<!-- XML dependencies that were included in JDK before version 11 -->
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>javax.activation-api</artifactId>
+				<version>${javax-activation.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${javax-xml.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-core</artifactId>
+				<version>${javax-xml.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>${javax-xml.version}</version>
 			</dependency>
 
 			<!-- Tests -->

@@ -11,10 +11,12 @@ public class InitializeDatabase {
 
 	@Inject
 	public InitializeDatabase(DataSource dataSource) {
-		Flyway flyway = new Flyway();
-		flyway.setDataSource(dataSource);
-		flyway.setOutOfOrder(true);
-		flyway.migrate();
+		Flyway
+			.configure()
+			.dataSource(dataSource)
+			.outOfOrder(true)
+			.load()
+			.migrate();
 	}
 
 }

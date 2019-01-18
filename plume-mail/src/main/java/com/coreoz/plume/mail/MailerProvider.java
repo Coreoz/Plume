@@ -9,6 +9,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.util.ConfigLoader;
 
 import com.typesafe.config.Config;
@@ -35,7 +36,7 @@ public class MailerProvider implements Provider<Mailer> {
 			true
 		);
 
-		return new Mailer();
+		return MailerBuilder.buildMailer();
 	}
 
 	// visible for testing

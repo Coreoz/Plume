@@ -25,13 +25,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- TODO : à supprimer quand sql2o ne référencera plus joda time : https://github.com/aaberg/sql2o/issues/215 -->
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.9.2</version>
-		</dependency>
-
 		<!-- JPA/hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
