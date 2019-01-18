@@ -14,6 +14,60 @@ Plume Framework require at least Java 8. Its modules contains connectors for
 Plume Framework is maintained by [Coreoz](http://coreoz.com/)
 and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
+Upgrade from 1.x to 2.x
+-----------------------
+Jersey:
+- register(LoggingFilter.class); -> register(LoggingFeature.class);
+
+pom.xml:
+```xml
+<maven.compiler.source>11</maven.compiler.source>
+<maven.compiler.target>11</maven.compiler.target>
+
+<plume-dependencies.version>2.0.0-beta1</plume-dependencies.version>
+```
+- maven-compiler-plugin -> version 3.8.0
+- add dependencies:
+```xml
+<dependency>
+	<groupId>javax.xml.bind</groupId>
+	<artifactId>jaxb-api</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.sun.xml.bind</groupId>
+	<artifactId>jaxb-core</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.sun.xml.bind</groupId>
+	<artifactId>jaxb-impl</artifactId>
+</dependency>
+<dependency>
+	<groupId>javax.activation</groupId>
+	<artifactId>javax.activation-api</artifactId>
+</dependency>
+```
+
+QuerydslGenerator
+```java
+private static Type<?> classType(Class<?> classType) {
+	try {
+		return (Type<?>) classType.newInstance();
+	} catch (InstantiationException | IllegalAccessException e) {
+		throw new RuntimeException(e);
+	}
+}
+```
+=>
+```java
+private static Type<?> classType(Class<?> classType) {
+	try {
+		return (Type<?>) classType.getConstructor().newInstance();
+	} catch (Exception e) {
+		throw new RuntimeException(e);
+	}
+}
+```
+
 Philosophy
 ----------
 The goal of Plume Framework is to maximize the reusability of its modules.
