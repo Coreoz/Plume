@@ -21,8 +21,8 @@ Jersey:
 
 pom.xml:
 ```xml
-<maven.compiler.source>11</maven.compiler.source>
-<maven.compiler.target>11</maven.compiler.target>
+<maven.compiler.source>12</maven.compiler.source>
+<maven.compiler.target>12</maven.compiler.target>
 
 <plume-dependencies.version>2.0.0-beta1</plume-dependencies.version>
 ```
