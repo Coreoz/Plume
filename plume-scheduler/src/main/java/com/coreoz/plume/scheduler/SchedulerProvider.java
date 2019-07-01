@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import com.coreoz.plume.services.time.TimeProvider;
 import com.coreoz.wisp.Scheduler;
+import com.coreoz.wisp.SchedulerConfig;
 
 @Singleton
 public class SchedulerProvider implements Provider<Scheduler> {
@@ -15,9 +16,10 @@ public class SchedulerProvider implements Provider<Scheduler> {
 	@Inject
 	public SchedulerProvider(TimeProvider timeProvider) {
 		this.scheduler = new Scheduler(
-			Scheduler.DEFAULT_THREAD_POOL_SIZE,
-			Scheduler.DEFAULT_MINIMUM_DELAY_IN_MILLIS_TO_REPLACE_JOB,
-			new PlumeTimeProvider(timeProvider)
+			SchedulerConfig
+				.builder()
+				.timeProvider(new PlumeTimeProvider(timeProvider))
+				.build()
 		);
 	}
 
