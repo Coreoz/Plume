@@ -77,7 +77,6 @@
 		<module>plume-db</module>
 		<module>plume-db-querydsl</module>
 		<module>plume-db-querydsl-codegen</module>
-		<module>plume-db-hibernate</module>
 		<module>plume-db-test</module>
 		<module>plume-web-jersey</module>
 	</modules>

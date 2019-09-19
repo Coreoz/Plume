@@ -166,12 +166,6 @@ for SQL only.
 
 Use [Flyway](https://flywaydb.org/) to help you make integration tests with a database.
 
-#### [Plume Hibernate](plume-db-hibernate/)
-
-The best known Java ORM [Hibernate](http://hibernate.org/)
-with [Querydsl](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa)
-and [Sql2o](http://www.sql2o.org/) to ease its usage.
-
 Other Libraries to use with Plume Framework
 -------------------------------------------
 If you need an HTTP client in a Plume application,
