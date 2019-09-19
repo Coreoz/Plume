@@ -15,6 +15,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 /**
  * A Jackson JSON provider that throws a {@link JsonRequestParseException}
  * during the parsing.
+ * It is useful to return proper 400 errors when JSON request input is not valid
  * @see JacksonJaxbJsonProvider
  */
 public class WsJacksonJsonProvider extends JacksonJaxbJsonProvider {
