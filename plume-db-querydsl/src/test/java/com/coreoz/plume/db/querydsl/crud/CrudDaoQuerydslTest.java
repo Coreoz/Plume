@@ -3,10 +3,12 @@ package com.coreoz.plume.db.querydsl.crud;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -61,7 +63,7 @@ public class CrudDaoQuerydslTest {
 
 		User user = userDao.findById(userId);
 
-		assertThat(user.getCreationDate()).isEqualTo(currentDate);
+		assertThat(user.getCreationDate()).isCloseTo(currentDate, Assertions.within(1, ChronoUnit.MILLIS));
 	}
 
 	@Test
