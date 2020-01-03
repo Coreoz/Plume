@@ -18,6 +18,15 @@ The module `GuiceJacksonModule` provides an injectable Jackson `ObjectMapper` wi
 - a support for Java 8 Time objects,
 - unknown attributes handling non-mandatory.
 
+Explicit access control
+-----------------------
+In order to avoid leaking an API that should have been private, a Jersey feature enables to force developers to always specify the access control rule that must set for an API.
+
+To use it, register this feature in Jersey: `resourceConfig.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, RestrictToAdmin.class));`
+`PublicApi` and `RestrictTo` being the valid access control annotations.
+
+Any custom annotation can be added (as long as the corresponding Jersey access control feature is configured...). In a doubt to configure the Jersey access control feature, see as an example the existing class `PermissionFeature` that checks the `RestrictTo` annotation access control.
+
 Data validation
 ---------------
 To validate web-service input data, an easy solution is to use `WsException`:
