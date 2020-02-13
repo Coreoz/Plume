@@ -2,7 +2,7 @@ package com.coreoz.plume.mail.dagger;
 
 import javax.inject.Singleton;
 
-import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.api.mailer.Mailer;
 
 import com.coreoz.plume.mail.MailerProvider;
 

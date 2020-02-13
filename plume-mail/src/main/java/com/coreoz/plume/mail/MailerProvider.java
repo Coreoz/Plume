@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.api.mailer.Mailer;
+import org.simplejavamail.config.ConfigLoader;
 import org.simplejavamail.mailer.MailerBuilder;
-import org.simplejavamail.util.ConfigLoader;
 
 import com.typesafe.config.Config;
 

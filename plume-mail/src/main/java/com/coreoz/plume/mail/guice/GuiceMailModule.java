@@ -1,6 +1,6 @@
 package com.coreoz.plume.mail.guice;
 
-import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.api.mailer.Mailer;
 
 import com.coreoz.plume.mail.MailerProvider;
 import com.google.inject.AbstractModule;
