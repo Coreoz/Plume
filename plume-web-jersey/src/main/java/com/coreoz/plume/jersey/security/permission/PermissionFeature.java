@@ -37,7 +37,7 @@ public class PermissionFeature<A extends Annotation> implements DynamicFeature {
 		this.permissionAnnotationExtractor = permissionAnnotationExtractor;
 	}
 
-	public static PermissionFeature<RestrictTo> restictTo(PermissionRequestProvider requestPermissionProvider) {
+	public static PermissionFeature<RestrictTo> restrictTo(PermissionRequestProvider requestPermissionProvider) {
 		return new PermissionFeature<>(
 			requestPermissionProvider,
 			RestrictTo.class,
