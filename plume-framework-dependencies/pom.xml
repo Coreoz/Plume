@@ -29,7 +29,7 @@
 		<sql2o.version>1.6.0-RC3</sql2o.version>
 		<flyway.version>4.2.0</flyway.version>
 		<h2.version>1.4.196</h2.version>
-		<jackson.version>2.9.2</jackson.version>
+		<jackson.version>2.10.3</jackson.version>
 		<jersey.version>2.25.1</jersey.version>
 		<swagger.version>1.5.16</swagger.version>
 		<hk2-guice-bridge.version>2.5.0-b30</hk2-guice-bridge.version>
