@@ -65,6 +65,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<javadoc.java-version>8</javadoc.java-version>
 		<additionalparam>-Xdoclint:none</additionalparam>
 	</properties>
 
@@ -113,6 +114,7 @@
 						</executions>
 						<configuration>
 							<stylesheet>java</stylesheet>
+							<source>${javadoc.java-version}</source>
 						</configuration>
 					</plugin>
 					<plugin>
