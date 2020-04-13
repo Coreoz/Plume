@@ -16,57 +16,7 @@ and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2
 
 Upgrade from 1.x to 2.x
 -----------------------
-Jersey:
-- register(LoggingFilter.class); -> register(LoggingFeature.class);
-
-pom.xml:
-```xml
-<maven.compiler.source>12</maven.compiler.source>
-<maven.compiler.target>12</maven.compiler.target>
-
-<plume-dependencies.version>2.0.0-beta1</plume-dependencies.version>
-```
-- maven-compiler-plugin -> version 3.8.0
-- add dependencies:
-```xml
-<dependency>
-	<groupId>javax.xml.bind</groupId>
-	<artifactId>jaxb-api</artifactId>
-</dependency>
-<dependency>
-	<groupId>com.sun.xml.bind</groupId>
-	<artifactId>jaxb-core</artifactId>
-</dependency>
-<dependency>
-	<groupId>com.sun.xml.bind</groupId>
-	<artifactId>jaxb-impl</artifactId>
-</dependency>
-<dependency>
-	<groupId>javax.activation</groupId>
-	<artifactId>javax.activation-api</artifactId>
-</dependency>
-```
-
-QuerydslGenerator
-```java
-private static Type<?> classType(Class<?> classType) {
-	try {
-		return (Type<?>) classType.newInstance();
-	} catch (InstantiationException | IllegalAccessException e) {
-		throw new RuntimeException(e);
-	}
-}
-```
-=>
-```java
-private static Type<?> classType(Class<?> classType) {
-	try {
-		return (Type<?>) classType.getConstructor().newInstance();
-	} catch (Exception e) {
-		throw new RuntimeException(e);
-	}
-}
-```
+See upgrade instructions in the [release details](releases/tag/2.0.0). 
 
 Philosophy
 ----------
@@ -172,4 +122,3 @@ If you need an HTTP client in a Plume application,
 a good choice is to use:
 - [OkHttp](http://square.github.io/okhttp/),
 - or [Retrofit](https://square.github.io/retrofit/) if you need to query a standard REST API.
-
