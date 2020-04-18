@@ -24,8 +24,16 @@ Create a `ScheduledJobs` class:
 @Singleton
 public class ScheduledJobs {
 
+    private final MyService service1;
+    private final MyOtherService service2;
+
     @Inject
     public ScheduledJobs(Scheduler scheduler, MyService service1, MyOtherService service2) {
+        this.service1 = service1;
+        this.service2 = service2;
+    }
+    
+    public void scheduleJobs() {
         scheduler.schedule(
             "My service job",
             service1::processToBeExecuted,
@@ -36,6 +44,11 @@ public class ScheduledJobs {
             service2::otherProcessToBeExecuted,
             Schedules.fixedDelaySchedule(Duration.ofSeconds(40))
         );
+        scheduler.schedule(
+            "Long running job monitor",
+            new LongRunningJobMonitor(scheduler),
+            Schedules.fixedDelaySchedule(Duration.ofMinutes(1))
+        );
     }
 
 }
@@ -45,6 +58,11 @@ Install the Scheduler module and load the jobs in your application:
 
 ```java
 install(new GuiceSchedulerModule());
-bind(ScheduledJobs.class).asEagerSingleton();
+```
+
+In your application main method `WebApplication.main()` start the jobs:
+
+```java
+injector.getInstance(ScheduledJobs.class).scheduleJobs();
 ```
 
