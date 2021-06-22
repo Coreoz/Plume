@@ -55,10 +55,12 @@ public class EmailService {
   }
 
   public void sendEmail() {
-    Email email = new Email();
-    email.addNamedToRecipients("Russell Powell", "rpowell0@whitehouse.gov");
-    email.setSubject("Plume Framework");
-    email.setText("You should check out this awesome framework!");
+    Email email = EmailBuilder
+      .startingBlank()
+      .to("Russell Powell", "rpowell0@whitehouse.gov")
+      .withSubject("Plume Framework")
+      .withPlainText("You should check out this awesome framework!")
+      .buildEmail();
     mailer.sendMail(email, true);
   }
 }
