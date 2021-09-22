@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.coreoz</groupId>
 		<artifactId>plume-parent</artifactId>
-		<version>2.1.1-SNAPSHOT</version>
+		<version>3.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>plume-framework-dependencies</artifactId>
@@ -19,18 +19,18 @@
 		<dagger.version>2.37</dagger.version>
 		<guava.version>30.1.1-jre</guava.version>
 		<lombok.version>1.18.20</lombok.version>
-		<logback.version>1.2.3</logback.version>
-		<slf4j.version>1.7.31</slf4j.version>
+		<logback.version>1.2.6</logback.version>
+		<slf4j.version>1.7.32</slf4j.version>
 		<config.version>1.4.1</config.version>
 		<simple-java-mail.version>6.6.1</simple-java-mail.version>
-		<hikaricp.version>4.0.3</hikaricp.version>
-		<querydsl.version>4.4.0</querydsl.version>
+		<hikaricp.version>5.0.0</hikaricp.version>
+		<querydsl.version>5.0.0</querydsl.version>
 		<sql2o.version>1.6.0</sql2o.version>
-		<flyway.version>7.10.0</flyway.version>
+		<flyway.version>7.15.0</flyway.version>
 		<h2.version>1.4.200</h2.version>
-		<jackson.version>2.12.3</jackson.version>
-		<jersey.version>2.34</jersey.version>
-		<swagger.version>1.5.23</swagger.version>
+		<jackson.version>2.12.5</jackson.version>
+		<jersey.version>2.35</jersey.version>
+		<swagger.version>2.1.10</swagger.version>
 		<hk2-guice-bridge.version>2.6.1</hk2-guice-bridge.version>
 		<commons-validator.version>1.7</commons-validator.version>
 		<javax-activation.version>1.2.0</javax-activation.version>
@@ -38,7 +38,7 @@
 		<javax-xml.version>2.3.0</javax-xml.version>
 
 		<junit.version>4.13.2</junit.version>
-		<assertj.version>3.20.2</assertj.version>
+		<assertj.version>3.21.0</assertj.version>
 		<guice-runner.version>1.1</guice-runner.version>
 	</properties>
 
@@ -244,20 +244,14 @@
 				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.swagger</groupId>
+				<groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-annotations</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-jaxrs</artifactId>
+				<groupId>io.swagger.core.v3</groupId>
+				<artifactId>swagger-jaxrs2</artifactId>
 				<version>${swagger.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.ws.rs</groupId>
-						<artifactId>jsr311-api</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.hk2</groupId>

@@ -2,9 +2,9 @@ package com.coreoz.plume.db.querydsl.transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.function.Supplier;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.sql.DataSource;
 
@@ -85,7 +85,7 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 		return query;
 	}
 
-	private Provider<Connection> getConnectionProvider() {
+	private Supplier<Connection> getConnectionProvider() {
 		return () -> {
 			try {
 				return dataSource().getConnection();

@@ -8,12 +8,12 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.databind.util.Converter;
-import com.mysema.codegen.CodeWriter;
-import com.mysema.codegen.model.ClassType;
 import com.querydsl.codegen.EntityType;
 import com.querydsl.codegen.Property;
 import com.querydsl.codegen.SerializerConfig;
 import com.querydsl.codegen.Supertype;
+import com.querydsl.codegen.utils.CodeWriter;
+import com.querydsl.codegen.utils.model.ClassType;
 import com.querydsl.sql.codegen.ExtendedBeanSerializer;
 
 public class IdBeanSerializer extends ExtendedBeanSerializer {
