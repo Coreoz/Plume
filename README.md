@@ -14,6 +14,10 @@ Plume Framework require at least Java 11. Its modules contains connectors for
 Plume Framework is maintained by [Coreoz](http://coreoz.com/)
 and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
+Upgrade from 2.x to 3.x
+-----------------------
+See upgrade instructions in the [release details](https://github.com/Coreoz/Plume/releases/tag/3.0.0). 
+
 Upgrade from 1.x to 2.x
 -----------------------
 See upgrade instructions in the [release details](https://github.com/Coreoz/Plume/releases/tag/2.0.0). 
