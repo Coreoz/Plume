@@ -38,16 +38,16 @@ public class RequireExplicitAccessControlFeature implements DynamicFeature {
 	}
 
 	@Override
-	public void configure(ResourceInfo methodResourceInfo, FeatureContext methodResourcecontext) {
+	public void configure(ResourceInfo methodResourceInfo, FeatureContext methodResourceContext) {
 		// Ignore Jersey internals
 		if(methodResourceInfo.getResourceClass().getName().startsWith(
-			"org.glassfish.jersey.server.wadl.processor.OptionsMethodProcessor"
+			"org.glassfish.jersey.server.wadl"
 		)) {
 			return;
 		}
 
-		if(!hasAccessControlAnnotation(methodResourceInfo.getResourceMethod(), methodResourcecontext)
-			&& !hasAccessControlAnnotation(methodResourceInfo.getResourceClass(), methodResourcecontext)) {
+		if(!hasAccessControlAnnotation(methodResourceInfo.getResourceMethod(), methodResourceContext)
+			&& !hasAccessControlAnnotation(methodResourceInfo.getResourceClass(), methodResourceContext)) {
 			logger.warn(
 				"The API {}.{} is not annotated with any registered access control annotations, "
 				+ "to make this API usable, it needs either to be annoted with one of these valid annotations ({}), "
@@ -57,7 +57,7 @@ public class RequireExplicitAccessControlFeature implements DynamicFeature {
 				methodResourceInfo.getResourceMethod(),
 				registeredAccessControlAnnotations
 			);
-			methodResourcecontext.register(new ForbiddenAccessFilter());
+			methodResourceContext.register(new ForbiddenAccessFilter());
 		}
 	}
 
@@ -66,7 +66,7 @@ public class RequireExplicitAccessControlFeature implements DynamicFeature {
 		return new RequireExplicitAccessControlFeature(ImmutableSet.copyOf(annotations));
 	}
 
-	private boolean hasAccessControlAnnotation(AnnotatedElement annotatedElement, FeatureContext methodResourcecontext) {
+	private boolean hasAccessControlAnnotation(AnnotatedElement annotatedElement, FeatureContext methodResourceContext) {
 		return registeredAccessControlAnnotations
 			.stream()
 			.anyMatch(registeredAccessControlAnnotation -> annotatedElement.getAnnotation(registeredAccessControlAnnotation) != null);
