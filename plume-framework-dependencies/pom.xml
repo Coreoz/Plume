@@ -14,23 +14,23 @@
 	<description>Gather versions of various libraries used by Plume Framework</description>
 
 	<properties>
-		<wisp.version>2.2.1</wisp.version>
-		<guice.version>5.0.1</guice.version>
-		<dagger.version>2.37</dagger.version>
-		<guava.version>30.1.1-jre</guava.version>
-		<lombok.version>1.18.20</lombok.version>
-		<logback.version>1.2.6</logback.version>
+		<wisp.version>2.2.2</wisp.version>
+		<guice.version>5.1.0</guice.version>
+		<dagger.version>2.41</dagger.version>
+		<guava.version>31.1-jre</guava.version>
+		<lombok.version>1.18.24</lombok.version>
+		<logback.version>1.2.11</logback.version>
 		<slf4j.version>1.7.32</slf4j.version>
-		<config.version>1.4.1</config.version>
-		<simple-java-mail.version>6.6.1</simple-java-mail.version>
-		<hikaricp.version>5.0.0</hikaricp.version>
+		<config.version>1.4.2</config.version>
+		<simple-java-mail.version>7.1.1</simple-java-mail.version>
+		<hikaricp.version>5.0.1</hikaricp.version>
 		<querydsl.version>5.0.0</querydsl.version>
 		<sql2o.version>1.6.0</sql2o.version>
-		<flyway.version>7.15.0</flyway.version>
-		<h2.version>1.4.200</h2.version>
-		<jackson.version>2.12.5</jackson.version>
+		<flyway.version>8.5.8</flyway.version>
+		<h2.version>2.1.212</h2.version>
+		<jackson.version>2.13.2</jackson.version>
 		<jersey.version>2.35</jersey.version>
-		<swagger.version>2.1.10</swagger.version>
+		<swagger.version>2.1.13</swagger.version>
 		<hk2-guice-bridge.version>2.6.1</hk2-guice-bridge.version>
 		<commons-validator.version>1.7</commons-validator.version>
 		<javax-activation.version>1.2.0</javax-activation.version>
@@ -38,7 +38,7 @@
 		<javax-xml.version>2.3.0</javax-xml.version>
 
 		<junit.version>4.13.2</junit.version>
-		<assertj.version>3.21.0</assertj.version>
+		<assertj.version>3.22.0</assertj.version>
 		<guice-runner.version>1.1</guice-runner.version>
 	</properties>
 
