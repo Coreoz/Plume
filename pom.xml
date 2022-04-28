@@ -4,7 +4,7 @@
 
 	<groupId>com.coreoz</groupId>
 	<artifactId>plume-parent</artifactId>
-	<version>4.0.0</version>
+	<version>4.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Plume Parent</name>
@@ -37,7 +37,7 @@
 		<developerConnection>scm:git:git@github.com:Coreoz/Plume.git</developerConnection>
 		<connection>scm:git:git@github.com:Coreoz/Plume.git</connection>
 		<url>https://github.com/Coreoz/Plume</url>
-		<tag>4.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>
