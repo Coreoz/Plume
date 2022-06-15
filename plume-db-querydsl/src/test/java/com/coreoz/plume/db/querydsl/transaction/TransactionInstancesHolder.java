@@ -24,7 +24,7 @@ public class TransactionInstancesHolder {
 
 			transactionManager = new TransactionManagerQuerydsl(
 				mockedDataSource,
-				new Configuration(H2Templates.DEFAULT)
+				new Configuration(new H2Templates(true))
 			);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

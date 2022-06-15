@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.coreoz</groupId>
 		<artifactId>plume-parent</artifactId>
-		<version>2.1.1-SNAPSHOT</version>
+		<version>4.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>plume-db-querydsl</artifactId>
@@ -14,6 +14,12 @@
 	<description>Database querying with Querydsl fluent API</description>
 
 	<dependencies>
+		<!-- jdk9+ non included Java library required for SQL annotations -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+		</dependency>
+	
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-db</artifactId>

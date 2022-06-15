@@ -24,11 +24,13 @@ Create a `ScheduledJobs` class:
 @Singleton
 public class ScheduledJobs {
 
+    private final Scheduler scheduler;
     private final MyService service1;
     private final MyOtherService service2;
 
     @Inject
     public ScheduledJobs(Scheduler scheduler, MyService service1, MyOtherService service2) {
+        this.scheduler = scheduler;
         this.service1 = service1;
         this.service2 = service2;
     }

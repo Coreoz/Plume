@@ -10,7 +10,7 @@ import com.querydsl.sql.SQLTemplates;
 enum QuerydslTemplates {
 
 	MYSQL(MySQLTemplates.DEFAULT),
-	H2(H2Templates.DEFAULT),
+	H2(new H2Templates(true)),
 	ORACLE(OracleTemplates.DEFAULT),
 	POSTGRE(PostgreSQLTemplates.DEFAULT),
 	SQL_SERVEUR(SQLServerTemplates.DEFAULT),
