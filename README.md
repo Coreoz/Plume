@@ -39,7 +39,7 @@ it is possible to adapt these connectors to work with Spring or CDI.
 
 Demo
 ----
-Sample projects can be found here: <https://github.com/Coreoz/Plume-demo>.
+Sample projects can be found here: <https://github.com/Coreoz/Plume-showcase>.
 
 Getting started
 ---------------
