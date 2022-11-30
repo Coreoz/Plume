@@ -1,6 +1,5 @@
 package com.coreoz.plume.db.transaction;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.function.Consumer;
@@ -59,7 +58,7 @@ public class TransactionManager {
 				// if the rollback failed, raise an exception about the rollback failure
 				// and the original error
 				RuntimeException combinedException = new RuntimeException(e2);
-				combinedException.addSuppressed(new IOException(e));
+				combinedException.addSuppressed(e);
 				throw combinedException;
 			}
 			Throwables.throwIfUnchecked(e);
