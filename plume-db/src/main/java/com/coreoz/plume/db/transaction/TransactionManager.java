@@ -43,7 +43,7 @@ public class TransactionManager {
 		Connection connection = null;
 		Boolean initialAutoCommit = null;
 		try {
-			connection = dataSource.getConnection();
+			connection = dataSource().getConnection();
 			initialAutoCommit = connection.getAutoCommit();
 			connection.setAutoCommit(false);
 			T result = toExecuteOnDb.apply(connection);
@@ -55,7 +55,11 @@ public class TransactionManager {
 					connection.rollback();
 				}
 			} catch (Throwable e2) {
-				// never mind if the connection cannot be rolled back
+				// if the rollback failed, raise an exception about the rollback failure
+				// and the original error
+				RuntimeException combinedException = new RuntimeException(e2);
+				combinedException.addSuppressed(e);
+				throw combinedException;
 			}
 			Throwables.throwIfUnchecked(e);
 			throw new RuntimeException(e);

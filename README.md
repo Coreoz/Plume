@@ -14,6 +14,10 @@ Plume Framework require at least Java 11. Its modules contains connectors for
 Plume Framework is maintained by [Coreoz](http://coreoz.com/)
 and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
+Upgrade from 3.x to 4.x
+-----------------------
+See upgrade instructions in the [release details](https://github.com/Coreoz/Plume/releases/tag/4.0.0). 
+
 Upgrade from 2.x to 3.x
 -----------------------
 See upgrade instructions in the [release details](https://github.com/Coreoz/Plume/releases/tag/3.0.0). 
@@ -39,7 +43,7 @@ it is possible to adapt these connectors to work with Spring or CDI.
 
 Demo
 ----
-Sample projects can be found here: <https://github.com/Coreoz/Plume-demo>.
+Sample projects can be found here: <https://github.com/Coreoz/Plume-showcase>.
 
 Getting started
 ---------------
