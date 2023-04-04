@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigParseOptions;
 
 /**
  * Handle the configuration loading.
@@ -24,7 +25,8 @@ public class ConfigProvider implements Provider<Config> {
 
 	@Inject
 	public ConfigProvider() {
-		this.config = ConfigFactory.load();
+		// Should be changed when See https://github.com/lightbend/config/issues/587 is resolved
+		this.config = ConfigFactory.load(ConfigParseOptions.defaults().setAllowMissing(false).setIncluder(new RequiredIncluder()));
 	}
 
 	@Override
