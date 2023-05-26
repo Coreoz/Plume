@@ -14,12 +14,6 @@
 	<description>A mail manager provided by Simple Java Mail</description>
 
 	<dependencies>
-		<!-- jdk9+ non included Java library required for Mailing -->
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>javax.activation-api</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>com.typesafe</groupId>
 			<artifactId>config</artifactId>

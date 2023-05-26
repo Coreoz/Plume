@@ -33,9 +33,7 @@
 		<swagger.version>2.2.2</swagger.version>
 		<hk2-guice-bridge.version>2.6.1</hk2-guice-bridge.version>
 		<commons-validator.version>1.7</commons-validator.version>
-		<javax-activation.version>1.2.0</javax-activation.version>
 		<javax-annotation.version>1.3.2</javax-annotation.version>
-		<javax-xml.version>2.3.0</javax-xml.version>
 
 		<junit.version>4.13.2</junit.version>
 		<assertj.version>3.23.1</assertj.version>
@@ -274,26 +272,6 @@
 				<version>${commons-validator.version}</version>
 			</dependency>
 			<!-- XML dependencies that were included in JDK before version 11 -->
-			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>javax.activation-api</artifactId>
-				<version>${javax-activation.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.xml.bind</groupId>
-				<artifactId>jaxb-api</artifactId>
-				<version>${javax-xml.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.xml.bind</groupId>
-				<artifactId>jaxb-core</artifactId>
-				<version>${javax-xml.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.xml.bind</groupId>
-				<artifactId>jaxb-impl</artifactId>
-				<version>${javax-xml.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>javax.annotation</groupId>
 				<artifactId>javax.annotation-api</artifactId>
