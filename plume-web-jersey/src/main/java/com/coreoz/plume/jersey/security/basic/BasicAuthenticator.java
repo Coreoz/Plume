@@ -92,6 +92,7 @@ public class BasicAuthenticator<U> {
 		U authenticatedUser = authenticator.apply(credentials);
 
 		if(authenticatedUser == null) {
+			logger.warn("Wrong Basic credentials, received: {}:{}", credentials.getUsername(), credentials.getPassword());
 			throw new ForbiddenException();
 		}
 
