@@ -80,6 +80,7 @@
 		<module>plume-db-querydsl-codegen</module>
 		<module>plume-db-test</module>
 		<module>plume-web-jersey</module>
+		<module>plume-web-jersey-info</module>
 	</modules>
 
 	<profiles>
