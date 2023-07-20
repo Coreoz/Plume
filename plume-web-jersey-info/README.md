@@ -15,14 +15,15 @@ Setup
 </dependency>
 ```
 
-Services
+Features
 -------
 
-### HealthCheckService
-The `HealthCheckService` provides a simple API to monitor the health status of your application.
+### HealthCheckBuilder
+The `HealthCheckBuilder` provides a simple API to monitor the health status of your application.
 
 - `registerHealthCheck`: Register your health checks
-- `isHealthy`: run the registered health checks and return the health status.
+- `registerDatabaseHealthCheck`: Register the built-in database health check
+- `build`: create a health status provider
 
 Usage example:
 
@@ -33,25 +34,25 @@ Usage example:
 public class HealthWs {
     private static final Logger logger = LoggerFactory.getLogger(HealthWs.class);
 
-    private final HealthCheckService healthCheckService;
-    private final ObjectMapper objectMapper = PlmWebJerseyInfoObjectMapperProvider.get();
+    private final Provider<HealthStatus> healthStatusProvider;
 
     @Inject
     public HealthWs(TransactionManager transactionManager, HealthCheckService healthCheckService) {
-        this.healthCheckService = healthCheckService;
-        healthCheckService.registerHealthCheck("database", new DatabaseHealthCheck(transactionManager));
+        this.healthStatusProvider = new HealthCheckBuilder()
+            .registerDatabaseHealthCheck()
+            .build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public HealthStatus get(@Context ContainerRequestContext requestContext) throws JsonProcessingException {
-        return this.healthCheckService.isHealthy();
+    public HealthStatus get(@Context ContainerRequestContext requestContext) {
+        return this.healthStatusProvider.get();
     }
 }
 ```
 
-### InfoCheckService
-The `InfoCheckService` provides a unique getter that retrieves the basic application information from the `Pom.xml` :
+### InfoService
+The `InfoService` provides a unique getter that retrieves the basic application information from the `Pom.xml` :
 - name
 - description
 - version
@@ -87,13 +88,14 @@ public class InfoWs {
 }
 ```
 
-### MetricsService
-The `MetricsService` uses the [io.dropwizard.metrics](https://github.com/dropwizard/metrics) library
+### MetricsCheckBuilder
+The `MetricsCheckBuilder` uses the [io.dropwizard.metrics](https://github.com/dropwizard/metrics) library
 to provide some basic functionality for monitoring your application's metrics (CPU usage, memory usage, ...).
 
 Exposed API :
 - `registerMetric`: Register metrics to monitor
-- `getMetrics`: Provides the metrics that are monitored.
+- `registerJvmMetrics`: Register the basic JVM metrics to monitor
+- `build`: create a metrics provider that provides the status of the metrics that are monitored.
 
 Usage example:
 
@@ -102,50 +104,31 @@ Usage example:
 @Path("/monitor/metrics")
 @Singleton
 public class MetricsWs {
-    private final MetricsService metricsService;
-    private final PlmWebJerseyInfoObjectMapper objectMapper = new PlmWebJerseyInfoObjectMapper();
+    private final JerseyInfoObjectMapper objectMapper = JerseyInfoObjectMapper.get();
+    private final Provider<Map<String, Metric>> metricsStatusProvider;
 
     @Inject
     public MetricsWs(MetricsService metricsService) {
-        this.metricsService = metricsService;
-
-        metricsService.registerMetric("memory-usage", new MemoryUsageGaugeSet());
-        metricsService.registerMetric("thread-states", new ThreadStatesGaugeSet());
+        this.metricsStatusProvider = new MetricsCheckBuilder()
+            .registerJvmMetrics()
+            .build();
     }
-
-
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String get(@Context ContainerRequestContext requestContext) throws JsonProcessingException {
         return objectMapper.writeValueAsString(Map.of(
-            "metrics", metricsService.getMetrics()
+            "metrics", metricsStatusProvider.get()
         ));
     }
 }
 ```
 
-
-Built-in HealthChecks
--------
-
-### DatabaseHealthCheck
-Check the health of your connection to the database.
-
-Usage example:
-
-```java
-@Inject
-    public HealthWs(TransactionManager transactionManager, HealthCheckService healthCheckService) {
-        this.healthCheckService = healthCheckService;
-        healthCheckService.registerHealthCheck("database", new DatabaseHealthCheck(transactionManager));
-    }
-```
-
-### PlmWebJerseyInfoObjectMapperProvider
+### JerseyInfoObjectMapper
 Provides an ObjectMapper to serialize the types provided by plume-web-jersey-info services.
 
 Usage example:
 
 ```java
-    private final PlmWebJerseyInfoObjectMapper objectMapper = new PlmWebJerseyInfoObjectMapper();
+    private final ObjectMapper objectMapper = JerseyInfoObjectMapper.get();
 ```

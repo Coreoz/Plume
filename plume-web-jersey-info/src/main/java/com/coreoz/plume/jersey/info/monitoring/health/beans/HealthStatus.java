@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.info.health.beans;
+package com.coreoz.plume.jersey.info.monitoring.health.beans;
 
 import com.codahale.metrics.health.HealthCheck;
 

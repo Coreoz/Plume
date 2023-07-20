@@ -8,12 +8,12 @@ import javax.inject.Singleton;
 import java.util.Map;
 
 @Singleton
-public class PlmWebJerseyInfoConfigurationService {
+public class JerseyInfoConfigurationService {
 
     private final Config config;
 
     @Inject
-    public PlmWebJerseyInfoConfigurationService(Config config) {
+    public JerseyInfoConfigurationService(Config config) {
         this.config = config.withFallback(ConfigFactory.parseResources("plume-web-jersey-info.conf"));
     }
 

@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.info.info.beans;
+package com.coreoz.plume.jersey.info.monitoring.info.beans;
 
 import java.util.Map;
 
