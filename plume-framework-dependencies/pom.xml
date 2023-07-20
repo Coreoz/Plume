@@ -92,7 +92,7 @@
 			</dependency>
             <dependency>
                 <groupId>com.coreoz</groupId>
-                <artifactId>plume-web-jersey-info</artifactId>
+                <artifactId>plume-web-jersey-monitoring</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.info.configuration;
+package com.coreoz.plume.jersey.monitoring.configuration;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -8,13 +8,12 @@ import javax.inject.Singleton;
 import java.util.Map;
 
 @Singleton
-public class JerseyInfoConfigurationService {
-
+public class JerseyMonitoringConfigurationService {
     private final Config config;
 
     @Inject
-    public JerseyInfoConfigurationService(Config config) {
-        this.config = config.withFallback(ConfigFactory.parseResources("plume-web-jersey-info.conf"));
+    public JerseyMonitoringConfigurationService(Config config) {
+        this.config = config.withFallback(ConfigFactory.parseResources("plume-web-jersey-monitoring.conf"));
     }
 
     public Map<String, Object> getCustomInfo() {

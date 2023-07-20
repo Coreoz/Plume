@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.info.monitoring.metrics;
+package com.coreoz.plume.jersey.monitoring.utils.metrics;
 
 import com.codahale.metrics.Metric;
 import com.codahale.metrics.MetricRegistry;

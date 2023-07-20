@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.info.monitoring.health.healthchecks;
+package com.coreoz.plume.jersey.monitoring.utils.health.healthchecks;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.coreoz.plume.db.transaction.TransactionManager;

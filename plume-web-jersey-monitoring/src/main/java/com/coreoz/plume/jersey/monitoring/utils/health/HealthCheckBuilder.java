@@ -1,19 +1,16 @@
-package com.coreoz.plume.jersey.info.monitoring.health;
+package com.coreoz.plume.jersey.monitoring.utils.health;
 
 import com.coreoz.plume.db.transaction.TransactionManager;
-import com.coreoz.plume.jersey.info.monitoring.health.beans.HealthStatus;
+import com.coreoz.plume.jersey.monitoring.utils.health.beans.HealthStatus;
 import com.codahale.metrics.health.HealthCheck;
 import com.codahale.metrics.health.HealthCheckRegistry;
-import com.coreoz.plume.jersey.info.monitoring.health.healthchecks.DatabaseHealthCheck;
+import com.coreoz.plume.jersey.monitoring.utils.health.healthchecks.DatabaseHealthCheck;
 
 import javax.inject.Provider;
 import java.util.SortedMap;
 
 public class HealthCheckBuilder {
     private final HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
-
-    private HealthCheckBuilder() {
-    }
 
     public HealthCheckBuilder registerHealthCheck(String name, HealthCheck healthCheck) {
         this.healthCheckRegistry.register(name, healthCheck);

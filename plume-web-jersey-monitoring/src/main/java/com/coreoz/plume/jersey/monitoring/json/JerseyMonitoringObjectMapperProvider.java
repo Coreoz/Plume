@@ -1,14 +1,20 @@
-package com.coreoz.plume.jersey.info.json;
+package com.coreoz.plume.jersey.monitoring.json;
 
 import com.codahale.metrics.json.HealthCheckModule;
 import com.codahale.metrics.json.MetricsModule;
+import com.coreoz.plume.jersey.jackson.ObjectMapperProvider;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 import java.util.concurrent.TimeUnit;
 
-public class JerseyInfoObjectMapper {
+@Singleton
+public class JerseyMonitoringObjectMapperProvider implements Provider<ObjectMapper> {
+    private final ObjectMapper objectMapper;
     private static final HealthCheckModule healthCheckModule = new HealthCheckModule();
     private static final MetricsModule metricsModule = new MetricsModule(
         TimeUnit.SECONDS,
@@ -16,15 +22,17 @@ public class JerseyInfoObjectMapper {
         false
     );
 
-    private JerseyInfoObjectMapper() {
-    }
-
-    public static ObjectMapper get() {
-        return new ObjectMapper()
+    @Inject
+    public JerseyMonitoringObjectMapperProvider(ObjectMapperProvider objectMapperProvider) {
+        this.objectMapper = objectMapperProvider.get()
             .registerModule(healthCheckModule)
             .registerModule(metricsModule)
             .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
             .enable(SerializationFeature.INDENT_OUTPUT)
             .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+    }
+
+    public ObjectMapper get() {
+        return this.objectMapper;
     }
 }
