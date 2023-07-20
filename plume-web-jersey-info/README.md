@@ -1,7 +1,10 @@
 Plume Web Jersey info
 ================
 
-This module provides multiple utilities to implement monitoring web-services
+This module provides utilities to expose backend monitoring API similarly to what is offered by Spring Actuator:
+- `/health`
+- `/info`
+- `/metrics`
 
 Setup
 -----
@@ -12,100 +15,137 @@ Setup
 </dependency>
 ```
 
-Jackson
+Services
 -------
-The module `GuiceJacksonModule` provides an injectable Jackson `ObjectMapper` with common defaults, especially:
-- a support for Java 8 Time objects,
-- unknown attributes handling non-mandatory.
 
-Explicit access control
------------------------
-In order to avoid leaking an API that should have been private, a Jersey feature enables to force developers to always specify the access control rule that must set for an API.
+### HealthCheckService
+The `HealthCheckService` provides a simple API to monitor the health status of your application.
 
-To use it, register this feature in Jersey: `resourceConfig.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, RestrictToAdmin.class));`
-`PublicApi` and `RestrictTo` being the valid access control annotations.
-
-Any custom annotation can be added (as long as the corresponding Jersey access control feature is configured...). In a doubt to configure the Jersey access control feature, see as an example the existing class `PermissionFeature` that checks the `RestrictTo` annotation access control.
-
-Data validation
----------------
-To validate web-service input data, an easy solution is to use `WsException`:
-it is a `RuntimeException` that will be serialized into a nice error with a 400 HTTP response to the web-service consumer.
-To use this feature, `WsResultExceptionMapper` must be registered in Jersey:
-`resourceConfig.register(WsResultExceptionMapper.class);`
+- `registerHealthCheck`: Register your health checks
+- `isHealthy`: run the registered health checks and return the health status.
 
 Usage example:
 
-**Error enum definition:**
+**Web-service**
 ```java
-public enum ProjectWsError implements WsError {
-  WRONG_LOGIN_OR_PASSWORD,
+@Path("/monitor/health")
+@Singleton
+public class HealthWs {
+    private static final Logger logger = LoggerFactory.getLogger(HealthWs.class);
+
+    private final HealthCheckService healthCheckService;
+    private final ObjectMapper objectMapper = PlmWebJerseyInfoObjectMapperProvider.get();
+
+    @Inject
+    public HealthWs(TransactionManager transactionManager, HealthCheckService healthCheckService) {
+        this.healthCheckService = healthCheckService;
+        healthCheckService.registerHealthCheck("database", new DatabaseHealthCheck(transactionManager));
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public HealthStatus get(@Context ContainerRequestContext requestContext) throws JsonProcessingException {
+        return this.healthCheckService.isHealthy();
+    }
 }
 ```
 
-**Web-service:**
-```java
-@POST
-public void create(Use userToCreate) {
-  Validators.checkRequired("Login", userToCreate.getLogin());
-  Validators.checkRequired("Password", userToCreate.getPassword());
-  if(!userToCreate.getPassword().equals(userToCreate.getPasswordConfirmation())) {
-    throw new WsException(
-      ProjectWsError.PASSWORDS_DO_NOT_MATCH,
-      ImmutableList.of(
-        "Password",
-        "Password confirmation"
-      )
-    );
-  }
+### InfoCheckService
+The `InfoCheckService` provides a unique getter that retrieves the basic application information from the `Pom.xml` :
+- name
+- description
+- version
+- additional information retrieved from the configuration file
 
-  userService.create(userToCreate);
+Additional information can be added using the configuration file as follows :
+```
+plm-web-jersey-info = {
+    info = {
+        my-custom-field = "custom aplication detail"
+    }
 }
 ```
 
-To have an HTTP 400 error (instead of a 500 error) when an input JSON is provided,
-use `WsJacksonJsonProvider` instead of `JacksonJaxbJsonProvider` as Jersey JSON provider. 
+Usage example:
 
-Asynchronous web-services
--------------------------
-Non blocking web-services enable to address this use case:
-1. the application is using a remote API that is used in a non critical part of the application,
-2. the remote API starts to answer slowly or not event at all
-(the root cause can be multiple: out of memory, sql connection pool full, http connection pool full, etc.),
-3. after some time the application will completely stop responding: the http connection pool will be full.
-
-The main goal of non blocking web-services is to isolate a remote API so that if this API goes down,
-the main application will not go down with it.
-Plume web Jersey provides utilities functions to help setup non blocking web-services.
-This utilities functions are available in `AsyncJersey` and `AsyncOkHttp`.
-Do note that to use `AsyncOkHttp` the dependency to [OkHttp](https://github.com/square/okhttp) must be added manually.
-
-Here is a usage example:
-
-**In the API class:**
+**Web-service**
 ```java
-public CompletableFuture<String> fetchDataAsync() {
-  return AsyncOkHttp
-    .executeAsync(
-      // the okHttpClient should be built in the constructor
-      this
-        .okHttpClient
-        .newCall(new Request.Builder().url("https://remote-api-host/operation").build())
-    )
-    // note that this apply operation will be executed by OkHttp thread pool
-    // if slow instructions should be done after the HTTP response is received,
-    // it should be done in a separate thread pool, with thenApplyAsync(function, executor)
-    .thenApply(AsyncOkHttp.wrapUncheked(response -> response.body().string()));
+@Path("/monitor/info")
+@Singleton
+public class InfoWs {
+    private final InfoService infoService;
+
+    @Inject
+    public InfoWs(InfoService infoService) {
+        this.infoService = infoService;
+    }
+
+    @GET
+    public String get(@Context ContainerRequestContext requestContext) {
+        return this.infoService.getAppInfo();
+    }
 }
 ```
 
-**In the Jersey web-service class:**
+### MetricsService
+The `MetricsService` uses the [io.dropwizard.metrics](https://github.com/dropwizard/metrics) library
+to provide some basic functionality for monitoring your application's metrics (CPU usage, memory usage, ...).
+
+Exposed API :
+- `registerMetric`: Register metrics to monitor
+- `getMetrics`: Provides the metrics that are monitored.
+
+Usage example:
+
+**Web-service**
 ```java
-@GET
-public void waitAsync(@Suspended final AsyncResponse asyncResponse) {
-  remoteApi
-    .fetchDataAsync()
-    .whenComplete(AsyncJersey.toAsyncConsumer(asyncResponse));
+@Path("/monitor/metrics")
+@Singleton
+public class MetricsWs {
+    private final MetricsService metricsService;
+    private final PlmWebJerseyInfoObjectMapper objectMapper = new PlmWebJerseyInfoObjectMapper();
+
+    @Inject
+    public MetricsWs(MetricsService metricsService) {
+        this.metricsService = metricsService;
+
+        metricsService.registerMetric("memory-usage", new MemoryUsageGaugeSet());
+        metricsService.registerMetric("thread-states", new ThreadStatesGaugeSet());
+    }
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String get(@Context ContainerRequestContext requestContext) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(Map.of(
+            "metrics", metricsService.getMetrics()
+        ));
+    }
 }
 ```
 
+
+Built-in HealthChecks
+-------
+
+### DatabaseHealthCheck
+Check the health of your connection to the database.
+
+Usage example:
+
+```java
+@Inject
+    public HealthWs(TransactionManager transactionManager, HealthCheckService healthCheckService) {
+        this.healthCheckService = healthCheckService;
+        healthCheckService.registerHealthCheck("database", new DatabaseHealthCheck(transactionManager));
+    }
+```
+
+### PlmWebJerseyInfoObjectMapperProvider
+Provides an ObjectMapper to serialize the types provided by plume-web-jersey-info services.
+
+Usage example:
+
+```java
+    private final PlmWebJerseyInfoObjectMapper objectMapper = new PlmWebJerseyInfoObjectMapper();
+```

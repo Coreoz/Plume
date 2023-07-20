@@ -18,6 +18,7 @@
 		<guice.version>5.1.0</guice.version>
 		<dagger.version>2.43.2</dagger.version>
 		<guava.version>31.1-jre</guava.version>
+		<javax-inject.version>1</javax-inject.version>
 		<lombok.version>1.18.24</lombok.version>
 		<logback.version>1.4.0</logback.version>
 		<slf4j.version>2.0.0</slf4j.version>
@@ -34,7 +35,7 @@
 		<hk2-guice-bridge.version>2.6.1</hk2-guice-bridge.version>
 		<commons-validator.version>1.7</commons-validator.version>
 		<javax-annotation.version>1.3.2</javax-annotation.version>
-        <metrics.version>4.1.2</metrics.version>
+        <dropwizard-metrics.version>4.1.2</dropwizard-metrics.version>
         <maven-model.version>3.3.9</maven-model.version>
 
 		<junit.version>4.13.2</junit.version>
@@ -100,6 +101,12 @@
 				<artifactId>wisp</artifactId>
 				<version>${wisp.version}</version>
 			</dependency>
+
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>${javax-inject.version}</version>
+            </dependency>
 
 			<dependency>
 				<groupId>com.google.inject</groupId>
@@ -289,17 +296,17 @@
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-jvm</artifactId>
-                <version>${metrics.version}</version>
+                <version>${dropwizard-metrics.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-json</artifactId>
-                <version>${metrics.version}</version>
+                <version>${dropwizard-metrics.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-healthchecks</artifactId>
-                <version>${metrics.version}</version>
+                <version>${dropwizard-metrics.version}</version>
             </dependency>
 
             <!-- Pom.xml reader -->

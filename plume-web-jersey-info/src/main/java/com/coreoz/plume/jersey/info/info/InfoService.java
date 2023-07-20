@@ -2,7 +2,8 @@ package com.coreoz.plume.jersey.info.info;
 
 import com.coreoz.plume.jersey.info.configuration.PlmWebJerseyInfoConfigurationService;
 import com.coreoz.plume.jersey.info.info.beans.AppInformation;
-import com.coreoz.plume.jersey.info.objectmapper.PlmWebJerseyInfoObjectMapper;
+import com.coreoz.plume.jersey.info.objectmapper.PlmWebJerseyInfoObjectMapperProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 @Singleton
 public class InfoService {
     private final PlmWebJerseyInfoConfigurationService configurationService;
-    private final PlmWebJerseyInfoObjectMapper objectMapper = new PlmWebJerseyInfoObjectMapper();
+    private final ObjectMapper objectMapper = PlmWebJerseyInfoObjectMapperProvider.get();
 
     @Inject
     private InfoService(PlmWebJerseyInfoConfigurationService configurationService) {
