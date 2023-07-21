@@ -71,12 +71,10 @@ Usage example
 **Web-service**
 
 ```java
-import com.coreoz.plume.db.transaction.TransactionManager;
-import com.coreoz.plume.jersey.security.permission.PublicApi;
-
 @Path("/monitor")
 // Authentication is done directly by the web service without any annotation
 @PublicApi
+@Produces(MediaType.APPLICATION_JSON)
 @Singleton
 public class MonitoringWs {
     private final ApplicationInfo applicationInfo;
@@ -100,23 +98,22 @@ public class MonitoringWs {
 
         // require authentication to access the supervision URL
         this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
-            "SINGLE_USERNAME",
-            "PASSWORD",
-            "MY_REALM"
+            "plume",
+            "rocks",
+            "Plume showcase"
         );
     }
 
     @GET
     @Path("/info")
-    public ApplicationInfo get(@Context ContainerRequestContext requestContext) {
+    public ApplicationInfo info(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
         return this.applicationInfo;
     }
 
     @GET
     @Path("/health")
-    @Produces(MediaType.APPLICATION_JSON)
-    public HealthStatus get(@Context ContainerRequestContext requestContext) {
+    public HealthStatus health(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
         return this.healthStatusProvider.get();
     }
@@ -124,7 +121,7 @@ public class MonitoringWs {
     @GET
     @Path("/metrics")
     @Produces(MediaType.APPLICATION_JSON)
-    public String get(@Context ContainerRequestContext requestContext) {
+    public Map<String, Metric> metrics(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
         return metricsStatusProvider.get();
     }
