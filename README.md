@@ -89,6 +89,9 @@ and handles the application configuration.
 Enables to build REST web-services with [Jersey](https://jersey.java.net/)
 and expose the documentation with [Swagger](http://swagger.io/).
 
+This module can be used with [Plume Jersey monitoring](plume-web-jersey-monitoring/)
+to quickly setup application monitoring exposure.
+
 #### [Plume Services](plume-services/)
 
 Common services that are often needed in projects or libraries.
