@@ -1,4 +1,4 @@
-Plume Web Jersey info
+Plume Web Jersey monitoring
 ================
 
 This module provides utilities to expose backend monitoring API similarly to what is offered by Spring Actuator:
@@ -18,14 +18,11 @@ Add the dependency to the `pom.xml` file
 ```
 
 ### Install Guice modules
-In your application module :
-1. replace `GuiceJacksonModule`by the `GuiceJacksonWithMetricsModule`
-2. install the `GuiceJerseyMonitoringModule`
+In your application module replace `GuiceJacksonModule`by the `GuiceJacksonWithMetricsModule`
 
 ~~`install(new GuiceJacksonModule());`~~
 ```java
 install(new GuiceJacksonWithMetricsModule());
-install(new GuiceJerseyMonitoringModule());
 ```
 
 Features
@@ -39,9 +36,9 @@ The `HealthCheckBuilder` provides a simple API to monitor the health status of y
 - `build`: create a health status provider
 
 
-### ApplicationInfo
-The `ApplicationInfo` is a singleton object available through dependency injection.
-It contains the basic application information retrieved from the `Pom.xml` file.
+### ApplicationInfoProvider
+The `ApplicationInfoProvider` provides an instance of `ApplicationInfo`.
+It contains the basic application information retrieved from the `pom.xml` file.
 
 `ApplicationInfo` content: 
 - name
@@ -74,6 +71,7 @@ Usage example
 **Web-service**
 
 ```java
+import com.coreoz.plume.db.transaction.TransactionManager;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 
 @Path("/monitor")
@@ -88,11 +86,11 @@ public class MonitoringWs {
     private final BasicAuthenticator<String> basicAuthenticator;
 
     @Inject
-    public MonitoringWs(ApplicationInfo applicationInfo) {
-        this.applicationInfo = applicationInfo;
+    public MonitoringWs(ApplicationInfoProvider applicationInfoProvider, TransactionManager transactionManager) {
+        this.applicationInfo = applicationInfoProvider.get();
         // Registering health checks
         this.healthStatusProvider = new HealthCheckBuilder()
-            .registerDatabaseHealthCheck()
+            .registerDatabaseHealthCheck(transactionManager)
             .build();
 
         // Registering metrics to monitor
@@ -112,7 +110,7 @@ public class MonitoringWs {
     @Path("/info")
     public ApplicationInfo get(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
-        return this.infoService.getAppInfo();
+        return this.applicationInfo;
     }
 
     @GET

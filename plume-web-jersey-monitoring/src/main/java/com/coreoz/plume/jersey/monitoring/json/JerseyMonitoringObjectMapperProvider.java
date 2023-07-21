@@ -15,18 +15,16 @@ import java.util.concurrent.TimeUnit;
 @Singleton
 public class JerseyMonitoringObjectMapperProvider implements Provider<ObjectMapper> {
     private final ObjectMapper objectMapper;
-    private static final HealthCheckModule healthCheckModule = new HealthCheckModule();
-    private static final MetricsModule metricsModule = new MetricsModule(
-        TimeUnit.SECONDS,
-        TimeUnit.SECONDS,
-        false
-    );
 
     @Inject
     public JerseyMonitoringObjectMapperProvider(ObjectMapperProvider objectMapperProvider) {
         this.objectMapper = objectMapperProvider.get()
-            .registerModule(healthCheckModule)
-            .registerModule(metricsModule)
+            .registerModule(new HealthCheckModule())
+            .registerModule(new MetricsModule(
+                TimeUnit.SECONDS,
+                TimeUnit.SECONDS,
+                false
+            ))
             .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
             .enable(SerializationFeature.INDENT_OUTPUT)
             .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);

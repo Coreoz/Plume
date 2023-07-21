@@ -31,7 +31,17 @@
             <groupId>com.coreoz</groupId>
             <artifactId>plume-conf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-web-jersey</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-db</artifactId>
+            <optional>true</optional>
+        </dependency>
 
+        <!-- logger -->
         <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -51,30 +61,22 @@
             <artifactId>metrics-healthchecks</artifactId>
         </dependency>
 
-        <!-- Dependency injection -->
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-        </dependency>
-
         <!-- Pom.xml reader -->
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-model</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.coreoz</groupId>
-            <artifactId>plume-db</artifactId>
-            <optional>true</optional>
-        </dependency>
+        <!-- dependency injection -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>
+
+        <!-- lombok -->
         <dependency>
-            <groupId>com.coreoz</groupId>
-            <artifactId>plume-web-jersey</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
