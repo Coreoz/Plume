@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.coreoz</groupId>
+		<artifactId>plume-parent</artifactId>
+		<version>4.1.2-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>plume-web-jersey-monitoring</artifactId>
+	<packaging>jar</packaging>
+	<name>Plume Jersey monitoring</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+	<dependencies>
+        <!-- Plume -->
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-conf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-web-jersey</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-db</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- logger -->
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+        <!-- metrics -->
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-jvm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-healthchecks</artifactId>
+        </dependency>
+
+        <!-- Pom.xml reader -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+        </dependency>
+
+        <!-- dependency injection -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.coreoz</groupId>
+				<artifactId>plume-framework-dependencies</artifactId>
+				<version>${project.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
