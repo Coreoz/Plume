@@ -67,6 +67,12 @@
             <artifactId>maven-model</artifactId>
         </dependency>
 
+        <!-- Resource reader -->
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+        </dependency>
+
         <!-- dependency injection -->
         <dependency>
             <groupId>com.google.inject</groupId>
