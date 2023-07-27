@@ -13,6 +13,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import javax.validation.constraints.Negative;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -46,12 +47,15 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
 
     /* PRIVATE */
     private ApplicationInfo fetchApplicationInfo() throws IOException, XmlPullParserException {
-        Model model;
+        Model model = this.readPom();
 
-        if ((new File(POM_FILE_NAME)).exists()) {
-            model = this.readPom();
-        } else {
+        if (model == null) {
             model = this.readMetaInfPom();
+        }
+
+        if (model == null) {
+            log.warn("Failed to read pom.xml file on root project and in META-INF folder");
+            model = new Model();
         }
 
         Map<String, Object> additionalInformation = configurationService.getCustomInfo();
@@ -65,7 +69,11 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
 
     private Model readPom() throws IOException, XmlPullParserException {
         MavenXpp3Reader reader = new MavenXpp3Reader();
-        return reader.read(new FileReader(POM_FILE_NAME));
+        if ((new File(POM_FILE_NAME)).exists()) {
+            return reader.read(new FileReader(POM_FILE_NAME));
+        }
+
+        return null;
     }
 
     private Model readMetaInfPom() {
@@ -81,7 +89,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
             return reader.read(new InputStreamReader(resourceList.get(0).open()));
         } catch (Exception e) {
             log.error("Failed to read {}", POM_FILE_NAME, e);
-            return new Model();
+            return null;
         }
     }
 }
