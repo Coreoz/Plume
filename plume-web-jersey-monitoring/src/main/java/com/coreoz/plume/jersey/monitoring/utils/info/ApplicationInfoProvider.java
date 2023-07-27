@@ -29,14 +29,14 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
     @Inject
     private ApplicationInfoProvider(JerseyMonitoringConfigurationService configurationService) {
         this.configurationService = configurationService;
-        ApplicationInfo tmpApplicationInfo = new ApplicationInfo();
+        ApplicationInfo applicationInfo = new ApplicationInfo();
         try {
-            tmpApplicationInfo = this.fetchApplicationInfo();
+            applicationInfo = this.fetchApplicationInfo();
         } catch (Exception e) {
             log.error("Failed to retrieve application info", e);
         }
 
-        this.applicationInfo = tmpApplicationInfo;
+        this.applicationInfo = applicationInfo;
     }
 
     @Override
@@ -46,24 +46,12 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
 
     /* PRIVATE */
     private ApplicationInfo fetchApplicationInfo() throws IOException, XmlPullParserException {
-        MavenXpp3Reader reader = new MavenXpp3Reader();
         Model model;
 
         if ((new File(POM_FILE_NAME)).exists()) {
-            model = reader.read(new FileReader(POM_FILE_NAME));
+            model = this.readPom();
         } else {
-            try (ScanResult scanResult = new ClassGraph().acceptPaths("META-INF/maven").scan()) {
-                ResourceList resourceList = scanResult.getResourcesWithLeafName(POM_FILE_NAME);
-
-                if(resourceList == null || resourceList.isEmpty()) {
-                    throw new RuntimeException("Could not find " + POM_FILE_NAME);
-                }
-
-                model = reader.read(new InputStreamReader(resourceList.get(0).open()));
-            } catch (Exception e) {
-                log.error("Failed to read {}", POM_FILE_NAME, e);
-                return new ApplicationInfo();
-            }
+            model = this.readMetaInfPom();
         }
 
         Map<String, Object> additionalInformation = configurationService.getCustomInfo();
@@ -73,6 +61,28 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
             model.getVersion(),
             additionalInformation.isEmpty() ? null : additionalInformation
         );
+    }
+
+    private Model readPom() throws IOException, XmlPullParserException {
+        MavenXpp3Reader reader = new MavenXpp3Reader();
+        return reader.read(new FileReader(POM_FILE_NAME));
+    }
+
+    private Model readMetaInfPom() {
+        MavenXpp3Reader reader = new MavenXpp3Reader();
+
+        try (ScanResult scanResult = new ClassGraph().acceptPaths("META-INF/maven").scan()) {
+            ResourceList resourceList = scanResult.getResourcesWithLeafName(POM_FILE_NAME);
+
+            if (resourceList == null || resourceList.isEmpty()) {
+                throw new RuntimeException("Could not find " + POM_FILE_NAME);
+            }
+
+            return reader.read(new InputStreamReader(resourceList.get(0).open()));
+        } catch (Exception e) {
+            log.error("Failed to read {}", POM_FILE_NAME, e);
+            return new Model();
+        }
     }
 }
 
