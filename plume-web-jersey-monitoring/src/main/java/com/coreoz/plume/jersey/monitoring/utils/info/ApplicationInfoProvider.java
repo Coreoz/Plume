@@ -30,14 +30,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
     @Inject
     private ApplicationInfoProvider(JerseyMonitoringConfigurationService configurationService) {
         this.configurationService = configurationService;
-        ApplicationInfo applicationInfo = new ApplicationInfo();
-        try {
-            applicationInfo = this.fetchApplicationInfo();
-        } catch (Exception e) {
-            log.error("Failed to retrieve application info", e);
-        }
-
-        this.applicationInfo = applicationInfo;
+        this.applicationInfo = this.fetchApplicationInfo();
     }
 
     @Override
@@ -46,7 +39,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
     }
 
     /* PRIVATE */
-    private ApplicationInfo fetchApplicationInfo() throws IOException, XmlPullParserException {
+    private ApplicationInfo fetchApplicationInfo() {
         Model model = this.readPom();
 
         if (model == null) {
@@ -67,12 +60,16 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
         );
     }
 
-    private Model readPom() throws IOException, XmlPullParserException {
+    private Model readPom() {
         MavenXpp3Reader reader = new MavenXpp3Reader();
         if ((new File(POM_FILE_NAME)).exists()) {
-            return reader.read(new FileReader(POM_FILE_NAME));
+            try {
+                return reader.read(new FileReader(POM_FILE_NAME));
+            } catch (Exception e) {
+                log.error("Failed to read {}", POM_FILE_NAME, e);
+                return null;
+            }
         }
-
         return null;
     }
 
@@ -88,7 +85,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
 
             return reader.read(new InputStreamReader(resourceList.get(0).open()));
         } catch (Exception e) {
-            log.error("Failed to read {}", POM_FILE_NAME, e);
+            log.error("Failed to read {} from META-INF folder", POM_FILE_NAME, e);
             return null;
         }
     }
