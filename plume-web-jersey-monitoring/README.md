@@ -71,7 +71,7 @@ Usage example
 **Web-service**
 
 ```java
-@Path("/monitor")
+@Path("/monitoring")
 // Authentication is done directly by the web service without any annotation
 @PublicApi
 @Produces(MediaType.APPLICATION_JSON)
