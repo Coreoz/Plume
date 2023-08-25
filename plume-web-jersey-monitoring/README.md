@@ -25,6 +25,9 @@ In your application module replace `GuiceJacksonModule`by the `GuiceJacksonWithM
 install(new GuiceJacksonWithMetricsModule());
 ```
 
+### Add the monitoring API
+See [monitoring usage example](#usage-example).
+
 Features
 -------
 
