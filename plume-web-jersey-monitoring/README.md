@@ -99,7 +99,7 @@ public class MonitoringWs {
             .registerJvmMetrics()
             .build();
 
-        // require authentication to access the supervision URL
+        // Require authentication to access monitoring endpoints
         this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
             "plume",
             "rocks",
