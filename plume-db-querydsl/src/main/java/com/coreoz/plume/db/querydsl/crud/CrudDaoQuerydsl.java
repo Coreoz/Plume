@@ -1,7 +1,5 @@
 package com.coreoz.plume.db.querydsl.crud;
 
-import java.sql.Connection;
-
 import com.coreoz.plume.db.crud.CrudDao;
 import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
 import com.coreoz.plume.db.utils.IdGenerator;
@@ -9,6 +7,10 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.sql.RelationalPath;
 import com.querydsl.sql.dml.DefaultMapper;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.sql.Connection;
 
 public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implements CrudDao<T> {
 
@@ -33,20 +35,21 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 	// API
 
 	@Override
-	public T findById(Long id) {
+	@Nullable
+	public T findById(@Nonnull Long id) {
 		return selectFrom()
 			.where(idPath.eq(id))
 			.fetchFirst();
 	}
 
 	@Override
-	public T save(T entityToUpdate) {
+	public T save(@Nonnull T entityToUpdate) {
 		return transactionManager.executeAndReturn(connection ->
 			save(entityToUpdate, connection)
 		);
 	}
 
-	public T save(T entityToUpdate, Connection connection) {
+	public T save(@Nonnull T entityToUpdate, @Nonnull Connection connection) {
 		if(entityToUpdate.getId() == null) {
 			// insert
 			entityToUpdate.setId(generateIdentifier());
@@ -66,13 +69,13 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 	}
 
 	@Override
-	public long delete(Long id) {
+	public long delete(@Nonnull Long id) {
 		return transactionManager.executeAndReturn(connection ->
 			delete(id, connection)
 		);
 	}
 
-	public long delete(Long id, Connection connection) {
+	public long delete(@Nonnull Long id, @Nonnull Connection connection) {
 		return transactionManager
 			.delete(table, connection)
 			.where(idPath.eq(id))

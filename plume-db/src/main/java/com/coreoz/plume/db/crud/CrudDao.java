@@ -1,5 +1,7 @@
 package com.coreoz.plume.db.crud;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -9,10 +11,11 @@ public interface CrudDao<T> {
 
 	List<T> findAll();
 
-	T findById(Long id);
+	@Nullable
+	T findById(@Nonnull Long id);
 
-	T save(T entityToUpdate);
+	T save(@Nonnull T entityToUpdate);
 
-	long delete(Long id);
+	long delete(@Nonnull Long id);
 
 }
