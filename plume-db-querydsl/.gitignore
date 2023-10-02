@@ -4,3 +4,6 @@
 /.project
 /.factorypath
 /.README.md.html
+
+# Intellij
+*.iml

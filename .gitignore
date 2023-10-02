@@ -3,3 +3,8 @@
 /.idea/
 /target/
 /.README.md.html
+
+# Intellij
+.idea/
+*.iml
+*.iws

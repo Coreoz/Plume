@@ -1,3 +1,6 @@
 /.settings/
 /.project
 /target/
+
+# Intellij
+*.iml
