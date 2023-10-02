@@ -1,5 +1,6 @@
 package com.coreoz.plume.db.crud;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class CrudService<T> {
 		return crudDao.findAll();
 	}
 
+	@Nullable
 	public T findById(Long id) {
 		if(id == null) {
 			return null;
