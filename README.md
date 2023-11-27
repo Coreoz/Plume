@@ -4,10 +4,10 @@ Plume
 
 Plume is an encapsulation of the best available JVM libraries to get a project up and running quickly.
 
-Plume:
-- Has few main principles/dependencies: configuration via [Config](https://github.com/typesafehub/config) and dependency injection via [Guice](https://github.com/google/guice) or [Dagger](https://github.com/google/dagger). The rest is very easy to change or remove.
-- Is the glue made with Config and Guice/Dagger to make popular open source libraries work together: Jersey, QueryDsl, HikariCP, etc.
-- Is lightweight and modular.
+Key concepts:
+- Plume has few main principles/dependencies: configuration via [Config](https://github.com/typesafehub/config) and dependency injection via [Guice](https://github.com/google/guice) or [Dagger](https://github.com/google/dagger).
+- Plume is the glue made with Config and Guice/Dagger to make popular open source libraries work together: Jersey, QueryDsl, HikariCP, etc.
+- Plume is lightweight and modular.
 
 A concrete example of how Plume works is the [Plume Mail](plume-mail/) module:
 - It provides the [Simple Java Mail](http://www.simplejavamail.org/) dependency
@@ -15,10 +15,7 @@ A concrete example of how Plume works is the [Plume Mail](plume-mail/) module:
     - In the constructor, it populates the config object from Simple Mail Java using [Config](https://github.com/typesafehub/config)
     - The `MailerProvider` class implements the `javax.inject.Provider` interface to expose the Simple Mail Java `Mailer` object.
 
-In this way, it is possible to replace many of the components suggested by Plume. For example:
-- Jersey can be replaced with [Play server](https://www.playframework.com/documentation/3.0.x/JavaEmbeddingPlay) or [Spark Java](https://github.com/perwendel/spark)
-- Querydsl can be replaced with [jOOQ](https://github.com/jOOQ/jOOQ)
-- Simple Mail Java can be replaced with plan [JavaMail](https://javaee.github.io/javamail/).
+In this way, it is easy to replace most of the components suggested by Plume. The only "strong" requirement is to provide `javax.inject` objects.
 
 Plume is maintained by [Coreoz](http://coreoz.com/)
 and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
