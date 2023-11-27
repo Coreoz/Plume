@@ -5,11 +5,11 @@ Plume
 Plume is an encapsulation of the best available JVM libraries to get a project up and running quickly.
 
 Plume:
-- Provides glue for popular open source libraries to work together successfully
-- Is lightweight and modular
-- Has few main principles/dependencies: configuration through [Config](https://github.com/typesafehub/config) and dependency injection through [Guice](https://github.com/google/guice) or [Dagger](https://github.com/google/dagger). The rest is very easy to change or remove.
+- Has few main principles/dependencies: configuration via [Config](https://github.com/typesafehub/config) and dependency injection via [Guice](https://github.com/google/guice) or [Dagger](https://github.com/google/dagger). The rest is very easy to change or remove.
+- Is the glue made with Config and Guice/Dagger to make popular open source libraries work together: Jersey, QueryDsl, HikariCP, etc.
+- Is lightweight and modular.
 
-So Plume is the glue made with Config and Guice/Dagger to make Jersey, QueryDsl, HikariCP, etc. work together. Nothing more. A concrete example is the [Plume Mail](plume-mail/) module:
+A concrete example of how Plume works is the [Plume Mail](plume-mail/) module:
 - It provides the [Simple Java Mail](http://www.simplejavamail.org/) dependency
 - This module exposes only 50 lines of code via the [MailerProvider](https://github.com/Coreoz/Plume/blob/master/plume-mail/src/main/java/com/coreoz/plume/mail/MailerProvider.java) class:
     - In the constructor, it populates the config object from Simple Mail Java using [Config](https://github.com/typesafehub/config)
