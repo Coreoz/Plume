@@ -11,11 +11,11 @@ Key concepts:
 
 A concrete example of how Plume works is the [Plume Mail](plume-mail/) module:
 - It provides the [Simple Java Mail](http://www.simplejavamail.org/) dependency
-- This module exposes only 50 lines of code via the [MailerProvider](https://github.com/Coreoz/Plume/blob/master/plume-mail/src/main/java/com/coreoz/plume/mail/MailerProvider.java) class:
+- This module exposes 50 lines of code via the [MailerProvider](https://github.com/Coreoz/Plume/blob/master/plume-mail/src/main/java/com/coreoz/plume/mail/MailerProvider.java) class:
     - In the constructor, it populates the config object from Simple Mail Java using [Config](https://github.com/typesafehub/config)
     - The `MailerProvider` class implements the `javax.inject.Provider` interface to expose the Simple Mail Java `Mailer` object.
 
-In this way, it is easy to replace most of the components suggested by Plume. The only "strong" requirement is to provide `javax.inject` objects.
+In this way, it is easy to replace most of the components suggested by Plume. The only "strong" requirement is to provide dependency injection objects using `javax.inject`.
 
 Plume is maintained by [Coreoz](http://coreoz.com/)
 and licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
