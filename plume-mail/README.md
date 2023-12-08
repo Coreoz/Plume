@@ -58,8 +58,8 @@ public class EmailService {
     Email email = EmailBuilder
       .startingBlank()
       .to("Russell Powell", "rpowell0@whitehouse.gov")
-      .withSubject("Plume Framework")
-      .withPlainText("You should check out this awesome framework!")
+      .withSubject("Plume")
+      .withPlainText("You should check this Java library out!")
       .buildEmail();
     mailer.sendMail(email, true);
   }
