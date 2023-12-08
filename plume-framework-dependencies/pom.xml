@@ -10,8 +10,8 @@
 
 	<artifactId>plume-framework-dependencies</artifactId>
 	<packaging>pom</packaging>
-	<name>Plume Framework Dependencies</name>
-	<description>Gather versions of various libraries used by Plume Framework</description>
+	<name>Plume Base Dependencies</name>
+	<description>Gather versions of various libraries used by Plume</description>
 
 	<properties>
 		<wisp.version>2.3.0</wisp.version>
