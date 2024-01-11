@@ -20,7 +20,7 @@
 		<guava.version>32.1.1-jre</guava.version>
 		<javax-inject.version>1</javax-inject.version>
 		<lombok.version>1.18.24</lombok.version>
-		<logback.version>1.4.0</logback.version>
+		<logback.version>1.4.12</logback.version>
 		<slf4j.version>2.0.0</slf4j.version>
 		<config.version>1.4.2</config.version>
 		<simple-java-mail.version>7.1.1</simple-java-mail.version>
