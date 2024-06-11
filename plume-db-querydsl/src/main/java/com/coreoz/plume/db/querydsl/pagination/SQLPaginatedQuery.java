@@ -36,7 +36,7 @@ public class SQLPaginatedQuery<U> {
     }
 
     public Page<U> paginate(Integer size, Integer page) {
-        return this.paginate(Pageable.ofSize(size).withPage(page));
+        return this.paginate(Pageable.ofPageSize(size).withPage(page));
     }
 
     private Page<U> fetchPage(SQLQuery<U> baseQuery, Pageable pageable) {

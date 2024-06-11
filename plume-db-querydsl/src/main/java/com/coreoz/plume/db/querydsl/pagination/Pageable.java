@@ -12,7 +12,7 @@ public class Pageable {
         this.size = Math.max(MIN_SIZE, size == null ? MIN_SIZE : size);
     }
 
-    public static Pageable ofSize(int size) {
+    public static Pageable ofPageSize(int size) {
         return new Pageable(null, size);
     }
 
