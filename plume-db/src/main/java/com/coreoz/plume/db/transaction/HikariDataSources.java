@@ -15,7 +15,7 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public class HikariDataSources {
 
-	public static DataSource fromConfig(Config config, String prefix) {
+	public static HikariDataSource fromConfig(Config config, String prefix) {
 		return new HikariDataSource(createHikariConfig(config, prefix));
 	}
 
