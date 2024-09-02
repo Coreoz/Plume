@@ -2,7 +2,7 @@ package com.coreoz.plume.jersey.java8;
 
 import java.time.LocalDateTime;
 
-import javax.ws.rs.ext.ParamConverter;
+import jakarta.ws.rs.ext.ParamConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.coreoz.plume.db.querydsl.db;
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 import com.querydsl.sql.Column;
 
 /**
