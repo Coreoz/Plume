@@ -1,7 +1,7 @@
 package com.coreoz.plume.db.querydsl.db;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import com.coreoz.plume.db.querydsl.crud.CrudDaoQuerydsl;
 import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;

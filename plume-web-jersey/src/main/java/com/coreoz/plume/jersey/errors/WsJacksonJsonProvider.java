@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.cfg.Annotations;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.cfg.Annotations;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 
 /**
  * A Jackson JSON provider that throws a {@link JsonRequestParseException}
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
  * It is useful to return proper 400 errors when JSON request input is not valid
  * @see JacksonJaxbJsonProvider
  */
-public class WsJacksonJsonProvider extends JacksonJaxbJsonProvider {
+public class WsJacksonJsonProvider extends JacksonJsonProvider {
 
 	private static final Logger logger = LoggerFactory.getLogger(WsJacksonJsonProvider.class);
 

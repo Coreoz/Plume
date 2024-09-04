@@ -5,9 +5,9 @@ import com.codahale.metrics.json.MetricsModule;
 import com.coreoz.plume.jersey.jackson.ObjectMapperProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import java.util.concurrent.TimeUnit;
 
 @Singleton

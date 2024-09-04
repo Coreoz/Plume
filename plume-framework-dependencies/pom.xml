@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.coreoz</groupId>
 		<artifactId>plume-parent</artifactId>
-		<version>4.2.5-SNAPSHOT</version>
+		<version>4.2.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>plume-framework-dependencies</artifactId>
@@ -15,7 +15,7 @@
 
 	<properties>
 		<wisp.version>2.3.0</wisp.version>
-		<guice.version>5.1.0</guice.version>
+		<guice.version>7.0.0</guice.version>
 		<dagger.version>2.43.2</dagger.version>
 		<guava.version>32.1.1-jre</guava.version>
 		<jakarta-inject.version>2.0.1</jakarta-inject.version>
@@ -29,7 +29,7 @@
 		<sql2o.version>1.6.0</sql2o.version>
 		<flyway.version>9.3.0</flyway.version>
 		<h2.version>2.2.220</h2.version>
-		<jackson.version>2.16.1</jackson.version>
+		<jackson.version>2.17.2</jackson.version>
 		<jersey.version>3.1.8</jersey.version>
 		<swagger.version>2.2.20</swagger.version>
 		<hk2-guice-bridge.version>2.6.1</hk2-guice-bridge.version>
@@ -201,8 +201,8 @@
 			</dependency>
 			<!-- jackson -->
 			<dependency>
-				<groupId>com.fasterxml.jackson.jaxrs</groupId>
-				<artifactId>jackson-jaxrs-json-provider</artifactId>
+				<groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+				<artifactId>jackson-jakarta-rs-json-provider</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
