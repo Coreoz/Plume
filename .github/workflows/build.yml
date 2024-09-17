@@ -26,7 +26,7 @@ jobs:
         with:
           # The JDK 21 causes a compilation error:
           # Error: Class com.sun.tools.javac.tree.JCTree$JCImport does not have member field 'com.sun.tools.javac.tree.JCTree qualid'
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
       - name: Cache SonarCloud packages
