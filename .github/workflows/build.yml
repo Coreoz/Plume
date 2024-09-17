@@ -43,9 +43,9 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build & test with Maven
         run: mvn -B clean test
-#      - name: Sonar analysis
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-#        run: mvn -B verify -P coverage org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Coreoz_HTTP-Gateway -Dsonar.organization=coreoz
+      - name: Sonar analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+        run: mvn -B verify -P coverage org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Coreoz_Plume -Dsonar.organization=coreoz
