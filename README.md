@@ -37,7 +37,7 @@ Getting started
 The best way to get started is to use a
 [Maven archetype for Plume](https://github.com/Coreoz/Plume-archetypes).
 
-Plume requires at least Java 11.
+Plume requires at least Java 17.
 
 Dependency injection
 --------------------
