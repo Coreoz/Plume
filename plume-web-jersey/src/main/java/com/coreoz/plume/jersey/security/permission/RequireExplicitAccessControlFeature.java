@@ -1,9 +1,7 @@
 package com.coreoz.plume.jersey.security.permission;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
+import lombok.extern.slf4j.Slf4j;
 
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -12,10 +10,10 @@ import jakarta.ws.rs.container.DynamicFeature;
 import jakarta.ws.rs.container.ResourceInfo;
 import jakarta.ws.rs.core.FeatureContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Set;
 
 /**
  * Force explicit access control being added on each exposed API.
@@ -27,10 +25,8 @@ import com.google.common.collect.ImmutableSet;
  * Usage when configuring Jersey is:<br>
  * {@code resourceConfig.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, RestrictToAdmin.class));}
  */
+@Slf4j
 public class RequireExplicitAccessControlFeature implements DynamicFeature {
-
-	private static final Logger logger = LoggerFactory.getLogger(RequireExplicitAccessControlFeature.ForbiddenAccessFilter.class);
-
 	private final Set<Class<? extends Annotation>> registeredAccessControlAnnotations;
 
 	public RequireExplicitAccessControlFeature(Set<Class<? extends Annotation>> registeredAccessControlAnnotations) {
@@ -78,5 +74,4 @@ public class RequireExplicitAccessControlFeature implements DynamicFeature {
 			throw new ForbiddenException();
 		}
 	}
-
 }

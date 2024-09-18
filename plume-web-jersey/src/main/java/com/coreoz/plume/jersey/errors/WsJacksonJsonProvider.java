@@ -8,8 +8,7 @@ import java.lang.reflect.Type;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jakarta.rs.cfg.Annotations;
@@ -21,9 +20,8 @@ import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
  * It is useful to return proper 400 errors when JSON request input is not valid
  * @see JacksonJaxbJsonProvider
  */
+@Slf4j
 public class WsJacksonJsonProvider extends JacksonJsonProvider {
-
-	private static final Logger logger = LoggerFactory.getLogger(WsJacksonJsonProvider.class);
 
 	public WsJacksonJsonProvider() {
 		super();
@@ -48,5 +46,4 @@ public class WsJacksonJsonProvider extends JacksonJsonProvider {
 			throw new JsonRequestParseException();
 		}
 	}
-
 }

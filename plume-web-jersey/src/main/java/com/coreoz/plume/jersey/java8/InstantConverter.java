@@ -1,20 +1,16 @@
 package com.coreoz.plume.jersey.java8;
 
+import com.google.common.base.Strings;
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import jakarta.ws.rs.ext.ParamConverter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Strings;
-
+@Slf4j
 public class InstantConverter implements ParamConverter<Instant> {
-
-	private static final Logger logger = LoggerFactory.getLogger(InstantConverter.class);
-
 	@Override
 	public Instant fromString(String value) {
 		try {
@@ -37,5 +33,4 @@ public class InstantConverter implements ParamConverter<Instant> {
 	public String toString(Instant value) {
 		return value == null ? null : value.toString();
 	}
-
 }

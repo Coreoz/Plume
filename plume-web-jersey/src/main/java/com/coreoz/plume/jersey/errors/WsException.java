@@ -1,6 +1,6 @@
 package com.coreoz.plume.jersey.errors;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
 
 /**
  * A {@link RuntimeException} that stops the execution of the web-service
@@ -8,21 +8,21 @@ import com.google.common.collect.ImmutableList;
  * @see WsResultExceptionMapper
  */
 public class WsException extends RuntimeException {
-
-	private static final long serialVersionUID = -5694734210679299708L;
+    private static final long serialVersionUID = -5694734210679299708L;
 
 	private final WsError error;
 	private final Iterable<String> statusArguments;
 
 	public WsException(WsError error) {
-		this(error, ImmutableList.of());
+		this(error, List.of());
 	}
 
 	public WsException(WsError error, String... statusArguments) {
-		this(error, ImmutableList.copyOf(statusArguments));
+		this(error, List.of(statusArguments));
 	}
 
 	public WsException(WsError error, Iterable<String> statusArguments) {
+        super(error.name());
 		this.error = error;
 		this.statusArguments = statusArguments;
 	}
@@ -34,6 +34,5 @@ public class WsException extends RuntimeException {
 	public Iterable<String> getStatusArguments() {
 		return statusArguments;
 	}
-
 }
 
