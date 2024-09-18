@@ -51,6 +51,10 @@
 					<artifactId>guice</artifactId>
 					<groupId>com.google.inject</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>javax.inject</artifactId>
+					<groupId>javax.inject</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 	</dependencies>

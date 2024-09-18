@@ -6,7 +6,7 @@ import com.codahale.metrics.MetricSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 
-import javax.inject.Provider;
+import jakarta.inject.Provider;
 import java.util.Map;
 
 public class MetricsCheckBuilder {

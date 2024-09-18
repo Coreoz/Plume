@@ -2,7 +2,7 @@ package com.coreoz.plume.jersey.security.permission;
 
 import java.util.Collection;
 
-import javax.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestContext;
 
 /**
  * Extract permissions from the user corresponding to the current HTTP request

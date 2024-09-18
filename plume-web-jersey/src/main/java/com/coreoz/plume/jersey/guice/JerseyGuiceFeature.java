@@ -1,7 +1,7 @@
 package com.coreoz.plume.jersey.guice;
 
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.core.Feature;
+import jakarta.ws.rs.core.FeatureContext;
 
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.InjectionManagerProvider;

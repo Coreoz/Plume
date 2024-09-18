@@ -1,6 +1,6 @@
 package com.coreoz.plume.scheduler.dagger;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import com.coreoz.plume.dagger.DaggerServicesModule;
 import com.coreoz.plume.scheduler.SchedulerProvider;

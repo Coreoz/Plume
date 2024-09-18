@@ -4,8 +4,9 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import com.google.common.base.Strings;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * when the input data does not pass the validator.
  */
 public class Validators {
-	public static<T> @Nonnull T checkRequired(@Nullable T parameter) {
+	public static @Nonnull <T> T checkRequired(@Nullable T parameter) {
 		if(parameter == null) {
 			throw new WsException(WsError.FIELD_REQUIRED);
 		}
@@ -27,7 +28,7 @@ public class Validators {
 		return fieldValue;
 	}
 
-	public static<T> @Nonnull T checkRequired(@Nonnull String fieldName, @Nullable T fieldValue) {
+	public static @Nonnull <T> T checkRequired(@Nonnull String fieldName, @Nullable T fieldValue) {
 		if(fieldValue == null) {
 			throw new WsException(WsError.FIELD_REQUIRED, List.of(fieldName));
 		}

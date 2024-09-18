@@ -3,10 +3,11 @@ package com.coreoz.plume.jersey.java8;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ws.rs.ext.ParamConverter;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+import jakarta.ws.rs.ext.ParamConverter;
 
 @Slf4j
 public class InstantConverter implements ParamConverter<Instant> {

@@ -1,16 +1,18 @@
 package com.coreoz.plume.jersey.errors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.cfg.Annotations;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
+
+import lombok.extern.slf4j.Slf4j;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jakarta.rs.cfg.Annotations;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 
 /**
  * A Jackson JSON provider that throws a {@link JsonRequestParseException}
@@ -19,7 +21,8 @@ import java.lang.reflect.Type;
  * @see JacksonJaxbJsonProvider
  */
 @Slf4j
-public class WsJacksonJsonProvider extends JacksonJaxbJsonProvider {
+public class WsJacksonJsonProvider extends JacksonJsonProvider {
+
 	public WsJacksonJsonProvider() {
 		super();
 	}

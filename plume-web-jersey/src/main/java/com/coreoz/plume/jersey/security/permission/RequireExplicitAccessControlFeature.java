@@ -3,12 +3,13 @@ package com.coreoz.plume.jersey.security.permission;
 import com.google.common.collect.ImmutableSet;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.DynamicFeature;
-import javax.ws.rs.container.ResourceInfo;
-import javax.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.ForbiddenException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.DynamicFeature;
+import jakarta.ws.rs.container.ResourceInfo;
+import jakarta.ws.rs.core.FeatureContext;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;

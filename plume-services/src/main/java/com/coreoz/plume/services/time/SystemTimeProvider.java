@@ -2,8 +2,8 @@ package com.coreoz.plume.services.time;
 
 import java.time.Clock;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class SystemTimeProvider implements TimeProvider {

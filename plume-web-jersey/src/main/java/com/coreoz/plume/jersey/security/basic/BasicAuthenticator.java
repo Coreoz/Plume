@@ -2,12 +2,13 @@ package com.coreoz.plume.jersey.security.basic;
 
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ClientErrorException;
+import jakarta.ws.rs.ForbiddenException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.function.Function;

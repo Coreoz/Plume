@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.SQLException;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.sql.DataSource;
 
 import org.junit.Test;
