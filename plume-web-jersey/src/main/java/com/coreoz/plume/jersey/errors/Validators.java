@@ -3,8 +3,9 @@ package com.coreoz.plume.jersey.errors;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import com.google.common.base.Strings;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@
 	<properties>
 		<wisp.version>2.3.0</wisp.version>
 		<guice.version>7.0.0</guice.version>
-		<dagger.version>2.43.2</dagger.version>
+		<dagger.version>2.52</dagger.version>
 		<guava.version>32.1.1-jre</guava.version>
 		<jakarta-inject.version>2.0.1</jakarta-inject.version>
 		<lombok.version>1.18.34</lombok.version>
