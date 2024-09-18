@@ -13,6 +13,7 @@ import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.FeatureContext;
 
+import lombok.extern.slf4j.Slf4j;
 import org.glassfish.jersey.server.internal.LocalizationMessages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,8 @@ import org.slf4j.LoggerFactory;
  *
  * @param <A> The annotation type from which a permission will be fetched
  */
+@Slf4j
 public class PermissionFeature<A extends Annotation> implements DynamicFeature {
-
-	private static final Logger logger = LoggerFactory.getLogger(PermissionFeature.class);
-
 	private final PermissionRequestProvider requestPermissionProvider;
 	private final Class<A> permissionAnnotationType;
 	private final Function<A, String> permissionAnnotationExtractor;
@@ -73,7 +72,6 @@ public class PermissionFeature<A extends Annotation> implements DynamicFeature {
 	}
 
 	private static class PermissionRequestFilter implements ContainerRequestFilter {
-
 		private final String resourcePermission;
 		private final PermissionRequestProvider requestPermissionProvider;
 
@@ -106,7 +104,5 @@ public class PermissionFeature<A extends Annotation> implements DynamicFeature {
 
 			return isAuthorized;
 		}
-
 	}
-
 }

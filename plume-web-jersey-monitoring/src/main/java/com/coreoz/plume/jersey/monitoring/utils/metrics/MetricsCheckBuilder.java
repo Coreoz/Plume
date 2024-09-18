@@ -13,8 +13,8 @@ public class MetricsCheckBuilder {
     private final MetricRegistry metricRegistry = new MetricRegistry();
 
     public MetricsCheckBuilder registerMetric(String name, Metric metric) {
-        if (metric instanceof MetricSet) {
-            this.metricRegistry.registerAll(name, (MetricSet) metric);
+        if (metric instanceof MetricSet metricSet) {
+            this.metricRegistry.registerAll(name, metricSet);
         } else {
             this.metricRegistry.register(name, metric);
         }

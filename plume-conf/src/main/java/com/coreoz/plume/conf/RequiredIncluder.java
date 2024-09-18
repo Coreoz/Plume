@@ -14,7 +14,7 @@ import com.typesafe.config.ConfigObject;
 
 /**
  * Config includer that forces all includes to resolve or else fail with a ConfigException.
- * 
+ *
  * See https://github.com/lightbend/config/issues/587
  */
 public class RequiredIncluder implements ConfigIncluder, ConfigIncluderFile, ConfigIncluderURL,
@@ -42,8 +42,8 @@ public class RequiredIncluder implements ConfigIncluder, ConfigIncluderFile, Con
     @Override
     public ConfigObject includeResources(ConfigIncludeContext context, String what) {
         context = verifyDelegateAndStrictContext(context);
-        if (delegate instanceof ConfigIncluderClasspath) {
-            return ((ConfigIncluderClasspath) delegate).includeResources(context, what);
+        if (delegate instanceof ConfigIncluderClasspath configIncluderClasspath) {
+            return configIncluderClasspath.includeResources(context, what);
         }
         return ConfigFactory.parseResources(what, context.parseOptions()).root();
     }
@@ -51,8 +51,8 @@ public class RequiredIncluder implements ConfigIncluder, ConfigIncluderFile, Con
     @Override
     public ConfigObject includeFile(ConfigIncludeContext context, File what) {
         context = verifyDelegateAndStrictContext(context);
-        if (delegate instanceof ConfigIncluderFile) {
-            return ((ConfigIncluderFile) delegate).includeFile(context, what);
+        if (delegate instanceof ConfigIncluderFile configIncluderFile) {
+            return configIncluderFile.includeFile(context, what);
         }
         return ConfigFactory.parseFile(what, context.parseOptions()).root();
     }
@@ -60,8 +60,8 @@ public class RequiredIncluder implements ConfigIncluder, ConfigIncluderFile, Con
     @Override
     public ConfigObject includeURL(ConfigIncludeContext context, URL what) {
         context = verifyDelegateAndStrictContext(context);
-        if (delegate instanceof ConfigIncluderURL) {
-            return ((ConfigIncluderURL) delegate).includeURL(context, what);
+        if (delegate instanceof ConfigIncluderURL configIncluderUrl) {
+            return configIncluderUrl.includeURL(context, what);
         }
         return ConfigFactory.parseURL(what, context.parseOptions()).root();
     }

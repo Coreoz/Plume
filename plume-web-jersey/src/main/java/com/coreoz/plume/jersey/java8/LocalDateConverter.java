@@ -1,18 +1,13 @@
 package com.coreoz.plume.jersey.java8;
 
-import java.time.LocalDate;
+import com.google.common.base.Strings;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.ext.ParamConverter;
+import java.time.LocalDate;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Strings;
-
+@Slf4j
 public class LocalDateConverter implements ParamConverter<LocalDate> {
-
-	private static final Logger logger = LoggerFactory.getLogger(LocalDateConverter.class);
-
 	@Override
 	public LocalDate fromString(String value) {
 		try {
@@ -27,5 +22,4 @@ public class LocalDateConverter implements ParamConverter<LocalDate> {
 	public String toString(LocalDate value) {
 		return value == null ? null : value.toString();
 	}
-
 }

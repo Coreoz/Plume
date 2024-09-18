@@ -1,26 +1,21 @@
 package com.coreoz.plume.jersey.async;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
-
-import javax.ws.rs.container.AsyncResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.coreoz.plume.jersey.errors.ErrorResponse;
 import com.coreoz.plume.jersey.errors.WsError;
-import com.google.common.collect.ImmutableList;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.ws.rs.container.AsyncResponse;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 /**
  * Provides a bridge between JAX-RS asynchronous API and Java 8 asynchronous API
  * @see CompletableFuture
  * @see AsyncResponse
  */
+@Slf4j
 public class AsyncJersey {
-
-	private static final Logger logger = LoggerFactory.getLogger(AsyncJersey.class);
-
 	/**
 	 * Provides a {@link BiConsumer} from an {@link AsyncResponse}
 	 * that should be called when a {@link CompletableFuture} is terminated.<br>
@@ -41,10 +36,8 @@ public class AsyncJersey {
 				asyncResponse.resume(responseBody);
 			} else {
 				logger.error("An exception was raised during the promise execution", exception);
-				asyncResponse.resume(new ErrorResponse(WsError.INTERNAL_ERROR, ImmutableList.of()));
+				asyncResponse.resume(new ErrorResponse(WsError.INTERNAL_ERROR, List.of()));
 			}
 		};
 	}
-
 }
-
