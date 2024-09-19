@@ -160,7 +160,7 @@ public class SqlPaginatedQueryTest {
             )
             .fetchPage(1, 10);
 
-        assertThat(page.totalCount()).isEqualTo(0); // No total count
+        assertThat(page.totalCount()).isZero(); // No total count
         assertThat(page.items()).isEmpty(); // No items should be returned
         assertThat(page.hasMore()).isFalse(); // No more pages since there's no data
     }
