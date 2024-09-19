@@ -1,6 +1,6 @@
 package com.coreoz.plume.db.querydsl.dagger;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
 import com.coreoz.plume.db.transaction.TransactionManager;
