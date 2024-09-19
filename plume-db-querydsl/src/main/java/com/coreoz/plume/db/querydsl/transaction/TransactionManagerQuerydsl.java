@@ -1,13 +1,5 @@
 package com.coreoz.plume.db.querydsl.transaction;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.function.Supplier;
-
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-import javax.sql.DataSource;
-
 import com.coreoz.plume.db.transaction.TransactionManager;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.RelationalPath;
@@ -18,6 +10,13 @@ import com.querydsl.sql.dml.SQLDeleteClause;
 import com.querydsl.sql.dml.SQLInsertClause;
 import com.querydsl.sql.dml.SQLUpdateClause;
 import com.typesafe.config.Config;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import lombok.SneakyThrows;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.util.function.Supplier;
 
 @Singleton
 public class TransactionManagerQuerydsl extends TransactionManager {
@@ -85,14 +84,8 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 		return query;
 	}
 
-	private Supplier<Connection> getConnectionProvider() {
-		return () -> {
-			try {
-				return dataSource().getConnection();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		};
+	@SneakyThrows
+    private Supplier<Connection> getConnectionProvider() {
+		return dataSource()::getConnection;
 	}
-
 }

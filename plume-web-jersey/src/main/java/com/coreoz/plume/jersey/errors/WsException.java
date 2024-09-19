@@ -8,8 +8,8 @@ import java.util.List;
  * @see WsResultExceptionMapper
  */
 public class WsException extends RuntimeException {
-	private final WsError error;
-	private final Iterable<String> statusArguments;
+	private final transient WsError error;
+	private final transient Iterable<String> statusArguments;
 
 	public WsException(WsError error) {
 		this(error, List.of());
