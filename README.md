@@ -11,7 +11,7 @@ Key concepts:
 
 A concrete example of how Plume works is the [Plume Mail](plume-mail/) module:
 - It provides the [Simple Java Mail](http://www.simplejavamail.org/) dependency
-- This module exposes 50 lines of code via the [MailerProvider](https://github.com/Coreoz/Plume/blob/master/plume-mail/src/main/java/com/coreoz/plume/mail/MailerProvider.java) class:
+- This module exposes 50 lines of code via the [MailerProvider](plume-mail/src/main/java/com/coreoz/plume/mail/MailerProvider.java) class:
     - In the constructor, it populates the config object from Simple Mail Java using [Config](https://github.com/typesafehub/config)
     - The `MailerProvider` class implements the `jakarta.inject.Provider` interface to expose the Simple Mail Java `Mailer` object.
 
@@ -25,7 +25,7 @@ Maintenance
 In developing Plume, we strive to keep the project and its dependencies as small and lightweight as possible. Making Plume lightweight helps reduce the complexity of the system and the risk of security issues. This means that Plume will help projects have the lowest maintenance and evolution costs.
 
 In addition:
-- Coreoz has been maintaining Plume since 2016 and providing migration guides for each release. This is not going to change anytime soon.
+- Coreoz has been maintaining Plume since 2016, and Coreoz will continue to maintain Plume and provide migration guides for each release.
 - Plume sources are published to Maven Central: so they will always be available one way or another.
 
 Demo
