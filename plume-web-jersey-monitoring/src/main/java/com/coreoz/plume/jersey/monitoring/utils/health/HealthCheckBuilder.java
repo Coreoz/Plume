@@ -6,7 +6,7 @@ import com.codahale.metrics.health.HealthCheck;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.coreoz.plume.jersey.monitoring.utils.health.healthchecks.DatabaseHealthCheck;
 
-import javax.inject.Provider;
+import jakarta.inject.Provider;
 import java.util.SortedMap;
 
 public class HealthCheckBuilder {

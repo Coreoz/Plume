@@ -1,28 +1,25 @@
 package com.coreoz.plume.jersey.security.basic;
 
+import lombok.extern.slf4j.Slf4j;
+
+import jakarta.ws.rs.ClientErrorException;
+import jakarta.ws.rs.ForbiddenException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.function.Function;
-
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Enable to easily manage HTTP Basic Authentication with Jersey.
  *
  * @param <U> The user type handled by the authentication
  */
+@Slf4j
 public class BasicAuthenticator<U> {
-
-	private static final Logger logger = LoggerFactory.getLogger(BasicAuthenticator.class);
-
 	private static final String BASIC_PREFIX = "Basic ";
 
 	private final Function<Credentials, U> authenticator;
@@ -136,5 +133,4 @@ public class BasicAuthenticator<U> {
 
 		return new Credentials(decodedCredentials[0], decodedCredentials[1]);
 	}
-
 }

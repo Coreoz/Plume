@@ -8,15 +8,12 @@ import io.github.classgraph.ScanResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.inject.Singleton;
-import javax.validation.constraints.Negative;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
@@ -47,7 +44,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
         }
 
         if (model == null) {
-            log.warn("Failed to read pom.xml file on root project and in META-INF folder");
+            logger.warn("Failed to read pom.xml file on root project and in META-INF folder");
             model = new Model();
         }
 
@@ -66,7 +63,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
             try {
                 return reader.read(new FileReader(POM_FILE_NAME));
             } catch (Exception e) {
-                log.error("Failed to read {}", POM_FILE_NAME, e);
+                logger.error("Failed to read {}", POM_FILE_NAME, e);
                 return null;
             }
         }
@@ -85,7 +82,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
 
             return reader.read(new InputStreamReader(resourceList.get(0).open()));
         } catch (Exception e) {
-            log.error("Failed to read {} from META-INF folder", POM_FILE_NAME, e);
+            logger.error("Failed to read {} from META-INF folder", POM_FILE_NAME, e);
             return null;
         }
     }

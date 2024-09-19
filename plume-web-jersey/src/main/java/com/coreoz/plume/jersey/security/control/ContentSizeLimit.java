@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 public @interface ContentSizeLimit {
 
     /**
-    * The maximum size of the content
+    * The maximum size of the content in bytes
     */
     int value();
 }

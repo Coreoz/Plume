@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 
-import javax.ws.rs.WebApplicationException;
+import jakarta.ws.rs.WebApplicationException;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -18,7 +18,7 @@ import java.io.ByteArrayInputStream;
 import com.carlosbecker.guice.GuiceModules;
 import com.carlosbecker.guice.GuiceTestRunner;
 import com.coreoz.plume.jersey.WebJerseyTestModule;
-import com.coreoz.plume.jersey.security.control.ContentControlFeature.ContentSizeLimitInterceptor.ContentSizeLimitInputStream;
+import com.coreoz.plume.jersey.security.control.ContentControlFeature.ContentSizeLimitInterceptor.SizeLimitingInputStream;
 
 @RunWith(GuiceTestRunner.class)
 @GuiceModules(WebJerseyTestModule.class)
@@ -26,12 +26,12 @@ public class ContentSizeLimitTest {
 
     private static final int LIMIT = 10;
     private ByteArrayInputStream byteArrayInputStream;
-    private ContentSizeLimitInputStream contentSizeLimitInputStream;
+    private SizeLimitingInputStream sizeLimitingInputStream;
 
     @After
     public void tearDown() throws IOException {
-        if (contentSizeLimitInputStream != null) {
-            contentSizeLimitInputStream.close();
+        if (sizeLimitingInputStream != null) {
+            sizeLimitingInputStream.close();
         }
     }
 
@@ -39,10 +39,10 @@ public class ContentSizeLimitTest {
     public void test_read_within_limit() throws IOException {
         byte[] data = "12345".getBytes();
         byteArrayInputStream = new ByteArrayInputStream(data);
-        contentSizeLimitInputStream = new ContentSizeLimitInputStream(byteArrayInputStream, data.length, LIMIT);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
 
         byte[] buffer = new byte[data.length];
-        int bytesRead = contentSizeLimitInputStream.read(buffer);
+        int bytesRead = sizeLimitingInputStream.read(buffer);
 
         assertEquals(data.length, bytesRead);
         assertArrayEquals(data, buffer);
@@ -52,11 +52,11 @@ public class ContentSizeLimitTest {
     public void test_read_beyond_limit() {
         byte[] data = "12345678901".getBytes(); // 11 bytes, 1 byte over the limit
         byteArrayInputStream = new ByteArrayInputStream(data);
-        contentSizeLimitInputStream = new ContentSizeLimitInputStream(byteArrayInputStream, data.length, LIMIT);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
 
         byte[] buffer = new byte[data.length];
         assertThrows(WebApplicationException.class, () -> {
-            contentSizeLimitInputStream.read(buffer);
+            sizeLimitingInputStream.read(buffer);
         });
     }
 
@@ -64,10 +64,10 @@ public class ContentSizeLimitTest {
     public void test_read_exactly_at_limit() throws IOException {
         byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
         byteArrayInputStream = new ByteArrayInputStream(data);
-        contentSizeLimitInputStream = new ContentSizeLimitInputStream(byteArrayInputStream, data.length, LIMIT);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
 
         byte[] buffer = new byte[data.length];
-        int bytesRead = contentSizeLimitInputStream.read(buffer);
+        int bytesRead = sizeLimitingInputStream.read(buffer);
 
         assertEquals(data.length, bytesRead);
         assertArrayEquals(data, buffer);
@@ -77,25 +77,12 @@ public class ContentSizeLimitTest {
     public void test_read_from_empty_stream() throws IOException {
         byte[] data = "".getBytes();
         byteArrayInputStream = new ByteArrayInputStream(data);
-        contentSizeLimitInputStream = new ContentSizeLimitInputStream(byteArrayInputStream, data.length, LIMIT);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
 
         byte[] buffer = new byte[10];
-        int bytesRead = contentSizeLimitInputStream.read(buffer);
+        int bytesRead = sizeLimitingInputStream.read(buffer);
 
         assertEquals(-1, bytesRead);
-    }
-
-    @Test
-    public void test_incorrect_content_length() {
-        byte[] data = "12345".getBytes();
-        byteArrayInputStream = new ByteArrayInputStream(data);
-        contentSizeLimitInputStream = new ContentSizeLimitInputStream(byteArrayInputStream, 3, LIMIT);
-
-        byte[] buffer = new byte[data.length];
-
-        assertThrows(WebApplicationException.class, () -> {
-            contentSizeLimitInputStream.read(buffer);
-        });
     }
 
 }

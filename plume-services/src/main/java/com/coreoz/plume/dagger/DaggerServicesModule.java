@@ -1,6 +1,6 @@
 package com.coreoz.plume.dagger;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import com.coreoz.plume.services.time.SystemTimeProvider;
 import com.coreoz.plume.services.time.TimeProvider;
