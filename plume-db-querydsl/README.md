@@ -110,10 +110,11 @@ public enum SortPath {
     private final Expression<?> path;
 
     @Nullable
-    public static SortPath fromSortKey(String sortKey) {
+    public static Expression<?> fromSortKey(String sortKey) {
         return Arrays.stream(SortPath.values())
             .filter(entry -> entry.sortKey.equals(sortKey))
             .findFirst()
+            .map(sortPath -> sortPath.path)
             .orElse(null);
     }
 }
