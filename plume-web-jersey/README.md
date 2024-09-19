@@ -27,6 +27,34 @@ To use it, register this feature in Jersey: `resourceConfig.register(RequireExpl
 
 Any custom annotation can be added (as long as the corresponding Jersey access control feature is configured...). In a doubt to configure the Jersey access control feature, see as an example the existing class `PermissionFeature` that checks the `RestrictTo` annotation access control.
 
+Content size limit
+------------------
+In order to protect the backend against attack that would send huge content, it is possible to limit the size of the content that can be sent to the backend.
+
+To do so, register the `ContentControlFeature` in Jersey: `resourceConfig.register(ContentControlFeature.class);`
+By default the content size of body is limited to 500 KB. This limit can be override for the whole api by using the `ContentControlFeatureFactory` to specify your own limit.
+
+Usage example:
+```java
+resourceConfig.register(new AbstractBinder() {
+    @Override
+    protected void configure() {
+        bindFactory(new ContentControlFeatureFactory(1000 * 1024 /* 1MB */)).to(ContentControlFeature.class);
+    }
+});
+```
+
+You can also override only a specific endpoint by using the `@ContentSizeLimit` annotation:
+```java
+@POST
+	@Path("/test")
+	@Operation(description = "Example web-service")
+    @ContentSizeLimit(1024 * 1000 * 5) // 5MB
+	public void test(Test test) {
+        logger.info("Test: {}", test.getName());
+	}
+```
+
 Data validation
 ---------------
 To validate web-service input data, an easy solution is to use `WsException`:
