@@ -66,56 +66,36 @@ To generate Querydsl entities, a good choice is to use this
 
 Pagination
 ----------
-**Overview**:
-
-The `SqlPaginatedQuery` class provides a robust and flexible mechanism for paginating results in a QueryDSL query. It abstracts the pagination logic into two generic interfaces —`Slice` and `Page`— which represent paginated results in different ways.
+### Overview
+The `SqlPaginatedQuery` class provides a robust and flexible mechanism for paginating results in a Querydsl query. It abstracts the pagination logic into two generic interfaces —`Slice` and `Page`— which represent paginated results in different ways.
 
 - `Page<U>`: A `Page` contains a list of results, total count of items, total number of pages, and a flag to indicate if there are more pages available.
 - `Slice<U>`: A `Slice` contains a list of results and a flag to indicate if there are more items to be fetched, without calculating the total number of items or pages.
+ 
+So using slices will be more efficient than using pages, though the impact will depend on the number of rows to count.
+Under the hood:
+- When fetching a page, Querydsl will attempt to execute the fetch request and the count request in the same SQL query, if it is not supported by the database, it will execute two queries.
+- When fetching a slice of n items, n+1 items will try to be fetched: if the result contains n+1 items, then the `hasMore` attribute will be set to `true`
 
-This allows you to manage and paginate large datasets efficiently when working with QueryDSL.
-
-**Key Features**:
-
+Other features:
 - **Pagination Logic**: Handles offset-based pagination by calculating the number of records to skip (`offset`) and the number of records to fetch (`limit`) using the page number and page size.
 - **Sorting Support**: Allows dynamic sorting of query results by providing an `Expression` and an `Order` (ascending/descending).
-- **Efficient Slicing**: Fetches a "slice" of data without loading the entire dataset, useful when you only need to know if there are more results to load (e.g., in infinite scroll scenarios).
-- **Full Page Information**: Provides detailed information about the paginated dataset, including the total count, total pages, and whether there are more results.
 
-**Working with Pagination from a WebService**:
-
+### Working with Pagination from a WebService:
 First, you need to create a translation between the API sort key and a table column.
 This can be done like this: 
 
 ```java
-public enum SortPath {
-
+@Getter
+public enum UserSortPath {
     // users
-    USER_LIST_EMAIL("email", QUser.user.email),
-    USER_LIST_FIRST_NAME("first_name", QUser.user.firstName),
-    USER_LIST_LAST_NAME("last_name", QUser.user.lastName),
-    USER_LIST_LAST_LOGIN_DATE("last_login_date", QUser.user.lastLogin),
-    // more complex cases
-    PRIORITY(
-        "user_priority",
-        new CaseBuilder()
-            .when(QUser.user.priority.eq(StudyPriority.MEDIUM.name())).then(1)
-            .when(QUser.user.priority.eq(StudyPriority.HIGH.name())).then(2)
-            .when(QUser.user.priority.eq(StudyPriority.VERY_HIGH.name())).then(3)
-            .otherwise(1)
-    ),
+    EMAIL(QUser.user.email),
+    FIRST_NAME(QUser.user.firstName),
+    LAST_NAME(QUser.user.lastName),
+    LAST_LOGIN_DATE(QUser.user.lastLogin),
     ;
 
-    private final String sortKey;
     private final Expression<?> path;
-
-    @Nullable
-    public static SortPath fromSortKey(String sortKey) {
-        return Arrays.stream(SortPath.values())
-            .filter(entry -> entry.sortKey.equals(sortKey))
-            .findFirst()
-            .orElse(null);
-    }
 }
 ```
 
@@ -144,7 +124,7 @@ public Page<AdminUser> searchUsers(
         userSearchRequest,
         page,
         size,
-        SortPath.fromSortKey(sort),
+        UserSortPath.valueOf(sort),
         sortDirection
     );
 }
