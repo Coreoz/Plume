@@ -1,7 +1,7 @@
 package com.coreoz.plume.db;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import javax.sql.DataSource;
 
 import org.flywaydb.core.Flyway;

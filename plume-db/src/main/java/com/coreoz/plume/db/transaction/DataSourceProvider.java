@@ -1,8 +1,8 @@
 package com.coreoz.plume.db.transaction;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import javax.sql.DataSource;
 
 /**

@@ -2,13 +2,12 @@ package com.coreoz.plume.jersey.monitoring.utils.health.healthchecks;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.coreoz.plume.db.transaction.TransactionManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
 
+@Slf4j
 public class DatabaseHealthCheck extends HealthCheck {
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseHealthCheck.class);
     private final TransactionManager transactionManager;
 
     public DatabaseHealthCheck(TransactionManager transactionManager) {

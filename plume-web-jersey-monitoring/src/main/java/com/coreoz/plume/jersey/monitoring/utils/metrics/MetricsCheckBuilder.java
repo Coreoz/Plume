@@ -6,15 +6,15 @@ import com.codahale.metrics.MetricSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 
-import javax.inject.Provider;
+import jakarta.inject.Provider;
 import java.util.Map;
 
 public class MetricsCheckBuilder {
     private final MetricRegistry metricRegistry = new MetricRegistry();
 
     public MetricsCheckBuilder registerMetric(String name, Metric metric) {
-        if (metric instanceof MetricSet) {
-            this.metricRegistry.registerAll(name, (MetricSet) metric);
+        if (metric instanceof MetricSet metricSet) {
+            this.metricRegistry.registerAll(name, metricSet);
         } else {
             this.metricRegistry.register(name, metric);
         }

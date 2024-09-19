@@ -1,8 +1,8 @@
 package com.coreoz.plume.conf;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;

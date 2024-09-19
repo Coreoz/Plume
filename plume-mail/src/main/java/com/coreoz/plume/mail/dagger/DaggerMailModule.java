@@ -1,6 +1,6 @@
 package com.coreoz.plume.mail.dagger;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import org.simplejavamail.api.mailer.Mailer;
 

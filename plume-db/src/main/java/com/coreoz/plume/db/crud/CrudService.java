@@ -1,6 +1,6 @@
 package com.coreoz.plume.db.crud;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
