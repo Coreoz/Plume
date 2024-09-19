@@ -43,8 +43,9 @@ public class SqlPaginatedQuery<U> {
         return new SqlPaginatedQuery<>(sqlQuery);
     }
 
+    @SuppressWarnings("rawtypes")
     @Nonnull
-    public <E extends Comparable<E>> SqlPaginatedQuery<U> withSort(
+    public <E extends Comparable> SqlPaginatedQuery<U> withSort(
         @Nonnull Expression<E> expression,
         @Nonnull Order sortDirection
     ) {
