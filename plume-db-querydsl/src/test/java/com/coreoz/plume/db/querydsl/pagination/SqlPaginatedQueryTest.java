@@ -38,10 +38,9 @@ public class SqlPaginatedQueryTest {
             .withSort(QUser.user.name, Order.DESC)
             .fetchPage(1, 10);
 
-        assertThat(page.pagesCount()).isNotZero();
-        assertThat(page.totalCount()).isNotZero();
-        assertThat(page.items()).isNotEmpty();
-        assertThat(page.pagesCount()).isNotZero();
+        assertThat(page.pagesCount()).isEqualTo(1);
+        assertThat(page.totalCount()).isEqualTo(10);
+        assertThat(page.items()).hasSize(10);
         assertThat(page.hasMore()).isFalse();
     }
 
@@ -56,10 +55,9 @@ public class SqlPaginatedQueryTest {
             .withSort(QUser.user.name, Order.DESC)
             .fetchPage(2, 10);
 
-        assertThat(page.pagesCount()).isNotZero();
-        assertThat(page.totalCount()).isNotZero();
+        assertThat(page.pagesCount()).isEqualTo(1);
+        assertThat(page.totalCount()).isEqualTo(10);
         assertThat(page.items()).isEmpty();
-        assertThat(page.pagesCount()).isNotZero();
         assertThat(page.hasMore()).isFalse();
     }
 
@@ -74,8 +72,8 @@ public class SqlPaginatedQueryTest {
             .withSort(QUser.user.name, Order.ASC)
             .fetchPage(1, 1); // Minimum page number and page size
 
-        assertThat(page.pagesCount()).isNotZero();
-        assertThat(page.totalCount()).isNotZero();
+        assertThat(page.pagesCount()).isEqualTo(10);
+        assertThat(page.totalCount()).isEqualTo(10);
         assertThat(page.items()).hasSize(1); // Only one item expected due to page size of 1
         assertThat(page.hasMore()).isTrue(); // Has more items since page size is small
     }
@@ -91,8 +89,8 @@ public class SqlPaginatedQueryTest {
             .withSort(QUser.user.name, Order.ASC)
             .fetchPage(1, 100); // Large page size compared to available results
 
-        assertThat(page.totalCount()).isGreaterThan(0);
-        assertThat(page.items().size()).isLessThanOrEqualTo(100); // Should return all available users
+        assertThat(page.totalCount()).isEqualTo(10);
+        assertThat(page.items()).hasSize(10); // Should return all available users
         assertThat(page.hasMore()).isFalse(); // No more items because page size exceeds total results
     }
 
@@ -130,9 +128,9 @@ public class SqlPaginatedQueryTest {
             )
             .fetchPage(1, 10); // No sorting applied
 
-        assertThat(page.pagesCount()).isNotZero();
-        assertThat(page.totalCount()).isNotZero();
-        assertThat(page.items()).isNotEmpty();
+        assertThat(page.pagesCount()).isEqualTo(1);
+        assertThat(page.totalCount()).isEqualTo(10);
+        assertThat(page.items()).hasSize(10);
         assertThat(page.hasMore()).isFalse(); // Assuming there aren't more than 10 users in the test
     }
 

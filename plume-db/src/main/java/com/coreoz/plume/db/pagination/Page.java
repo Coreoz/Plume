@@ -3,7 +3,6 @@ package com.coreoz.plume.db.pagination;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Represents a page of data in a paginated structure.
@@ -11,8 +10,8 @@ import java.util.stream.Collectors;
  * @param items the items in the page
  * @param totalCount the total number of items in the collection
  * @param pagesCount the total number of pages
- * @param currentPage the current page
- * @param hasMore boolean set to true if there is another page after
+ * @param currentPage the current page, starts at 1
+ * @param hasMore boolean set to true if there is another page after this one
  *
  * @param <T> The type of items contained in the page.
  */

@@ -8,7 +8,7 @@ import java.util.function.Function;
  * Represents a portion (or slice) of a larger dataset.
  *
  * @param items the items in the slice
- * @param hasMore boolean set to true if there is another slice after
+ * @param hasMore boolean set to true if there is another slice after this one
  *
  * @param <T> The type of elements contained in the slice.
  */
