@@ -78,4 +78,49 @@ public class SizeLimitingInputStreamTest {
         assertEquals(-1, bytesRead);
     }
 
+    @Test
+    public void testRead_withoutOffsetAndLength_shouldSuccess() throws IOException {
+        byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
+        byteArrayInputStream = new ByteArrayInputStream(data);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
+        int result = sizeLimitingInputStream.read(data, 0, 5);
+        assertEquals(5, result);
+    }
+
+    @Test
+    public void testRead_withoutOffsetAndWithoutLength_shouldSuccess() throws IOException {
+        byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
+        byteArrayInputStream = new ByteArrayInputStream(data);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
+        int result = sizeLimitingInputStream.read();
+        assertEquals('1', result);
+    }
+
+    @Test
+    public void testRead_withOffsetAndLength_shouldSuccess() throws IOException {
+        byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
+        byteArrayInputStream = new ByteArrayInputStream(data);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
+        int result = sizeLimitingInputStream.read(data, 3, 5);
+        assertEquals(5, result);
+    }
+
+    @Test
+    public void testSkip_withinLength_shouldSuccess() throws IOException {
+        byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
+        byteArrayInputStream = new ByteArrayInputStream(data);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
+        long result = sizeLimitingInputStream.skip(3);
+        assertEquals(3, result);
+    }
+
+    @Test
+    public void testSkip_beyondLength_shouldSuccess() throws IOException {
+        byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
+        byteArrayInputStream = new ByteArrayInputStream(data);
+        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
+        long result = sizeLimitingInputStream.skip(11);
+        assertEquals(10, result);
+    }
+
 }

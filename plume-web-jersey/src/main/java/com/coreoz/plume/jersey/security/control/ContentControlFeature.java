@@ -32,6 +32,13 @@ public class ContentControlFeature implements DynamicFeature {
         this.maxSize = DEFAULT_MAX_SIZE;
     }
 
+    public Integer getContentSizeLimit() {
+        if (maxSize == null) {
+            return DEFAULT_MAX_SIZE;
+        }
+        return maxSize;
+    }
+
     @Override
     public void configure(ResourceInfo resourceInfo, FeatureContext context) {
         addContentSizeFilter(resourceInfo.getResourceMethod(), context);
