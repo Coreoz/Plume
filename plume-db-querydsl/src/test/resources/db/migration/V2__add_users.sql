@@ -1,0 +1,10 @@
+INSERT INTO "USER" VALUES (1, 'Admin 1', true, NOW());
+INSERT INTO "USER" VALUES (2, 'Admin 2', true, NOW());
+INSERT INTO "USER" VALUES (3, 'Admin 3', true, NOW());
+INSERT INTO "USER" VALUES (4, 'Admin 4', true, NOW());
+INSERT INTO "USER" VALUES (5, 'Admin 5', true, NOW());
+INSERT INTO "USER" VALUES (6, 'Admin 6', true, NOW());
+INSERT INTO "USER" VALUES (7, 'Admin 7', true, NOW());
+INSERT INTO "USER" VALUES (8, 'Admin 8', true, NOW());
+INSERT INTO "USER" VALUES (9, 'Admin 9', true, NOW());
+INSERT INTO "USER" VALUES (10, 'Admin 10', true, NOW());

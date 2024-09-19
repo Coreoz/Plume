@@ -35,6 +35,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Tests -->
 		<dependency>
 			<groupId>com.coreoz</groupId>
