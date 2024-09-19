@@ -12,11 +12,12 @@ import com.querydsl.sql.dml.SQLUpdateClause;
 import com.typesafe.config.Config;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import lombok.SneakyThrows;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.function.Supplier;
+
+import static com.pivovarit.function.ThrowingSupplier.unchecked;
 
 @Singleton
 public class TransactionManagerQuerydsl extends TransactionManager {
@@ -84,8 +85,7 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 		return query;
 	}
 
-	@SneakyThrows
     private Supplier<Connection> getConnectionProvider() {
-		return dataSource()::getConnection;
+		return unchecked(dataSource()::getConnection);
 	}
 }

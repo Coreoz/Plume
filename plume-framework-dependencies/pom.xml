@@ -38,6 +38,7 @@
         <dropwizard-metrics.version>4.1.2</dropwizard-metrics.version>
         <classgraph.version>4.8.161</classgraph.version>
         <maven-model.version>3.9.6</maven-model.version>
+        <throwing-function.version>1.5.1</throwing-function.version>
 
 		<junit.version>4.13.2</junit.version>
 		<assertj.version>3.23.1</assertj.version>
@@ -134,6 +135,11 @@
 				<artifactId>lombok</artifactId>
 				<version>${lombok.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>com.pivovarit</groupId>
+                <artifactId>throwing-function</artifactId>
+                <version>${throwing-function.version}</version>
+            </dependency>
 			<dependency>
 				<groupId>com.typesafe</groupId>
 				<artifactId>config</artifactId>
