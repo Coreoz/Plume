@@ -5,21 +5,21 @@ This module helps integrate [Querydsl SQL](https://github.com/querydsl/querydsl/
 with [Plume Database](https://github.com/Coreoz/Plume/tree/master/plume-db).
 It contains mainly:
 - `TransactionManagerQuerydsl`: the main class of this module; it will
-read the configuration, initialize the SQL connection pool
-and provide helper methods to create Querydsl queries,
+  read the configuration, initialize the SQL connection pool
+  and provide helper methods to create Querydsl queries,
 - The generic DAO `CrudDaoQuerydsl` for CRUD operations.
 
 Querydsl queries can be created:
 - **without a `Connection`**: that means that the query will be executed with a connection
-from the SQL connection pool. The `Connection` object will be automaticely released in the pool
-once the query is executed.
+  from the SQL connection pool. The `Connection` object will be automaticely released in the pool
+  once the query is executed.
 - **with a `Connection`**: that means that the query will be executed on this supplied connection.
-This mode is almost always used when a **transaction** is needed:
+  This mode is almost always used when a **transaction** is needed:
 ```java
 transactionManager.execute(connection -> {
-  transactionManager.insert(QTable.table, connection).populate(bean).execute();
+    transactionManager.insert(QTable.table, connection).populate(bean).execute();
   transactionManager.delete(QTable.table, connection).where(predicate).execute();
-  // the connection is set to autocommit=false and will be commited at the end of the lambda
+// the connection is set to autocommit=false and will be commited at the end of the lambda
 });
 ```
 
@@ -35,15 +35,15 @@ Installation
 **Maven**:
 ```xml
 <dependency>
-  <groupId>com.coreoz</groupId>
-  <artifactId>plume-db-querydsl</artifactId>
+    <groupId>com.coreoz</groupId>
+    <artifactId>plume-db-querydsl</artifactId>
 </dependency>
 <dependency>
-  <groupId>com.coreoz</groupId>
-  <artifactId>plume-db-querydsl-codegen</artifactId>
-  <optional>true</optional>
+<groupId>com.coreoz</groupId>
+<artifactId>plume-db-querydsl-codegen</artifactId>
+<optional>true</optional>
 </dependency>
-<!-- do not forget to also include the database driver -->
+    <!-- do not forget to also include the database driver -->
 ```
 
 **Guice**: `install(new GuiceQuerydslModule());`
@@ -71,7 +71,7 @@ The `SqlPaginatedQuery` class provides a robust and flexible mechanism for pagin
 
 - `Page<U>`: A `Page` contains a list of results, total count of items, total number of pages, and a flag to indicate if there are more pages available.
 - `Slice<U>`: A `Slice` contains a list of results and a flag to indicate if there are more items to be fetched, without calculating the total number of items or pages.
- 
+
 So using slices will be more efficient than using pages, though the impact will depend on the number of rows to count.
 Under the hood:
 - When fetching a page, Querydsl will attempt to execute the fetch request and the count request in the same SQL query, if it is not supported by the database, it will execute two queries.
@@ -83,7 +83,7 @@ Other features:
 
 ### Working with Pagination from a WebService:
 First, you need to create a translation between the API sort key and a table column.
-This can be done like this: 
+This can be done like this:
 
 ```java
 @Getter
@@ -130,7 +130,7 @@ public Page<AdminUser> searchUsers(
 }
 ```
 
-Then apply the pagination from the API call with `SqlPaginatedQuery` : 
+Then apply the pagination from the API call with `SqlPaginatedQuery` :
 
 ```java
 public Page<AdminUser> searchUsers(
