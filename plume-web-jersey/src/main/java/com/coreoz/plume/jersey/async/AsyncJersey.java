@@ -1,15 +1,13 @@
 package com.coreoz.plume.jersey.async;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
-
-import jakarta.ws.rs.container.AsyncResponse;
-
 import com.coreoz.plume.jersey.errors.ErrorResponse;
 import com.coreoz.plume.jersey.errors.WsError;
+import jakarta.ws.rs.container.AsyncResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 /**
  * Provides a bridge between JAX-RS asynchronous API and Java 8 asynchronous API
@@ -32,7 +30,7 @@ public class AsyncJersey {
 	 * }
 	 * </pre></code>
 	 */
-	public static BiConsumer<? super Object, ? super Throwable> toAsyncConsumer(AsyncResponse asyncResponse) {
+	public static <T, U extends Throwable> BiConsumer<T, U> toAsyncConsumer(AsyncResponse asyncResponse) {
 		return (responseBody, exception) -> {
 			if (exception == null) {
 				asyncResponse.resume(responseBody);

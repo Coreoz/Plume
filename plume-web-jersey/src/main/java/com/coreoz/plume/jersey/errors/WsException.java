@@ -8,8 +8,6 @@ import java.util.List;
  * @see WsResultExceptionMapper
  */
 public class WsException extends RuntimeException {
-    private static final long serialVersionUID = -5694734210679299708L;
-
 	private final WsError error;
 	private final Iterable<String> statusArguments;
 

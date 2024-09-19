@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 @Slf4j
 public class DatabaseHealthCheck extends HealthCheck {
+    private static final String FAIL_TO_CONNECT_TO_DATABASE_ERROR = "Cannot connect to database";
+
     private final TransactionManager transactionManager;
 
     public DatabaseHealthCheck(TransactionManager transactionManager) {
@@ -19,13 +21,13 @@ public class DatabaseHealthCheck extends HealthCheck {
         return transactionManager.executeAndReturn(connection -> {
             try {
                 if (!connection.isValid(2)) {
-                    logger.error("Cannot connect to database");
-                    return Result.unhealthy("Cannot connect to database");
+                    logger.error(FAIL_TO_CONNECT_TO_DATABASE_ERROR);
+                    return Result.unhealthy(FAIL_TO_CONNECT_TO_DATABASE_ERROR);
                 }
                 return Result.healthy();
             } catch (SQLException e) {
-                logger.error("Cannot connect to database", e);
-                return Result.unhealthy("Cannot connect to database");
+                logger.error(FAIL_TO_CONNECT_TO_DATABASE_ERROR, e);
+                return Result.unhealthy(FAIL_TO_CONNECT_TO_DATABASE_ERROR);
             }
         });
     }
