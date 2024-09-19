@@ -14,7 +14,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ReaderInterceptor;
 import jakarta.ws.rs.ext.ReaderInterceptorContext;
 
-import org.glassfish.grizzly.http.HttpHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class ContentControlFeature implements DynamicFeature {
 
     private static final Logger logger = LoggerFactory.getLogger(ContentControlFeature.class);
-    private static final int DEFAULT_MAX_SIZE = 500 * 1024; // 500 KB
+    public static final int DEFAULT_MAX_SIZE = 500 * 1024; // 500 KB
     private final Integer maxSize;
 
     public ContentControlFeature(int maxSize) {
@@ -56,20 +55,9 @@ public class ContentControlFeature implements DynamicFeature {
         // https://stackoverflow.com/questions/24516444/best-way-to-make-jersey-2-x-refuse-requests-with-incorrect-content-length
         @Override
         public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException {
+            Integer headerContentLength;
             try {
-                final Integer headerContentLength = Integer.parseInt(context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH));
-                if (headerContentLength > maxSize) {
-                    throw new WebApplicationException(
-                        Response.status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
-                                .entity("Content size limit exceeded.")
-                                .build()
-                    );
-                }
-
-                final InputStream contextInputStream = context.getInputStream();
-                context.setInputStream(new SizeLimitingInputStream(contextInputStream, headerContentLength));
-
-                return context.proceed();
+                headerContentLength = Integer.parseInt(context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH));
             } catch (NumberFormatException e) {
                 throw new WebApplicationException(
                     Response.status(Response.Status.LENGTH_REQUIRED)
@@ -77,6 +65,18 @@ public class ContentControlFeature implements DynamicFeature {
                             .build()
                 );
             }
+            if (headerContentLength > maxSize) {
+                throw new WebApplicationException(
+                    Response.status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
+                            .entity("Content size limit exceeded.")
+                            .build()
+                );
+            }
+
+            final InputStream contextInputStream = context.getInputStream();
+            context.setInputStream(new SizeLimitingInputStream(contextInputStream, headerContentLength));
+
+            return context.proceed();
         }
 
         public static final class SizeLimitingInputStream extends InputStream {

@@ -1,88 +1,62 @@
 package com.coreoz.plume.jersey.control;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.junit.After;
-import org.junit.runner.RunWith;
-
-import java.io.IOException;
 
 import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Application;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.client.Invocation.Builder;
 
-import static org.junit.Assert.assertArrayEquals;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayInputStream;
+import com.coreoz.plume.jersey.security.control.ContentControlFeature;
 
-import com.carlosbecker.guice.GuiceModules;
-import com.carlosbecker.guice.GuiceTestRunner;
-import com.coreoz.plume.jersey.WebJerseyTestModule;
-import com.coreoz.plume.jersey.security.control.ContentControlFeature.ContentSizeLimitInterceptor.SizeLimitingInputStream;
+public class ContentSizeLimitTest  extends JerseyTest {
 
-@RunWith(GuiceTestRunner.class)
-@GuiceModules(WebJerseyTestModule.class)
-public class ContentSizeLimitTest {
-
-    private static final int LIMIT = 10;
-    private ByteArrayInputStream byteArrayInputStream;
-    private SizeLimitingInputStream sizeLimitingInputStream;
-
-    @After
-    public void tearDown() throws IOException {
-        if (sizeLimitingInputStream != null) {
-            sizeLimitingInputStream.close();
-        }
+    @Override
+    protected Application configure() {
+        ResourceConfig config = new ResourceConfig(TestContentSizeResource.class);
+        config.register(ContentControlFeature.class);
+        return config;
     }
 
     @Test
-    public void test_read_within_limit() throws IOException {
+    public void checkContentSize_withBody_whenWithinDefaultLimit_shouldReturn200() {
         byte[] data = "12345".getBytes();
-        byteArrayInputStream = new ByteArrayInputStream(data);
-        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
-
-        byte[] buffer = new byte[data.length];
-        int bytesRead = sizeLimitingInputStream.read(buffer);
-
-        assertEquals(data.length, bytesRead);
-        assertArrayEquals(data, buffer);
+        Response response = target("/test/upload-default").request().post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM));
+        assertEquals(200, response.getStatus());
     }
 
     @Test
-    public void test_read_beyond_limit() {
-        byte[] data = "12345678901".getBytes(); // 11 bytes, 1 byte over the limit
-        byteArrayInputStream = new ByteArrayInputStream(data);
-        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
-
-        byte[] buffer = new byte[data.length];
-        assertThrows(WebApplicationException.class, () -> {
-            sizeLimitingInputStream.read(buffer);
-        });
+    public void checkContentSize_withBody_whenBeyondDefaultLimit_shouldThrow() {
+        // Generate a byte array of ContentControlFeature.DEFAULT_MAX_SIZE + 1
+        byte[] data = new byte[ContentControlFeature.DEFAULT_MAX_SIZE + 1];
+        Builder request = target("/test/upload-default").request();
+        Entity<byte[]> entity = Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM);
+        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(entity).getStatus());
     }
 
     @Test
-    public void test_read_exactly_at_limit() throws IOException {
-        byte[] data = "1234567890".getBytes(); // 10 bytes, exactly at the limit
-        byteArrayInputStream = new ByteArrayInputStream(data);
-        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
-
-        byte[] buffer = new byte[data.length];
-        int bytesRead = sizeLimitingInputStream.read(buffer);
-
-        assertEquals(data.length, bytesRead);
-        assertArrayEquals(data, buffer);
+    public void checkContentSize_withBody_whenWithinCustomLimit_shouldReturn200() {
+        byte[] data = "12345".getBytes();
+        Response response = target("/test/upload-custom").request().post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM));
+        assertEquals(200, response.getStatus());
     }
 
     @Test
-    public void test_read_from_empty_stream() throws IOException {
-        byte[] data = "".getBytes();
-        byteArrayInputStream = new ByteArrayInputStream(data);
-        sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
-
-        byte[] buffer = new byte[10];
-        int bytesRead = sizeLimitingInputStream.read(buffer);
-
-        assertEquals(-1, bytesRead);
+    public void checkContentSize_withBody_whenBeyondCustomLimit_shouldThrow() {
+        // Generate a byte array of CUSTOM_MAX_SIZE + 1
+        byte[] data = new byte[TestContentSizeResource.CUSTOM_MAX_SIZE + 1];
+        Builder request = target("/test/upload-custom").request();
+        Entity<byte[]> entity = Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM);
+        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(entity).getStatus());
     }
 
 }
