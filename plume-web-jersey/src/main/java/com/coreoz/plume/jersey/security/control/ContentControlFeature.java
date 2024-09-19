@@ -9,10 +9,12 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.container.DynamicFeature;
 import jakarta.ws.rs.container.ResourceInfo;
 import jakarta.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ReaderInterceptor;
 import jakarta.ws.rs.ext.ReaderInterceptorContext;
 
+import org.glassfish.grizzly.http.HttpHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,11 +56,27 @@ public class ContentControlFeature implements DynamicFeature {
         // https://stackoverflow.com/questions/24516444/best-way-to-make-jersey-2-x-refuse-requests-with-incorrect-content-length
         @Override
         public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException {
-            final InputStream contextInputStream = context.getInputStream();
+            try {
+                final Integer headerContentLength = Integer.parseInt(context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH));
+                if (headerContentLength > maxSize) {
+                    throw new WebApplicationException(
+                        Response.status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
+                                .entity("Content size limit exceeded.")
+                                .build()
+                    );
+                }
 
-            context.setInputStream(new SizeLimitingInputStream(contextInputStream, maxSize));
+                final InputStream contextInputStream = context.getInputStream();
+                context.setInputStream(new SizeLimitingInputStream(contextInputStream, headerContentLength));
 
-            return context.proceed();
+                return context.proceed();
+            } catch (NumberFormatException e) {
+                throw new WebApplicationException(
+                    Response.status(Response.Status.LENGTH_REQUIRED)
+                            .entity("Content-Length header is missing or invalid.")
+                            .build()
+                );
+            }
         }
 
         public static final class SizeLimitingInputStream extends InputStream {
