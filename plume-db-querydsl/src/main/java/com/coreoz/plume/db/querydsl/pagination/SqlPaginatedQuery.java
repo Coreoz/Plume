@@ -97,7 +97,7 @@ public class SqlPaginatedQuery<U> {
     ) {
         List<U> slicedQueryResults = this.sqlQuery
             .offset(Pages.offset(pageNumber, pageSize))
-            .limit(pageSize + 1)
+            .limit(pageSize + 1L)
             .fetch();
 
         boolean hasMore = slicedQueryResults.size() > pageSize;
