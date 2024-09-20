@@ -30,7 +30,7 @@ public class ContentSizeLimitTest  extends JerseyTest {
     public void checkContentSize_withBody_whenWithinDefaultLimit_shouldReturn200() {
         byte[] data = "12345".getBytes();
         Response response = target("/test/upload-default").request().post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM));
-        assertEquals(200, response.getStatus());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -43,18 +43,25 @@ public class ContentSizeLimitTest  extends JerseyTest {
     }
 
     @Test
-    public void checkContentSize_withBody_whenContentLengthIsWrong_shouldReturn411() {
+    public void checkContentSize_withBody_whenContentLengthIsWrong_shouldReturn413() {
         // Generate a byte array of ContentControlFeature.DEFAULT_MAX_SIZE + 1
+        byte[] data = new byte[ContentControlFeature.DEFAULT_MAX_SIZE + 1];
         Builder request = target("/test/upload-default").request();
         request.header(HttpHeaders.CONTENT_LENGTH, null);
-        assertEquals(Response.Status.LENGTH_REQUIRED.getStatusCode(), request.post(null).getStatus());
+        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM)).getStatus());
+    }
+
+    @Test
+    public void checkContentSize_withoutBody_whenDefaultLimit_shouldReturn200() {
+        Builder request = target("/test/upload-default").request();
+        assertEquals(Response.Status.OK.getStatusCode(), request.get().getStatus());
     }
 
     @Test
     public void checkContentSize_withBody_whenWithinCustomLimit_shouldReturn200() {
         byte[] data = "12345".getBytes();
         Response response = target("/test/upload-custom").request().post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM));
-        assertEquals(200, response.getStatus());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -64,6 +71,12 @@ public class ContentSizeLimitTest  extends JerseyTest {
         Builder request = target("/test/upload-custom").request();
         Entity<byte[]> entity = Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM);
         assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(entity).getStatus());
+    }
+
+    @Test
+    public void checkContentSize_withoutBody_whenCustomLimit_shouldReturn200() {
+        Builder request = target("/test/upload-custom").request();
+        assertEquals(Response.Status.OK.getStatusCode(), request.get().getStatus());
     }
 
     @Test

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.AnnotatedElement;
 
-import jakarta.inject.Singleton;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.container.DynamicFeature;
 import jakarta.ws.rs.container.ResourceInfo;
@@ -13,14 +12,11 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ReaderInterceptor;
 import jakarta.ws.rs.ext.ReaderInterceptorContext;
+import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-@Singleton
+@Slf4j
 public class ContentControlFeature implements DynamicFeature {
 
-    private static final Logger logger = LoggerFactory.getLogger(ContentControlFeature.class);
     public static final int DEFAULT_MAX_SIZE = 500 * 1024; // 500 KB
     private final Integer maxSize;
 
@@ -66,11 +62,7 @@ public class ContentControlFeature implements DynamicFeature {
             try {
                 headerContentLength = Integer.parseInt(context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH));
             } catch (NumberFormatException e) {
-                throw new WebApplicationException(
-                    Response.status(Response.Status.LENGTH_REQUIRED)
-                            .entity("Content-Length header is missing or invalid.")
-                            .build()
-                );
+                headerContentLength = maxSize; // default value for GET or chunked body
             }
             if (headerContentLength > maxSize) {
                 throw new WebApplicationException(
