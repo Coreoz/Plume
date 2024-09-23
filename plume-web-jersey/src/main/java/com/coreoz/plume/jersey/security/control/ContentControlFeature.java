@@ -58,12 +58,16 @@ public class ContentControlFeature implements DynamicFeature {
         // https://stackoverflow.com/questions/24516444/best-way-to-make-jersey-2-x-refuse-requests-with-incorrect-content-length
         @Override
         public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException {
-            Integer headerContentLength;
-            try {
-                headerContentLength = Integer.parseInt(context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH));
-            } catch (NumberFormatException e) {
-                headerContentLength = maxSize; // default value for GET or chunked body
+            int headerContentLength = maxSize; // default value for GET or chunked body
+            String contentLengthHeader = context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH);
+            if (contentLengthHeader != null) {
+                try {
+                    headerContentLength = Integer.parseInt(contentLengthHeader);
+                } catch (NumberFormatException e) {
+                    logger.warn("Wrong content length header received: {}", contentLengthHeader);
+                }
             }
+
             if (headerContentLength > maxSize) {
                 throw new WebApplicationException(
                     Response.status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
