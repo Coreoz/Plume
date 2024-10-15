@@ -12,6 +12,7 @@ public interface WsError {
 	WsError FIELD_REQUIRED = new WsErrorInternal("FIELD_REQUIRED");
 	WsError EMAIL_INVALID = new WsErrorInternal("EMAIL_INVALID");
 	WsError COLOR_INVALID = new WsErrorInternal("COLOR_INVALID");
+	WsError CONTENT_SIZE_LIMIT_EXCEEDED = new WsErrorInternal("CONTENT_SIZE_LIMIT_EXCEEDED");
 
 	/**
 	 * Returns the name of the error

@@ -1,28 +1,28 @@
-package com.coreoz.plume.jersey.control;
+package com.coreoz.plume.jersey.security.size;
 
-import org.junit.Test;
-
+import com.coreoz.plume.jersey.errors.WsError;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.client.Invocation.Builder;
-
+import lombok.SneakyThrows;
+import org.assertj.core.api.Assertions;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-
-import com.coreoz.plume.jersey.security.control.ContentControlFeature;
-import com.coreoz.plume.jersey.security.control.ContentControlFeatureFactory;
 
 public class ContentSizeLimitTest  extends JerseyTest {
 
     @Override
     protected Application configure() {
         ResourceConfig config = new ResourceConfig(TestContentSizeResource.class);
-        config.register(ContentControlFeature.class);
+        config.register(ContentSizeLimitFeature.class);
         return config;
     }
 
@@ -33,19 +33,26 @@ public class ContentSizeLimitTest  extends JerseyTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @SneakyThrows
     @Test
     public void checkContentSize_withBody_whenBeyondDefaultLimit_shouldReturn413() {
         // Generate a byte array of ContentControlFeature.DEFAULT_MAX_SIZE + 1
-        byte[] data = new byte[ContentControlFeature.DEFAULT_MAX_SIZE + 1];
+        byte[] data = new byte[ContentSizeLimitFeature.DEFAULT_MAX_SIZE + 1];
         Builder request = target("/test/upload-default").request();
         Entity<byte[]> entity = Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM);
-        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(entity).getStatus());
+        Response response = request.post(entity);
+        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), response.getStatus());
+        // make sure that a valid json error response is returned
+        assertEquals(MediaType.APPLICATION_JSON_TYPE, response.getMediaType());
+        JsonNode responseBody = new ObjectMapper().readTree(response.readEntity(String.class));
+        Assertions.assertThat(responseBody).isNotNull();
+        Assertions.assertThat(responseBody.get("errorCode").asText()).isEqualTo(WsError.CONTENT_SIZE_LIMIT_EXCEEDED.name());
     }
 
     @Test
     public void checkContentSize_withBody_whenContentLengthIsWrong_shouldReturn413() {
         // Generate a byte array of ContentControlFeature.DEFAULT_MAX_SIZE + 1
-        byte[] data = new byte[ContentControlFeature.DEFAULT_MAX_SIZE + 1];
+        byte[] data = new byte[ContentSizeLimitFeature.DEFAULT_MAX_SIZE + 1];
         Builder request = target("/test/upload-default").request();
         request.header(HttpHeaders.CONTENT_LENGTH, null);
         assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM)).getStatus());
@@ -83,8 +90,8 @@ public class ContentSizeLimitTest  extends JerseyTest {
     public void checkMaxSize_whenCustomControlFeature_shouldSuccess() {
         // Custom max size
         Integer customMaxSize = 300;
-        ContentControlFeatureFactory contentControlFeatureFactory = new ContentControlFeatureFactory(customMaxSize);
-        ContentControlFeature contentControlFeature = contentControlFeatureFactory.provide();
-        assertEquals(customMaxSize, contentControlFeature.getContentSizeLimit());
+        ContentSizeLimitFeatureFactory contentControlFeatureFactory = new ContentSizeLimitFeatureFactory(customMaxSize);
+        ContentSizeLimitFeature contentSizeLimitFeature = contentControlFeatureFactory.provide();
+        assertEquals(customMaxSize, contentSizeLimitFeature.getContentSizeLimit());
     }
 }

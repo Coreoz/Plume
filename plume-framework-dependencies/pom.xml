@@ -31,7 +31,7 @@
 		<h2.version>2.2.220</h2.version>
 		<jackson.version>2.17.2</jackson.version>
 		<jersey.version>3.1.8</jersey.version>
-		<swagger.version>2.2.20</swagger.version>
+		<swagger.version>2.2.23</swagger.version>
 		<hk2-guice-bridge.version>3.1.1</hk2-guice-bridge.version>
 		<commons-validator.version>1.8.0</commons-validator.version>
 		<jakarta-annotation.version>3.0.0</jakarta-annotation.version>
@@ -274,12 +274,12 @@
 			</dependency>
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
-				<artifactId>swagger-annotations</artifactId>
+				<artifactId>swagger-annotations-jakarta</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.swagger.core.v3</groupId>
-				<artifactId>swagger-jaxrs2</artifactId>
+				<artifactId>swagger-jaxrs2-jakarta</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
 			<dependency>

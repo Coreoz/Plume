@@ -1,37 +1,36 @@
-package com.coreoz.plume.jersey.security.control;
+package com.coreoz.plume.jersey.security.size;
+
+import com.coreoz.plume.jersey.errors.WsError;
+import jakarta.ws.rs.ClientErrorException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.DynamicFeature;
+import jakarta.ws.rs.container.ResourceInfo;
+import jakarta.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.AnnotatedElement;
 
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.container.DynamicFeature;
-import jakarta.ws.rs.container.ResourceInfo;
-import jakarta.ws.rs.core.FeatureContext;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.ReaderInterceptor;
-import jakarta.ws.rs.ext.ReaderInterceptorContext;
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-public class ContentControlFeature implements DynamicFeature {
-
+public class ContentSizeLimitFeature implements DynamicFeature {
     public static final int DEFAULT_MAX_SIZE = 500 * 1024; // 500 KB
+    static final String JSON_ENTITY_TOO_LARGE_ERROR = "{\"errorCode\":\""+WsError.CONTENT_SIZE_LIMIT_EXCEEDED.name()+"\",\"statusArguments\":[]}";
     private final Integer maxSize;
 
-    public ContentControlFeature(int maxSize) {
+    public ContentSizeLimitFeature(int maxSize) {
         this.maxSize = maxSize;
     }
 
-    public ContentControlFeature() {
+    public ContentSizeLimitFeature() {
         this.maxSize = DEFAULT_MAX_SIZE;
     }
 
     public Integer getContentSizeLimit() {
-        if (maxSize == null) {
-            return DEFAULT_MAX_SIZE;
-        }
         return maxSize;
     }
 
@@ -40,15 +39,14 @@ public class ContentControlFeature implements DynamicFeature {
         addContentSizeFilter(resourceInfo.getResourceMethod(), context);
     }
 
-    private void addContentSizeFilter(AnnotatedElement annotatedElement, FeatureContext methodResourcecontext) {
+    private void addContentSizeFilter(AnnotatedElement annotatedElement, FeatureContext methodResourceContext) {
         ContentSizeLimit contentSizeLimit = annotatedElement.getAnnotation(ContentSizeLimit.class);
-        methodResourcecontext.register(new ContentSizeLimitInterceptor(
-                contentSizeLimit != null ? contentSizeLimit.value() : maxSize
-            ));
+        methodResourceContext.register(new ContentSizeLimitInterceptor(
+            contentSizeLimit != null ? contentSizeLimit.value() : maxSize
+        ));
     }
 
-    public static class ContentSizeLimitInterceptor implements ReaderInterceptor {
-
+    public static class ContentSizeLimitInterceptor implements ContainerRequestFilter {
         private final int maxSize;
 
         public ContentSizeLimitInterceptor(int maxSize) {
@@ -57,7 +55,7 @@ public class ContentControlFeature implements DynamicFeature {
 
         // https://stackoverflow.com/questions/24516444/best-way-to-make-jersey-2-x-refuse-requests-with-incorrect-content-length
         @Override
-        public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException {
+        public void filter(ContainerRequestContext context) {
             int headerContentLength = maxSize; // default value for GET or chunked body
             String contentLengthHeader = context.getHeaders().getFirst(HttpHeaders.CONTENT_LENGTH);
             if (contentLengthHeader != null) {
@@ -69,17 +67,11 @@ public class ContentControlFeature implements DynamicFeature {
             }
 
             if (headerContentLength > maxSize) {
-                throw new WebApplicationException(
-                    Response.status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
-                            .entity("Content size limit exceeded.")
-                            .build()
-                );
+                throw makeEntityTooLargeException();
             }
 
-            final InputStream contextInputStream = context.getInputStream();
-            context.setInputStream(new SizeLimitingInputStream(contextInputStream, headerContentLength));
-
-            return context.proceed();
+            final InputStream contextInputStream = context.getEntityStream();
+            context.setEntityStream(new SizeLimitingInputStream(contextInputStream, headerContentLength));
         }
 
         public static final class SizeLimitingInputStream extends InputStream {
@@ -119,7 +111,7 @@ public class ContentControlFeature implements DynamicFeature {
             @Override
             public long skip(final long n) throws IOException {
                 final long skip = delegateInputStream.skip(n);
-                readAndCheck(skip != -1 ? skip : 0);
+                readAndCheck(skip);
                 return skip;
             }
 
@@ -160,13 +152,19 @@ public class ContentControlFeature implements DynamicFeature {
                     } catch (IOException e) {
                         logger.error("Error while closing the input stream", e);
                     }
-                    throw new WebApplicationException(
-                        Response.status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
-                                .entity("Content size limit exceeded.")
-                                .build()
-                    );
+                    throw makeEntityTooLargeException();
                 }
             }
+        }
+
+        private static RuntimeException makeEntityTooLargeException() {
+            return new ClientErrorException(Response
+                .status(Response.Status.REQUEST_ENTITY_TOO_LARGE)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+                // We use a string response directly because Jersey does not accept an objet here (it would return a 500 error)
+                .entity(JSON_ENTITY_TOO_LARGE_ERROR)
+                .build()
+            );
         }
     }
 }
