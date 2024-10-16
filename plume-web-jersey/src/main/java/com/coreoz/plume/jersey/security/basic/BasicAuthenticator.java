@@ -1,5 +1,6 @@
 package com.coreoz.plume.jersey.security.basic;
 
+import com.coreoz.plume.jersey.security.AuthorizationVerifier;
 import lombok.extern.slf4j.Slf4j;
 
 import jakarta.ws.rs.ClientErrorException;
@@ -9,7 +10,9 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
+import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.function.Function;
 
@@ -42,15 +45,14 @@ public class BasicAuthenticator<U> {
 
 	/**
 	 * Create a new {@link BasicAuthenticator} for a unique credentials.
-	 * This should be used to protect a non strategic resource since users
-	 * will all share the same user name and password.
+	 * This should be used to protect a non-strategic resource since users
+	 * will all share the same username and password.
 	 */
 	public static BasicAuthenticator<String> fromSingleCredentials(String singleUsername,
 			String password, String realm) {
 		return new BasicAuthenticator<>(
-			credentials ->
-				singleUsername.equals(credentials.getUsername())
-				&& password.equals(credentials.getPassword()) ?
+			credentials -> MessageDigest.isEqual(singleUsername.getBytes(), credentials.getUsername().getBytes())
+                && MessageDigest.isEqual(password.getBytes(),credentials.getPassword().getBytes()) ?
 					"Basic user"
 					: null,
 			realm
@@ -58,6 +60,16 @@ public class BasicAuthenticator<U> {
 	}
 
 	// API
+
+    /**
+     * Provide an {@link AuthorizationVerifier} from the basic authenticator to provide annotation based request authorization using {@link com.coreoz.plume.jersey.security.AuthorizationSecurityFeature}
+     * @param annotation The annotation that will be used to identify resources that must be authorized. For example {@link BasicRestricted} can be used if it is not already used in the project for another authorization system
+     * @return The basic authenticator corresponding {@link AuthorizationVerifier}
+     * @param <A> The annotation type
+     */
+    public <A extends Annotation> AuthorizationVerifier<A> toAuthorizationVerifier(A annotation) {
+        return (authorizationAnnotation, requestContext) -> requireAuthentication(requestContext);
+    }
 
 	/**
 	 * Check that users accessing the resource are well authenticated.
