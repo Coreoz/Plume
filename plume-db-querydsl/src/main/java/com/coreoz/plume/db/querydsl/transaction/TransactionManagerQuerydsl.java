@@ -25,22 +25,16 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 	private final Configuration querydslConfiguration;
 
 	@Inject
-	public TransactionManagerQuerydsl(Config config) {
-		this(config, "db");
+	public TransactionManagerQuerydsl(DataSource dataSource, Config config) {
+        super(dataSource);
+            String dialect = config.getString("db.dialect");
+        this.querydslConfiguration = new Configuration(QuerydslTemplates.valueOf(dialect).sqlTemplates());
 	}
 
-	public TransactionManagerQuerydsl(Config config, String prefix) {
-		super(config, prefix);
-
-		String dialect = config.getString(prefix + ".dialect");
-		this.querydslConfiguration = new Configuration(QuerydslTemplates.valueOf(dialect).sqlTemplates());
-	}
-
-	public TransactionManagerQuerydsl(DataSource dataSource, Configuration querydslConfiguration) {
-		super(dataSource);
-
-		this.querydslConfiguration = querydslConfiguration;
-	}
+    public TransactionManagerQuerydsl(DataSource dataSource, Configuration querydslConfiguration) {
+        super(dataSource);
+        this.querydslConfiguration = querydslConfiguration;
+    }
 
 	// API
 

@@ -15,13 +15,13 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public class HikariDataSources {
 
-	public static DataSource fromConfig(Config config, String prefix) {
-		return initializeFromProperties(readConfig(config, prefix));
+	public static HikariDataSource fromConfig(Config config, String prefix) {
+		return new HikariDataSource(createHikariConfig(config, prefix));
 	}
 
-	private static HikariDataSource initializeFromProperties(Map<String, String> properties) {
-		return new HikariDataSource(new HikariConfig(mapToProperties(properties)));
-	}
+    public static HikariConfig createHikariConfig(Config config, String prefix) {
+        return new HikariConfig(mapToProperties(readConfig(config, prefix)));
+    }
 
 	private static Properties mapToProperties(Map<String, String> mapProperties) {
 		Properties properties = new Properties();
