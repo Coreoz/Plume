@@ -19,6 +19,7 @@ import java.lang.reflect.AnnotatedElement;
 @Slf4j
 public class ContentSizeLimitFeature implements DynamicFeature {
     public static final int DEFAULT_MAX_SIZE = 500 * 1024; // 500 KB
+    // We use a string response directly because Jersey does not accept an objet here (it would return a 500 error)
     static final String JSON_ENTITY_TOO_LARGE_ERROR = "{\"errorCode\":\""+WsError.CONTENT_SIZE_LIMIT_EXCEEDED.name()+"\",\"statusArguments\":[]}";
     private final Integer maxSize;
 
