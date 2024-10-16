@@ -1,6 +1,4 @@
-package com.coreoz.plume.jersey.control;
-
-import com.coreoz.plume.jersey.security.control.ContentSizeLimit;
+package com.coreoz.plume.jersey.security.size;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
