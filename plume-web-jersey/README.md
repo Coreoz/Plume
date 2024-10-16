@@ -31,15 +31,15 @@ Content size limit
 ------------------
 In order to protect the backend against attack that would send huge content, it is possible to limit the size of the content that can be sent to the backend.
 
-To do so, register the `ContentControlFeature` in Jersey: `resourceConfig.register(ContentControlFeature.class);`
-By default the content size of body is limited to 500 KB. This limit can be override for the whole api by using the `ContentControlFeatureFactory` to specify your own limit.
+To do so, register the `ContentSizeLimitFeature` in Jersey: `resourceConfig.register(ContentSizeLimitFeature.class);`
+By default the content size of body is limited to 500 KB. This limit can be overridden for the whole api by using the `ContentSizeLimitFeatureFactory` to specify your own limit.
 
 Usage example:
 ```java
 resourceConfig.register(new AbstractBinder() {
     @Override
     protected void configure() {
-        bindFactory(new ContentControlFeatureFactory(1000 * 1024 /* 1MB */)).to(ContentControlFeature.class);
+        bindFactory(new ContentSizeLimitFeatureFactory(1000 * 1024 /* 1MB */)).to(ContentSizeLimitFeature.class);
     }
 });
 ```

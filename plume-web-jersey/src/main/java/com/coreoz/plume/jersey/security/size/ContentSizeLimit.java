@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.security.control;
+package com.coreoz.plume.jersey.security.size;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
