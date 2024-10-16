@@ -1,7 +1,6 @@
 package com.coreoz.plume.jersey.security.bearer;
 
-import com.coreoz.plume.jersey.security.AuthorizationVerifier;
-import com.coreoz.plume.jersey.security.basic.BasicRestricted;
+import com.coreoz.plume.jersey.security.AuthorizationSecurityFeature;
 import com.google.common.net.HttpHeaders;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -25,20 +24,25 @@ public class BearerAuthenticator {
     }
 
     /**
-     * Provide an {@link AuthorizationVerifier} from the bearer authenticator to provide annotation based request authorization using {@link com.coreoz.plume.jersey.security.AuthorizationSecurityFeature}
-     * @param annotation The annotation that will be used to identify resources that must be authorized. For example {@link BasicRestricted} can be used if it is not already used in the project for another authorization system
-     * @return The basic authenticator corresponding {@link AuthorizationVerifier}
-     * @param <A> The annotation type
+     * Provide a {@link AuthorizationSecurityFeature} from the bearer authenticator that can be used in Jersey
+     * to provide authentication on annotated resources.
+     * @param bearerAnnotation The annotation that will be used to identify resources that must be authorized. For example {@link BearerRestricted} can be used if it is not already used in the project for another authorization system
+     * @return The corresponding {@link AuthorizationSecurityFeature}
+     * @param <A> The annotation type used to identify required bearer authenticated resources
      */
-    public <A extends Annotation> AuthorizationVerifier<A> toAuthorizationVerifier(A annotation) {
-        return (authorizationAnnotation, requestContext) -> verifyAuthentication(requestContext);
+    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(Class<A> bearerAnnotation) {
+        return new AuthorizationSecurityFeature<>(
+            bearerAnnotation,
+            (authorizationAnnotation, requestContext) -> verifyAuthentication(requestContext)
+        );
     }
 
     public void verifyAuthentication(@NotNull ContainerRequestContext requestContext) {
         String bearer = parseBearerHeader(requestContext.getHeaderString(HttpHeaders.AUTHORIZATION));
 
         if (bearer == null || !MessageDigest.isEqual(authenticationSecretHeader.getBytes(), bearer.getBytes())) {
-            throw new ForbiddenException("Invalid bearer header: " + bearer);
+            logger.warn("Invalid bearer header: {}", bearer);
+            throw new ForbiddenException();
         }
     }
 

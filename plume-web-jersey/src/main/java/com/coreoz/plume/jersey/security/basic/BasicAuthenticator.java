@@ -1,14 +1,13 @@
 package com.coreoz.plume.jersey.security.basic;
 
-import com.coreoz.plume.jersey.security.AuthorizationVerifier;
-import lombok.extern.slf4j.Slf4j;
-
+import com.coreoz.plume.jersey.security.AuthorizationSecurityFeature;
 import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
@@ -62,13 +61,17 @@ public class BasicAuthenticator<U> {
 	// API
 
     /**
-     * Provide an {@link AuthorizationVerifier} from the basic authenticator to provide annotation based request authorization using {@link com.coreoz.plume.jersey.security.AuthorizationSecurityFeature}
-     * @param annotation The annotation that will be used to identify resources that must be authorized. For example {@link BasicRestricted} can be used if it is not already used in the project for another authorization system
-     * @return The basic authenticator corresponding {@link AuthorizationVerifier}
-     * @param <A> The annotation type
+     * Provide a {@link AuthorizationSecurityFeature} from the bearer basic that can be used in Jersey
+     * to provide authentication on annotated resources.
+     * @param basicAnnotation The annotation that will be used to identify resources that must be authorized. For example {@link BasicRestricted} can be used if it is not already used in the project for another authorization system
+     * @return The corresponding {@link AuthorizationSecurityFeature}
+     * @param <A> The annotation type used to identify required basic authenticated resources
      */
-    public <A extends Annotation> AuthorizationVerifier<A> toAuthorizationVerifier(A annotation) {
-        return (authorizationAnnotation, requestContext) -> requireAuthentication(requestContext);
+    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(Class<A> basicAnnotation) {
+        return new AuthorizationSecurityFeature<>(
+            basicAnnotation,
+            (authorizationAnnotation, requestContext) -> requireAuthentication(requestContext)
+        );
     }
 
 	/**

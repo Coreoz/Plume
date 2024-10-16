@@ -137,3 +137,103 @@ public void waitAsync(@Suspended final AsyncResponse asyncResponse) {
 }
 ```
 
+Requests authorization
+----------------------
+Multiple authorization provider are implemented.
+For all provider, the HTTP header `Authorization` is used to fetch the authorization value.
+
+### Basic authorization
+This feature is provided by the `BasicAuthenticator` class.
+Sample usage:
+```java
+@Path("/example")
+@Tag(name = "example", description = "Manage exemple web-services")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+// Since we are performing authorization in the resource, we can mark this API as public
+@PublicApi
+@Singleton
+public class ExampleWs {
+    private final BasicAuthenticator<String> basicAuthenticator;
+
+	@Inject
+	public ExampleWs() {
+        this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
+            "my-username",
+            "my-password",
+            // Message displayed to the user trying to access the API with a browser
+            "My protected API"
+        );
+	}
+
+	@GET
+	@Path("/test")
+	@Operation(description = "Example web-service")
+	public Test test(@Context ContainerRequestContext requestContext) {
+        basicAuthenticator.requireAuthentication(requestContext);
+
+		return new Test("Hello world");
+	}
+}
+```
+
+One sample valid request: `curl -u 'my-username:my-password' 'http://localhost:8080/api/example/test'`
+
+### API Key authorization
+This feature is provided by the `BearerAuthenticator` class.
+Sample usage:
+```java
+@Path("/example")
+@Tag(name = "example", description = "Manage exemple web-services")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+// Since we are performing authorization in the resource, we can mark this API as public
+@PublicApi
+@Singleton
+public class ExampleWs {
+    private final BearerAuthenticator bearerAuthenticator;
+
+    @Inject
+    public ExampleWs() {
+        this.bearerAuthenticator = new BearerAuthenticator("my-bearer-token");
+    }
+
+    @GET
+    @Path("/test")
+    @Operation(description = "Example web-service")
+    public Test test(@Context ContainerRequestContext requestContext) {
+        bearerAuthenticator.verifyAuthentication(requestContext);
+
+        return new Test("Hello world");
+    }
+}
+```
+
+One sample valid request: `curl -H 'Authorization: Bearer my-bearer-token' 'http://localhost:8080/api/example/test'`
+
+### Resource authorization based on annotation
+This feature is provided `AuthorizationSecurityFeature` and works with any authentication system.
+For example using bearer auth:
+- In the `JerseyConfigProvider` file, declare the feature with the annotation used for resource identification: `config.register(new BearerAuthenticator("my-bearer-token").toAuthorizationFeature(BearerRestricted.class));`
+- In the `JerseyConfigProvider` file, register if needed the annotation used in the `RequireExplicitAccessControlFeature`: `config.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, BearerRestricted.class));`
+- Use the annotation in a resource definition:
+```java
+@Path("/example")
+@Tag(name = "example", description = "Manage exemple web-services")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+// The new annotation that will ensure the authorization process before granting access
+@BearerRestricted
+@Singleton
+public class ExampleWs {
+    @GET
+    @Path("/test")
+    @Operation(description = "Example web-service")
+    public Test test() {
+        return new Test("Hello world");
+    }
+}
+```
+
+### Permissions based authorization
+TODO to details

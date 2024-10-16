@@ -8,7 +8,6 @@ import jakarta.ws.rs.container.DynamicFeature;
 import jakarta.ws.rs.container.ResourceInfo;
 import jakarta.ws.rs.core.FeatureContext;
 import lombok.extern.slf4j.Slf4j;
-import org.glassfish.jersey.server.internal.LocalizationMessages;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;
@@ -37,7 +36,7 @@ public class PermissionFeature<A extends Annotation> implements DynamicFeature {
     ) {
         return (authorizationAnnotation, requestContext) -> {
             if(!authorize(requestPermissionProvider, requestContext, permissionAnnotationExtractor.apply(authorizationAnnotation))) {
-                throw new ForbiddenException(LocalizationMessages.USER_NOT_AUTHORIZED());
+                throw new ForbiddenException();
             }
         };
     }
