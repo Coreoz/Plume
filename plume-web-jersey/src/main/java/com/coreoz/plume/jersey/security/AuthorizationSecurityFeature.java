@@ -25,33 +25,33 @@ import java.lang.reflect.AnnotatedElement;
  */
 @Slf4j
 public class AuthorizationSecurityFeature<A extends Annotation> implements DynamicFeature {
-    private final Class<A> restrictedAnnotations;
+    private final Class<A> annotation;
     private final AuthorizationVerifier<A> authorizationVerifier;
 
     /**
-     * @param restrictedAnnotations The annotation type that will hold the authentication
+     * @param annotation The annotation type that will hold the authentication
      * @param authorizationVerifier The function that will verify that the request is authorized, else it should throw {@link jakarta.ws.rs.ForbiddenException} or {@link jakarta.ws.rs.ClientErrorException}
      */
-    public AuthorizationSecurityFeature(Class<A> restrictedAnnotations, AuthorizationVerifier<A> authorizationVerifier) {
-        this.restrictedAnnotations = restrictedAnnotations;
+    public AuthorizationSecurityFeature(Class<A> annotation, AuthorizationVerifier<A> authorizationVerifier) {
+        this.annotation = annotation;
         this.authorizationVerifier = authorizationVerifier;
     }
 
     @Override
     public void configure(ResourceInfo methodResourceInfo, FeatureContext methodResourceContext) {
-        A methodAnnotation = fetchAnnotation(methodResourceInfo.getResourceMethod());
+        A methodAnnotation = getAnnotation(methodResourceInfo.getResourceMethod());
         if (methodAnnotation != null) {
             methodResourceContext.register(new AuthorizationFilter(methodAnnotation));
         } else {
-            A classAnnotation = fetchAnnotation(methodResourceInfo.getResourceClass());
+            A classAnnotation = getAnnotation(methodResourceInfo.getResourceClass());
             if (classAnnotation != null) {
                 methodResourceContext.register(new AuthorizationFilter(classAnnotation));
             }
         }
     }
 
-    private A fetchAnnotation(AnnotatedElement annotatedElement) {
-        return annotatedElement.getAnnotation(restrictedAnnotations);
+    private A getAnnotation(AnnotatedElement annotatedElement) {
+        return annotatedElement.getAnnotation(annotation);
     }
 
     private class AuthorizationFilter implements ContainerRequestFilter {
