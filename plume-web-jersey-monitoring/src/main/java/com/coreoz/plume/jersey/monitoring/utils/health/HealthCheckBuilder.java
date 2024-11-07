@@ -6,18 +6,21 @@ import com.codahale.metrics.health.HealthCheck;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.coreoz.plume.jersey.monitoring.utils.health.healthchecks.DatabaseHealthCheck;
 
+import jakarta.annotation.Nonnull;
 import jakarta.inject.Provider;
 import java.util.SortedMap;
 
 public class HealthCheckBuilder {
     private final HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
 
-    public HealthCheckBuilder registerHealthCheck(String name, HealthCheck healthCheck) {
+    @Nonnull
+    public HealthCheckBuilder registerHealthCheck(@Nonnull String name, @Nonnull HealthCheck healthCheck) {
         this.healthCheckRegistry.register(name, healthCheck);
         return this;
     }
 
-    public HealthCheckBuilder registerDatabaseHealthCheck(TransactionManager transactionManager) {
+    @Nonnull
+    public HealthCheckBuilder registerDatabaseHealthCheck(@Nonnull TransactionManager transactionManager) {
         this.healthCheckRegistry.register("database", new DatabaseHealthCheck(transactionManager));
         return this;
     }

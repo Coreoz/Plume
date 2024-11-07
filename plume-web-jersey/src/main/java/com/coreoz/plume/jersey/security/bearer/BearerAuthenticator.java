@@ -2,10 +2,11 @@ package com.coreoz.plume.jersey.security.bearer;
 
 import com.coreoz.plume.jersey.security.AuthorizationSecurityFeature;
 import com.google.common.net.HttpHeaders;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
@@ -19,7 +20,7 @@ public class BearerAuthenticator {
 
     private final String authenticationSecretHeader;
 
-    public BearerAuthenticator(String bearerToken) {
+    public BearerAuthenticator(@Nonnull String bearerToken) {
         this.authenticationSecretHeader = BEARER_PREFIX + bearerToken;
     }
 
@@ -30,14 +31,15 @@ public class BearerAuthenticator {
      * @return The corresponding {@link AuthorizationSecurityFeature}
      * @param <A> The annotation type used to identify required bearer authenticated resources
      */
-    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(Class<A> bearerAnnotation) {
+    @Nonnull
+    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(@Nonnull Class<A> bearerAnnotation) {
         return new AuthorizationSecurityFeature<>(
             bearerAnnotation,
             (authorizationAnnotation, requestContext) -> verifyAuthentication(requestContext)
         );
     }
 
-    public void verifyAuthentication(@NotNull ContainerRequestContext requestContext) {
+    public void verifyAuthentication(@Nonnull ContainerRequestContext requestContext) {
         String bearer = parseBearerHeader(requestContext.getHeaderString(HttpHeaders.AUTHORIZATION));
 
         if (bearer == null || !MessageDigest.isEqual(authenticationSecretHeader.getBytes(), bearer.getBytes())) {
@@ -46,7 +48,8 @@ public class BearerAuthenticator {
         }
     }
 
-    public static String parseBearerHeader(String authorizationHeader) {
+    @Nullable
+    public static String parseBearerHeader(@Nullable String authorizationHeader) {
         if(authorizationHeader == null) {
             logger.debug("Missing Authorization header");
             return null;

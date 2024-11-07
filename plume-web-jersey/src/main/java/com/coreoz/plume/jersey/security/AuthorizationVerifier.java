@@ -1,10 +1,10 @@
 package com.coreoz.plume.jersey.security;
 
+import jakarta.annotation.Nonnull;
 import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 
-import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 
 /**

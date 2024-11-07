@@ -10,6 +10,7 @@ import com.querydsl.sql.dml.SQLDeleteClause;
 import com.querydsl.sql.dml.SQLInsertClause;
 import com.querydsl.sql.dml.SQLUpdateClause;
 import com.typesafe.config.Config;
+import jakarta.annotation.Nonnull;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -38,47 +39,57 @@ public class TransactionManagerQuerydsl extends TransactionManager {
 
 	// API
 
+    @Nonnull
 	public <Q> SQLQuery<Q> selectQuery() {
 		SQLQuery<Q> query = new SQLQuery<>(getConnectionProvider(), querydslConfiguration);
 		query.addListener(SQLCloseListener.DEFAULT);
 		return query;
 	}
 
-	public <Q> SQLQuery<Q> selectQuery(Connection connection) {
+    @Nonnull
+	public <Q> SQLQuery<Q> selectQuery(@Nonnull Connection connection) {
 		return new SQLQuery<>(connection, querydslConfiguration);
 	}
 
-	public SQLDeleteClause delete(RelationalPath<?> path) {
+    @Nonnull
+	public SQLDeleteClause delete(@Nonnull RelationalPath<?> path) {
 		return autoCloseQuery(new SQLDeleteClause(getConnectionProvider(), querydslConfiguration, path));
 	}
 
-	public SQLDeleteClause delete(RelationalPath<?> path, Connection connection) {
+    @Nonnull
+	public SQLDeleteClause delete(@Nonnull RelationalPath<?> path, @Nonnull Connection connection) {
 		return new SQLDeleteClause(connection, querydslConfiguration, path);
 	}
 
-	public SQLInsertClause insert(RelationalPath<?> path) {
+    @Nonnull
+	public SQLInsertClause insert(@Nonnull RelationalPath<?> path) {
 		return autoCloseQuery(new SQLInsertClause(getConnectionProvider(), querydslConfiguration, path));
 	}
 
-	public SQLInsertClause insert(RelationalPath<?> path, Connection connection) {
+    @Nonnull
+	public SQLInsertClause insert(@Nonnull RelationalPath<?> path, @Nonnull Connection connection) {
 		return new SQLInsertClause(connection, querydslConfiguration, path);
 	}
 
-	public SQLUpdateClause update(RelationalPath<?> path) {
+    @Nonnull
+	public SQLUpdateClause update(@Nonnull RelationalPath<?> path) {
 		return autoCloseQuery(new SQLUpdateClause(getConnectionProvider(), querydslConfiguration, path));
 	}
 
-	public SQLUpdateClause update(RelationalPath<?> path, Connection connection) {
+    @Nonnull
+	public SQLUpdateClause update(@Nonnull RelationalPath<?> path, @Nonnull Connection connection) {
 		return new SQLUpdateClause(connection, querydslConfiguration, path);
 	}
 
 	// internal
 
-	private <T extends AbstractSQLClause<?>> T autoCloseQuery(T query) {
+    @Nonnull
+	private <T extends AbstractSQLClause<?>> T autoCloseQuery(@Nonnull T query) {
 		query.addListener(SQLCloseListener.DEFAULT);
 		return query;
 	}
 
+    @Nonnull
     private Supplier<Connection> getConnectionProvider() {
 		return unchecked(dataSource()::getConnection);
 	}

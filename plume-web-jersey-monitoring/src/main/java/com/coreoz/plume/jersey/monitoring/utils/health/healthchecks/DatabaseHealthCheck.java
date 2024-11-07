@@ -2,6 +2,7 @@ package com.coreoz.plume.jersey.monitoring.utils.health.healthchecks;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.coreoz.plume.db.transaction.TransactionManager;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public class DatabaseHealthCheck extends HealthCheck {
 
     private final TransactionManager transactionManager;
 
-    public DatabaseHealthCheck(TransactionManager transactionManager) {
+    public DatabaseHealthCheck(@Nonnull TransactionManager transactionManager) {
         this.transactionManager = transactionManager;
     }
 

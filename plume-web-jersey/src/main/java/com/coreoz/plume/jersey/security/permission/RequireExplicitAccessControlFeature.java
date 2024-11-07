@@ -1,6 +1,7 @@
 package com.coreoz.plume.jersey.security.permission;
 
 import com.google.common.collect.ImmutableSet;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 
 import jakarta.ws.rs.ForbiddenException;
@@ -29,7 +30,7 @@ import java.util.Set;
 public class RequireExplicitAccessControlFeature implements DynamicFeature {
 	private final Set<Class<? extends Annotation>> registeredAccessControlAnnotations;
 
-	public RequireExplicitAccessControlFeature(Set<Class<? extends Annotation>> registeredAccessControlAnnotations) {
+	public RequireExplicitAccessControlFeature(@Nonnull Set<Class<? extends Annotation>> registeredAccessControlAnnotations) {
 		this.registeredAccessControlAnnotations = registeredAccessControlAnnotations;
 	}
 

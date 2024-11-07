@@ -9,11 +9,13 @@ import java.util.List;
  */
 public interface CrudDao<T> {
 
+    @Nonnull
 	List<T> findAll();
 
 	@Nullable
 	T findById(@Nonnull Long id);
 
+    @Nonnull
 	T save(@Nonnull T entityToUpdate);
 
 	long delete(@Nonnull Long id);

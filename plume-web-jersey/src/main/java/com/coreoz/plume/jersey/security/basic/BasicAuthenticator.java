@@ -1,6 +1,8 @@
 package com.coreoz.plume.jersey.security.basic;
 
 import com.coreoz.plume.jersey.security.AuthorizationSecurityFeature;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -37,7 +39,7 @@ public class BasicAuthenticator<U> {
 	 * the realm is mandatory,
 	 * see <a href="https://tools.ietf.org/html/rfc2617#section-2">RFC 2617</a>.
 	 */
-	public BasicAuthenticator(Function<Credentials, U> authenticator, String realm) {
+	public BasicAuthenticator(@Nonnull Function<Credentials, U> authenticator, @Nonnull String realm) {
 		this.authenticator = authenticator;
 		this.realm = realm;
 	}
@@ -47,8 +49,9 @@ public class BasicAuthenticator<U> {
 	 * This should be used to protect a non-strategic resource since users
 	 * will all share the same username and password.
 	 */
-	public static BasicAuthenticator<String> fromSingleCredentials(String singleUsername,
-			String password, String realm) {
+    @Nonnull
+	public static BasicAuthenticator<String> fromSingleCredentials(@Nonnull String singleUsername,
+                                                                   @Nonnull String password, @Nonnull String realm) {
 		return new BasicAuthenticator<>(
 			credentials -> MessageDigest.isEqual(singleUsername.getBytes(), credentials.getUsername().getBytes())
                 && MessageDigest.isEqual(password.getBytes(),credentials.getPassword().getBytes()) ?
@@ -67,7 +70,8 @@ public class BasicAuthenticator<U> {
      * @return The corresponding {@link AuthorizationSecurityFeature}
      * @param <A> The annotation type used to identify required basic authenticated resources
      */
-    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(Class<A> basicAnnotation) {
+    @Nonnull
+    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(@Nonnull Class<A> basicAnnotation) {
         return new AuthorizationSecurityFeature<>(
             basicAnnotation,
             (authorizationAnnotation, requestContext) -> requireAuthentication(requestContext)
@@ -82,7 +86,8 @@ public class BasicAuthenticator<U> {
 	 *
 	 * @return The authenticated user object
 	 */
-	public U requireAuthentication(ContainerRequestContext requestContext) {
+    @Nonnull
+	public U requireAuthentication(@Nonnull ContainerRequestContext requestContext) {
 		Credentials credentials = parseBasicHeader(
 			requestContext.getHeaderString(HttpHeaders.AUTHORIZATION)
 		);
@@ -115,14 +120,16 @@ public class BasicAuthenticator<U> {
 	 * Ensure that the authenticatedRequestHandler is called only if the
 	 * user accessing the resource is well authenticated.
 	 */
-	public<T> T authenticated(ContainerRequestContext requestContext,
-			Function<U, T> authenticatedRequestHandler) {
+    @Nonnull
+	public<T> T authenticated(@Nonnull ContainerRequestContext requestContext,
+                              @Nonnull Function<U, T> authenticatedRequestHandler) {
 		return authenticatedRequestHandler.apply(requireAuthentication(requestContext));
 	}
 
 	// utils API
 
-	public static Credentials parseBasicHeader(String authorizationHeader) {
+    @Nullable
+	public static Credentials parseBasicHeader(@Nullable String authorizationHeader) {
 		if(authorizationHeader == null) {
 			logger.debug("Missing Authorization header");
 			return null;

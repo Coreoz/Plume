@@ -6,6 +6,7 @@ import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.sql.RelationalPath;
 import com.querydsl.sql.SQLQuery;
+import org.jetbrains.annotations.NotNull;
 
 public class QueryDslDao<T> {
 
@@ -27,7 +28,8 @@ public class QueryDslDao<T> {
 
 	// API
 
-	public List<T> findAll() {
+	@NotNull
+    public List<T> findAll() {
 		return selectFrom().fetch();
 	}
 

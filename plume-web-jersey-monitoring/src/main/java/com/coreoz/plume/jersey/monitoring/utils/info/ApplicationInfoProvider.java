@@ -5,6 +5,7 @@ import com.coreoz.plume.jersey.monitoring.utils.info.beans.ApplicationInfo;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ResourceList;
 import io.github.classgraph.ScanResult;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -25,7 +26,7 @@ public class ApplicationInfoProvider implements Provider<ApplicationInfo> {
     private final ApplicationInfo applicationInfo;
 
     @Inject
-    private ApplicationInfoProvider(JerseyMonitoringConfigurationService configurationService) {
+    private ApplicationInfoProvider(@Nonnull JerseyMonitoringConfigurationService configurationService) {
         this.configurationService = configurationService;
         this.applicationInfo = this.fetchApplicationInfo();
     }

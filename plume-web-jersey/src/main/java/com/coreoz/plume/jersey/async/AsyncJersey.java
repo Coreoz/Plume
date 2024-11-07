@@ -2,6 +2,7 @@ package com.coreoz.plume.jersey.async;
 
 import com.coreoz.plume.jersey.errors.ErrorResponse;
 import com.coreoz.plume.jersey.errors.WsError;
+import jakarta.annotation.Nonnull;
 import jakarta.ws.rs.container.AsyncResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +31,8 @@ public class AsyncJersey {
 	 * }
 	 * </pre></code>
 	 */
-	public static <T, U extends Throwable> BiConsumer<T, U> toAsyncConsumer(AsyncResponse asyncResponse) {
+    @Nonnull
+	public static <T, U extends Throwable> BiConsumer<T, U> toAsyncConsumer(@Nonnull AsyncResponse asyncResponse) {
 		return (responseBody, exception) -> {
 			if (exception == null) {
 				asyncResponse.resume(responseBody);

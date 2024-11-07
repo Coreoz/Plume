@@ -2,6 +2,7 @@ package com.coreoz.plume.jersey.security.permission;
 
 import com.coreoz.plume.jersey.security.AuthorizationSecurityFeature;
 import com.coreoz.plume.jersey.security.AuthorizationVerifier;
+import jakarta.annotation.Nonnull;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.DynamicFeature;
@@ -22,8 +23,8 @@ import java.util.function.Function;
 public class PermissionFeature<A extends Annotation> implements DynamicFeature {
     private final AuthorizationSecurityFeature<A> authorizationSecurityFeature;
 
-	public PermissionFeature(PermissionRequestProvider requestPermissionProvider,
-			Class<A> permissionAnnotationType, Function<A, String> permissionAnnotationExtractor) {
+	public PermissionFeature(@Nonnull PermissionRequestProvider requestPermissionProvider,
+                             @Nonnull Class<A> permissionAnnotationType, @Nonnull Function<A, String> permissionAnnotationExtractor) {
         this.authorizationSecurityFeature = new AuthorizationSecurityFeature<A>(
             permissionAnnotationType,
             makeAuthorizationVerifier(requestPermissionProvider, permissionAnnotationExtractor)

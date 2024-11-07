@@ -1,5 +1,7 @@
 package com.coreoz.plume.db.pagination;
 
+import jakarta.annotation.Nonnull;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ public interface Sliceable<T> {
      *
      * @return A list of elements.
      */
+    @Nonnull
     List<T> items();
 
     /**

@@ -7,27 +7,27 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.sql.RelationalPath;
 import com.querydsl.sql.dml.DefaultMapper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.sql.Connection;
 
 public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implements CrudDao<T> {
 
 	private final NumberPath<Long> idPath;
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManager,
+	public CrudDaoQuerydsl(@Nonnull TransactionManagerQuerydsl transactionManager,
 			RelationalPath<T> table) {
 		this(transactionManager, table, null);
 	}
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManager,
-			RelationalPath<T> table, OrderSpecifier<?> defaultOrder) {
+	public CrudDaoQuerydsl(@Nonnull TransactionManagerQuerydsl transactionManager,
+                           @Nonnull RelationalPath<T> table, @Nonnull OrderSpecifier<?> defaultOrder) {
 		this(transactionManager, table, defaultOrder, new IdPath(table));
 	}
 
-	public CrudDaoQuerydsl(TransactionManagerQuerydsl transactionManager,
-			RelationalPath<T> table, OrderSpecifier<?> defaultOrder, NumberPath<Long> idPath) {
+	public CrudDaoQuerydsl(@Nonnull TransactionManagerQuerydsl transactionManager,
+                           @Nonnull RelationalPath<T> table, @Nonnull OrderSpecifier<?> defaultOrder, @Nonnull NumberPath<Long> idPath) {
 		super(transactionManager, table, defaultOrder);
 		this.idPath = idPath;
 	}
@@ -42,13 +42,15 @@ public class CrudDaoQuerydsl<T extends CrudEntity> extends QueryDslDao<T> implem
 			.fetchFirst();
 	}
 
-	@Override
+    @Nonnull
+    @Override
 	public T save(@Nonnull T entityToUpdate) {
 		return transactionManager.executeAndReturn(connection ->
 			save(entityToUpdate, connection)
 		);
 	}
 
+    @Nonnull
 	public T save(@Nonnull T entityToUpdate, @Nonnull Connection connection) {
 		if(entityToUpdate.getId() == null) {
 			// insert

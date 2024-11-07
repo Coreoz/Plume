@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
+import jakarta.annotation.Nonnull;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -19,7 +20,8 @@ public class AsyncOkHttp {
 	 * Usage example:
 	 * @return A {@link CompletableFuture} OkHttp {@link Response}
 	 */
-	public static CompletableFuture<Response> executeAsync(Call okHttpCall) {
+    @Nonnull
+	public static CompletableFuture<Response> executeAsync(@Nonnull Call okHttpCall) {
 		CompletableFuture<Response> promise = new CompletableFuture<>();
 		okHttpCall.enqueue(new Callback() {
 			@Override
@@ -39,7 +41,8 @@ public class AsyncOkHttp {
 	 * Wrap a function that throws an exception in a classic {@link Function}.
 	 * If the "unsafe" function throws an exception, it will be propagated as an unchecked exception.
 	 */
-	public static<R> Function<Response, R> wrapUncheked(ThrowingFunction<Response, R> throwingFunction) {
+    @Nonnull
+	public static<R> Function<Response, R> wrapUncheked(@Nonnull ThrowingFunction<Response, R> throwingFunction) {
 		return response -> {
 			try {
 				return throwingFunction.apply(response);

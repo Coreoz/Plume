@@ -6,6 +6,7 @@ import com.querydsl.sql.OracleTemplates;
 import com.querydsl.sql.PostgreSQLTemplates;
 import com.querydsl.sql.SQLServerTemplates;
 import com.querydsl.sql.SQLTemplates;
+import jakarta.annotation.Nonnull;
 
 enum QuerydslTemplates {
 
@@ -18,7 +19,7 @@ enum QuerydslTemplates {
 
 	private final SQLTemplates sqlTemplates;
 
-	private QuerydslTemplates(SQLTemplates sqlTemplates) {
+	private QuerydslTemplates(@Nonnull SQLTemplates sqlTemplates) {
 		this.sqlTemplates = sqlTemplates;
 	}
 

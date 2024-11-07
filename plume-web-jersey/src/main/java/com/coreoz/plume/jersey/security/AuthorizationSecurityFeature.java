@@ -1,5 +1,6 @@
 package com.coreoz.plume.jersey.security;
 
+import jakarta.annotation.Nonnull;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.DynamicFeature;
@@ -32,13 +33,13 @@ public class AuthorizationSecurityFeature<A extends Annotation> implements Dynam
      * @param annotation The annotation type that will hold the authentication
      * @param authorizationVerifier The function that will verify that the request is authorized, else it should throw {@link jakarta.ws.rs.ForbiddenException} or {@link jakarta.ws.rs.ClientErrorException}
      */
-    public AuthorizationSecurityFeature(Class<A> annotation, AuthorizationVerifier<A> authorizationVerifier) {
+    public AuthorizationSecurityFeature(@Nonnull Class<A> annotation, @Nonnull AuthorizationVerifier<A> authorizationVerifier) {
         this.annotation = annotation;
         this.authorizationVerifier = authorizationVerifier;
     }
 
     @Override
-    public void configure(ResourceInfo methodResourceInfo, FeatureContext methodResourceContext) {
+    public void configure(@Nonnull ResourceInfo methodResourceInfo, @Nonnull FeatureContext methodResourceContext) {
         A methodAnnotation = getAnnotation(methodResourceInfo.getResourceMethod());
         if (methodAnnotation != null) {
             methodResourceContext.register(new AuthorizationFilter(methodAnnotation));

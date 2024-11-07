@@ -1,5 +1,7 @@
 package com.coreoz.plume.jersey.errors;
 
+import jakarta.annotation.Nonnull;
+
 import java.util.List;
 
 /**
@@ -11,24 +13,26 @@ public class WsException extends RuntimeException {
 	private final transient WsError error;
 	private final transient Iterable<String> statusArguments;
 
-	public WsException(WsError error) {
+	public WsException(@Nonnull WsError error) {
 		this(error, List.of());
 	}
 
-	public WsException(WsError error, String... statusArguments) {
+	public WsException(@Nonnull WsError error, String... statusArguments) {
 		this(error, List.of(statusArguments));
 	}
 
-	public WsException(WsError error, Iterable<String> statusArguments) {
+	public WsException(@Nonnull WsError error, @Nonnull Iterable<String> statusArguments) {
         super(error.name());
 		this.error = error;
 		this.statusArguments = statusArguments;
 	}
 
+    @Nonnull
 	public WsError getError() {
 		return error;
 	}
 
+    @Nonnull
 	public Iterable<String> getStatusArguments() {
 		return statusArguments;
 	}

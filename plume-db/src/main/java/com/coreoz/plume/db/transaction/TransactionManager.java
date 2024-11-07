@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import jakarta.annotation.Nonnull;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import javax.sql.DataSource;
@@ -30,7 +31,7 @@ public class TransactionManager {
 		return dataSource;
 	}
 
-	public <T> T executeAndReturn(Function<Connection, T> toExecuteOnDb) {
+	public <T> T executeAndReturn(@Nonnull Function<Connection, T> toExecuteOnDb) {
 		Connection connection = null;
 		Boolean initialAutoCommit = null;
 		try {
@@ -68,7 +69,7 @@ public class TransactionManager {
 		}
 	}
 
-	public void execute(Consumer<Connection> toExecuteOnDb) {
+	public void execute(@Nonnull Consumer<Connection> toExecuteOnDb) {
 		executeAndReturn(connection -> {
 			toExecuteOnDb.accept(connection);
 			return null;

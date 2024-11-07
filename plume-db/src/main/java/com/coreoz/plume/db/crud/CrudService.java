@@ -1,6 +1,8 @@
 package com.coreoz.plume.db.crud;
 
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,27 +19,30 @@ public class CrudService<T> {
 		this.crudDao = crudDao;
 	}
 
+    @Nonnull
 	public List<T> findAll() {
 		return crudDao.findAll();
 	}
 
 	@Nullable
-	public T findById(Long id) {
+	public T findById(@Nullable Long id) {
 		if(id == null) {
 			return null;
 		}
 		return crudDao.findById(id);
 	}
 
-	public Optional<T> findByIdOptional(Long id) {
-		return Optional.ofNullable(crudDao.findById(id));
+    @Nonnull
+	public Optional<T> findByIdOptional(@Nullable Long id) {
+		return Optional.ofNullable(findById(id));
 	}
 
-	public T save(T entityToSave) {
+    @Nonnull
+	public T save(@Nonnull T entityToSave) {
 		return crudDao.save(entityToSave);
 	}
 
-	public void delete(Long id) {
+	public void delete(@Nonnull Long id) {
 		crudDao.delete(id);
 	}
 

@@ -9,13 +9,15 @@ import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import com.coreoz.plume.jersey.grizzly.GrizzlyThreadPoolProbe;
 import com.zaxxer.hikari.HikariDataSource;
 
+import jakarta.annotation.Nonnull;
 import jakarta.inject.Provider;
 import java.util.Map;
 
 public class MetricsCheckBuilder {
     private final MetricRegistry metricRegistry = new MetricRegistry();
 
-    public MetricsCheckBuilder registerMetric(String name, Metric metric) {
+    @Nonnull
+    public MetricsCheckBuilder registerMetric(@Nonnull String name, @Nonnull Metric metric) {
         if (metric instanceof MetricSet metricSet) {
             this.metricRegistry.registerAll(name, metricSet);
         } else {
@@ -24,13 +26,15 @@ public class MetricsCheckBuilder {
         return this;
     }
 
+    @Nonnull
     public MetricsCheckBuilder registerJvmMetrics() {
         this.metricRegistry.registerAll("memory-usage", new MemoryUsageGaugeSet());
         this.metricRegistry.registerAll("thread-states", new ThreadStatesGaugeSet());
         return this;
     }
 
-    public MetricsCheckBuilder registerGrizzlyMetrics(GrizzlyThreadPoolProbe grizzlyThreadPoolProbe) {
+    @Nonnull
+    public MetricsCheckBuilder registerGrizzlyMetrics(@Nonnull GrizzlyThreadPoolProbe grizzlyThreadPoolProbe) {
         this.metricRegistry.register("http-pool.max-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getPoolMaxSize);
         this.metricRegistry.register("http-pool.current-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getPoolCurrentSize);
         this.metricRegistry.register("http-pool.waiting-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getTasksWaitingSize);
@@ -39,16 +43,19 @@ public class MetricsCheckBuilder {
         return this;
     }
 
-    public MetricsCheckBuilder registerHikariMetrics(HikariDataSource hikariDataSource) {
+    @Nonnull
+    public MetricsCheckBuilder registerHikariMetrics(@Nonnull HikariDataSource hikariDataSource) {
         hikariDataSource.setMetricRegistry(this.metricRegistry);
         return this;
     }
 
+    @Nonnull
     public Provider<Map<String, Metric>> build() {
         return this::getMetrics;
     }
 
     /* PRIVATE */
+    @Nonnull
     private Map<String, Metric> getMetrics() {
         return this.metricRegistry.getMetrics();
     }
