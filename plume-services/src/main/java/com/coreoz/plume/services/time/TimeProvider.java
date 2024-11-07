@@ -5,6 +5,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * @deprecated {@link Clock} should be used instead
+ */
+@Deprecated
 public interface TimeProvider {
 
 	Clock clock();
