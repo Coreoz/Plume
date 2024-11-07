@@ -8,6 +8,13 @@ import org.slf4j.LoggerFactory;
 import jakarta.inject.Singleton;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * A Grizzly thread pool probe to monitor Grizzly thread pool.<br>
+ * <br>
+ * Usage:<br>
+ * - Usage with Grizzly: <code>httpServer.getServerConfiguration().getMonitoringConfig().getThreadPoolConfig().addProbes(grizzlyThreadPoolProbe);</code><br>
+ * - Metrics can be fetched using: {@link #getPoolUsageSize()} and {@link #getPoolMaxSize()} and {@link #getPoolCurrentSize()} and {@link #getTasksWaitingSize()}
+ */
 @Singleton
 public class GrizzlyThreadPoolProbe implements ThreadPoolProbe {
     private static final Logger logger = LoggerFactory.getLogger(GrizzlyThreadPoolProbe.class);
@@ -20,18 +27,30 @@ public class GrizzlyThreadPoolProbe implements ThreadPoolProbe {
 
     /* Stats accessors */
 
+    /**
+     * The maximum number of worker threads in the HTTP threads pool
+     */
     public int getPoolMaxSize() {
         return poolMaxSize;
     }
 
+    /**
+     * The current number of worker threads in the HTTP threads pool
+     */
     public int getPoolCurrentSize() {
         return poolCurrentSize;
     }
 
+    /**
+     * The number of worker threads currently in use
+     */
     public int getPoolUsageSize() {
         return poolUsageSize.get();
     }
 
+    /**
+     * The number of tasks that are waiting because all the worker threads are in use
+     */
     public int getTasksWaitingSize() {
         return tasksWaitingSize.get();
     }

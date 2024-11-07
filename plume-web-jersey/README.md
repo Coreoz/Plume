@@ -213,7 +213,7 @@ One sample valid request: `curl -H 'Authorization: Bearer my-bearer-token' 'http
 
 ### Resource authorization based on annotation
 This feature is provided `AuthorizationSecurityFeature` and works with any authentication system.
-For example using bearer auth:
+For example, using bearer auth:
 - In the `JerseyConfigProvider` file, declare the feature with the annotation used for resource identification: `config.register(new BearerAuthenticator("my-bearer-token").toAuthorizationFeature(BearerRestricted.class));`
 - In the `JerseyConfigProvider` file, register if needed the annotation used in the `RequireExplicitAccessControlFeature`: `config.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, BearerRestricted.class));`
 - Use the annotation in a resource definition:
@@ -237,3 +237,14 @@ public class ExampleWs {
 
 ### Permissions based authorization
 TODO to details
+
+Grizzly HTTP Thread pool monitoring
+-----------------------------------
+Grizzly worker threads pool can be monitored using `GrizzlyThreadPoolProbe`.
+
+Usage:
+1. Declare an instance of `GrizzlyThreadPoolProbe`
+2. Use this instance in Grizzly configuration: `httpServer.getServerConfiguration().getMonitoringConfig().getThreadPoolConfig().addProbes(grizzlyThreadPoolProbe)`
+3. Access metrics in the `GrizzlyThreadPoolProbe` instance, e.g. `grizzlyThreadPoolProbe.getPoolUsageSize()`
+
+This can be used in the `MonitoringWs` class defined in the [Jersey monitoring module](../plume-web-jersey-monitoring)
