@@ -139,8 +139,8 @@ public void waitAsync(@Suspended final AsyncResponse asyncResponse) {
 
 Requests authorization
 ----------------------
-Multiple authorization provider are implemented.
-For all provider, the HTTP header `Authorization` is used to fetch the authorization value.
+Multiple authorization providers are implemented.
+For all providers, the HTTP header `Authorization` is used to fetch the authorization value.
 
 ### Basic authorization
 This feature is provided by the `BasicAuthenticator` class.
