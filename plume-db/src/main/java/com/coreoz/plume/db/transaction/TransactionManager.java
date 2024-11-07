@@ -10,7 +10,6 @@ import jakarta.inject.Singleton;
 import javax.sql.DataSource;
 
 import com.google.common.base.Throwables;
-import com.typesafe.config.Config;
 
 /**
  * Handle transactions over a classic JDBC {@link Connection}.
@@ -20,18 +19,10 @@ public class TransactionManager {
 
 	private final DataSource dataSource;
 
-	@Inject
-	public TransactionManager(Config config) {
-		this(config, "db");
-	}
-
-	public TransactionManager(Config config, String prefix) {
-		this(HikariDataSources.fromConfig(config, prefix + ".hikari"));
-	}
-
-	public TransactionManager(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+    @Inject
+    public TransactionManager(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
 	// API
 

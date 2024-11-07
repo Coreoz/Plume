@@ -65,6 +65,8 @@ to provide some basic functionality for monitoring your application's metrics (C
 Exposed API :
 - `registerMetric`: Register metrics to monitor
 - `registerJvmMetrics`: Register the basic JVM metrics to monitor
+- `registerGrizzlyMetrics`: Register metrics for Grizzly HTTP threads pool, see [Jersey module](../plume-web-jersey) for usage documentation on `GrizzlyThreadPoolProbe` 
+- `registerHikariMetrics`: Register metrics for HikariCP SQL connections pool
 - `build`: create a metrics provider that provides the status of the metrics that are monitored.
 
 
@@ -87,7 +89,13 @@ public class MonitoringWs {
     private final BasicAuthenticator<String> basicAuthenticator;
 
     @Inject
-    public MonitoringWs(ApplicationInfoProvider applicationInfoProvider, TransactionManager transactionManager) {
+    public MonitoringWs(
+        ApplicationInfoProvider applicationInfoProvider,
+        TransactionManager transactionManager,
+        GrizzlyThreadPoolProbe grizzlyThreadPoolProbe,
+        HikariDataSource hikariDataSource,
+        InternalApiAuthenticator apiAuthenticator
+    ) {
         this.applicationInfo = applicationInfoProvider.get();
         // Registering health checks
         this.healthStatusProvider = new HealthCheckBuilder()
@@ -97,14 +105,12 @@ public class MonitoringWs {
         // Registering metrics to monitor
         this.metricsStatusProvider = new MetricsCheckBuilder()
             .registerJvmMetrics()
+            .registerGrizzlyMetrics(grizzlyThreadPoolProbe)
+            .registerHikariMetrics(hikariDataSource)
             .build();
 
         // Require authentication to access monitoring endpoints
-        this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
-            "plume",
-            "rocks",
-            "Plume showcase"
-        );
+        this.basicAuthenticator = apiAuthenticator.get();
     }
 
     @GET

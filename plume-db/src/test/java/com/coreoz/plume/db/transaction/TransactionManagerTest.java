@@ -3,17 +3,19 @@ package com.coreoz.plume.db.transaction;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Test;
 
 import com.typesafe.config.ConfigFactory;
 
 public class TransactionManagerTest {
 
+    private final HikariDataSource dataSource = new HikariDataSourceProvider(ConfigFactory.load()).get();
+
 	@Test
-	public void should_disable_autocommit_during_transaction() throws SQLException {
-		TransactionManager transactionManager = new TransactionManager(ConfigFactory.load());
+	public void should_disable_autocommit_during_transaction() {
+		TransactionManager transactionManager = new TransactionManager(dataSource);
 		transactionManager.execute(connection -> {
 			try {
 				assertThat(connection.getAutoCommit()).isFalse();
@@ -24,8 +26,8 @@ public class TransactionManagerTest {
 	}
 
 	@Test
-	public void should_leave_connection_with_autocommit() throws SQLException {
-		TransactionManager transactionManager = new TransactionManager(ConfigFactory.load());
+	public void should_leave_connection_with_autocommit() {
+		TransactionManager transactionManager = new TransactionManager(dataSource);
 		transactionManager.execute(connection -> {
 			try {
 				connection.prepareStatement("SELECT 1").execute();
