@@ -32,7 +32,7 @@ public class MetricsCheckBuilder {
 
     public MetricsCheckBuilder registerGrizzlyMetrics(GrizzlyThreadPoolProbe grizzlyThreadPoolProbe) {
         this.metricRegistry.register("http-pool.max-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getPoolMaxSize);
-        this.metricRegistry.register("http-pool.current-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getTasksWaitingSize);
+        this.metricRegistry.register("http-pool.current-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getPoolCurrentSize);
         this.metricRegistry.register("http-pool.waiting-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getTasksWaitingSize);
         this.metricRegistry.register("http-pool.usage-size", (Gauge<Integer>) grizzlyThreadPoolProbe::getPoolUsageSize);
         this.metricRegistry.register("http-pool.usage", (Gauge<Float>) () -> ((float) grizzlyThreadPoolProbe.getPoolUsageSize()) / ((float)grizzlyThreadPoolProbe.getPoolMaxSize()));
