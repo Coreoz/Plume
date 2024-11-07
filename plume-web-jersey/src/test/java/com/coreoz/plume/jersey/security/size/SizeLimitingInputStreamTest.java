@@ -1,4 +1,4 @@
-package com.coreoz.plume.jersey.control;
+package com.coreoz.plume.jersey.security.size;
 
 import org.junit.Test;
 import org.junit.After;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThrows;
 
 import java.io.ByteArrayInputStream;
 
-import com.coreoz.plume.jersey.security.control.ContentControlFeature.ContentSizeLimitInterceptor.SizeLimitingInputStream;
+import com.coreoz.plume.jersey.security.size.ContentSizeLimitFeature.ContentSizeLimitInterceptor.SizeLimitingInputStream;
 
 public class SizeLimitingInputStreamTest {
 

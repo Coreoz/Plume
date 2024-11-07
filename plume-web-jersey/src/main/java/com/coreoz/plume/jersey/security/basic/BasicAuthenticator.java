@@ -1,15 +1,17 @@
 package com.coreoz.plume.jersey.security.basic;
 
-import lombok.extern.slf4j.Slf4j;
-
+import com.coreoz.plume.jersey.security.AuthorizationSecurityFeature;
 import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import lombok.extern.slf4j.Slf4j;
 
+import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.function.Function;
 
@@ -42,15 +44,14 @@ public class BasicAuthenticator<U> {
 
 	/**
 	 * Create a new {@link BasicAuthenticator} for a unique credentials.
-	 * This should be used to protect a non strategic resource since users
-	 * will all share the same user name and password.
+	 * This should be used to protect a non-strategic resource since users
+	 * will all share the same username and password.
 	 */
 	public static BasicAuthenticator<String> fromSingleCredentials(String singleUsername,
 			String password, String realm) {
 		return new BasicAuthenticator<>(
-			credentials ->
-				singleUsername.equals(credentials.getUsername())
-				&& password.equals(credentials.getPassword()) ?
+			credentials -> MessageDigest.isEqual(singleUsername.getBytes(), credentials.getUsername().getBytes())
+                && MessageDigest.isEqual(password.getBytes(),credentials.getPassword().getBytes()) ?
 					"Basic user"
 					: null,
 			realm
@@ -58,6 +59,20 @@ public class BasicAuthenticator<U> {
 	}
 
 	// API
+
+    /**
+     * Provide a {@link AuthorizationSecurityFeature} from the bearer basic that can be used in Jersey
+     * to provide authentication on annotated resources.
+     * @param basicAnnotation The annotation that will be used to identify resources that must be authorized. For example {@link BasicRestricted} can be used if it is not already used in the project for another authorization system
+     * @return The corresponding {@link AuthorizationSecurityFeature}
+     * @param <A> The annotation type used to identify required basic authenticated resources
+     */
+    public <A extends Annotation> AuthorizationSecurityFeature<A> toAuthorizationFeature(Class<A> basicAnnotation) {
+        return new AuthorizationSecurityFeature<>(
+            basicAnnotation,
+            (authorizationAnnotation, requestContext) -> requireAuthentication(requestContext)
+        );
+    }
 
 	/**
 	 * Check that users accessing the resource are well authenticated.
