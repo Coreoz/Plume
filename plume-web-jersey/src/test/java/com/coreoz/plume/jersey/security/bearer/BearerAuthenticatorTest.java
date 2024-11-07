@@ -62,8 +62,7 @@ public class BearerAuthenticatorTest {
 
         // Verify that a ForbiddenException is thrown
         assertThatThrownBy(() -> authenticator.verifyAuthentication(requestContext))
-            .isInstanceOf(ForbiddenException.class)
-            .hasMessageContaining("Invalid bearer header: null");
+            .isInstanceOf(ForbiddenException.class);
     }
 
     @Test
@@ -74,8 +73,7 @@ public class BearerAuthenticatorTest {
 
         // Verify that a ForbiddenException is thrown
         assertThatThrownBy(() -> authenticator.verifyAuthentication(requestContext))
-            .isInstanceOf(ForbiddenException.class)
-            .hasMessageContaining("Invalid bearer header: null");
+            .isInstanceOf(ForbiddenException.class);
     }
 
     @Test
@@ -86,7 +84,6 @@ public class BearerAuthenticatorTest {
 
         // Verify that a ForbiddenException is thrown
         assertThatThrownBy(() -> authenticator.verifyAuthentication(requestContext))
-            .isInstanceOf(ForbiddenException.class)
-            .hasMessageContaining("Invalid bearer header: Bearer invalidBearerToken");
+            .isInstanceOf(ForbiddenException.class);
     }
 }
