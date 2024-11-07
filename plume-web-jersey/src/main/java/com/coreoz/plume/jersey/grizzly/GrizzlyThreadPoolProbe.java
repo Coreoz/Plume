@@ -5,7 +5,7 @@ import org.glassfish.grizzly.threadpool.ThreadPoolProbe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Singleton
@@ -51,6 +51,7 @@ public class GrizzlyThreadPoolProbe implements ThreadPoolProbe {
 
     @Override
     public void onThreadAllocateEvent(AbstractThreadPool threadPool, Thread thread) {
+        poolMaxSize = threadPool.getConfig().getMaxPoolSize();
         poolCurrentSize = threadPool.getSize();
     }
 
