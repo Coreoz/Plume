@@ -3,8 +3,8 @@ package com.coreoz.plume.jersey.security.bearer;
 import com.google.common.net.HttpHeaders;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,7 +16,7 @@ public class BearerAuthenticatorTest {
     private static final String INVALID_BEARER_TOKEN = "invalidBearerToken";
     private BearerAuthenticator authenticator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         authenticator = new BearerAuthenticator(VALID_BEARER_TOKEN);
     }

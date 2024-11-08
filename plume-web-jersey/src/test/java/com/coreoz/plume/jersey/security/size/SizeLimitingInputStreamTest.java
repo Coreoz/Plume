@@ -1,19 +1,18 @@
 package com.coreoz.plume.jersey.security.size;
 
-import org.junit.Test;
-import org.junit.After;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 
 import java.io.IOException;
 
 import jakarta.ws.rs.WebApplicationException;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-
 import java.io.ByteArrayInputStream;
 
 import com.coreoz.plume.jersey.security.size.ContentSizeLimitFeature.ContentSizeLimitInterceptor.SizeLimitingInputStream;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SizeLimitingInputStreamTest {
 
@@ -21,7 +20,7 @@ public class SizeLimitingInputStreamTest {
     private ByteArrayInputStream byteArrayInputStream;
     private SizeLimitingInputStream sizeLimitingInputStream;
 
-    @After
+    @AfterEach
     public void tearDown() throws IOException {
         if (sizeLimitingInputStream != null) {
             sizeLimitingInputStream.close();
@@ -37,8 +36,8 @@ public class SizeLimitingInputStreamTest {
         byte[] buffer = new byte[data.length];
         int bytesRead = sizeLimitingInputStream.read(buffer);
 
-        assertEquals(data.length, bytesRead);
-        assertArrayEquals(data, buffer);
+        Assertions.assertThat(bytesRead).isEqualTo(data.length);
+        Assertions.assertThat(buffer).isEqualTo(data);
     }
 
     @Test
@@ -62,8 +61,8 @@ public class SizeLimitingInputStreamTest {
         byte[] buffer = new byte[data.length];
         int bytesRead = sizeLimitingInputStream.read(buffer);
 
-        assertEquals(data.length, bytesRead);
-        assertArrayEquals(data, buffer);
+        Assertions.assertThat(bytesRead).isEqualTo(data.length);
+        Assertions.assertThat(buffer).isEqualTo(data);
     }
 
     @Test
@@ -75,7 +74,7 @@ public class SizeLimitingInputStreamTest {
         byte[] buffer = new byte[10];
         int bytesRead = sizeLimitingInputStream.read(buffer);
 
-        assertEquals(-1, bytesRead);
+        Assertions.assertThat(bytesRead).isEqualTo(-1);
     }
 
     @Test
@@ -84,7 +83,7 @@ public class SizeLimitingInputStreamTest {
         byteArrayInputStream = new ByteArrayInputStream(data);
         sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
         int result = sizeLimitingInputStream.read(data, 0, 5);
-        assertEquals(5, result);
+        Assertions.assertThat(result).isEqualTo(5);
     }
 
     @Test
@@ -93,7 +92,7 @@ public class SizeLimitingInputStreamTest {
         byteArrayInputStream = new ByteArrayInputStream(data);
         sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
         int result = sizeLimitingInputStream.read();
-        assertEquals('1', result);
+        Assertions.assertThat(result).isEqualTo('1');
     }
 
     @Test
@@ -102,7 +101,7 @@ public class SizeLimitingInputStreamTest {
         byteArrayInputStream = new ByteArrayInputStream(data);
         sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
         int result = sizeLimitingInputStream.read(data, 3, 5);
-        assertEquals(5, result);
+        Assertions.assertThat(result).isEqualTo(5);
     }
 
     @Test
@@ -111,7 +110,7 @@ public class SizeLimitingInputStreamTest {
         byteArrayInputStream = new ByteArrayInputStream(data);
         sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
         long result = sizeLimitingInputStream.skip(3);
-        assertEquals(3, result);
+        Assertions.assertThat(result).isEqualTo(3);
     }
 
     @Test
@@ -120,7 +119,6 @@ public class SizeLimitingInputStreamTest {
         byteArrayInputStream = new ByteArrayInputStream(data);
         sizeLimitingInputStream = new SizeLimitingInputStream(byteArrayInputStream, LIMIT);
         long result = sizeLimitingInputStream.skip(11);
-        assertEquals(10, result);
+        Assertions.assertThat(result).isEqualTo(10);
     }
-
 }

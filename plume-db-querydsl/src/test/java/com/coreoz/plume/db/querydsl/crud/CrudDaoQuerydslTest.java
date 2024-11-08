@@ -6,21 +6,18 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import com.coreoz.plume.db.guice.GuiceTest;
 import jakarta.inject.Inject;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
-import com.carlosbecker.guice.GuiceModules;
-import com.carlosbecker.guice.GuiceTestRunner;
 import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
 import com.coreoz.plume.db.querydsl.db.QUser;
 import com.coreoz.plume.db.querydsl.db.User;
 import com.coreoz.plume.db.querydsl.db.UserDao;
 
-@RunWith(GuiceTestRunner.class)
-@GuiceModules(DbQuerydslTestModule.class)
+@GuiceTest(DbQuerydslTestModule.class)
 public class CrudDaoQuerydslTest {
 
 	@Inject

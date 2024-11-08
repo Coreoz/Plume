@@ -6,9 +6,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.junit.Test;
-
 import com.typesafe.config.ConfigFactory;
+import org.junit.jupiter.api.Test;
 
 public class HikariDataSourcesTest {
 

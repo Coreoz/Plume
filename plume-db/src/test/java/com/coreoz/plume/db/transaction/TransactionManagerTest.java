@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.sql.Connection;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.junit.Test;
 
 import com.typesafe.config.ConfigFactory;
+import org.junit.jupiter.api.Test;
 
 public class TransactionManagerTest {
 

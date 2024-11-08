@@ -1,22 +1,17 @@
 package com.coreoz.plume.db.querydsl.transaction;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.sql.SQLException;
-
-import jakarta.inject.Inject;
-import javax.sql.DataSource;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.carlosbecker.guice.GuiceModules;
-import com.carlosbecker.guice.GuiceTestRunner;
+import com.coreoz.plume.db.guice.GuiceTest;
 import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
 import com.coreoz.plume.db.querydsl.db.QUser;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.Test;
 
-@RunWith(GuiceTestRunner.class)
-@GuiceModules(DbQuerydslTestModule.class)
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@GuiceTest(DbQuerydslTestModule.class)
 public class TransactionManagerQuerydslTest {
 
 	@Inject

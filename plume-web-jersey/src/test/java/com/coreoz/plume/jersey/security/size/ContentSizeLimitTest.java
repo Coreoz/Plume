@@ -13,9 +13,7 @@ import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class ContentSizeLimitTest  extends JerseyTest {
 
@@ -30,7 +28,7 @@ public class ContentSizeLimitTest  extends JerseyTest {
     public void checkContentSize_withBody_whenWithinDefaultLimit_shouldReturn200() {
         byte[] data = "12345".getBytes();
         Response response = target("/test/upload-default").request().post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM));
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        Assertions.assertThat(Response.Status.OK.getStatusCode()).isEqualTo(response.getStatus());
     }
 
     @SneakyThrows
@@ -41,9 +39,9 @@ public class ContentSizeLimitTest  extends JerseyTest {
         Builder request = target("/test/upload-default").request();
         Entity<byte[]> entity = Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM);
         Response response = request.post(entity);
-        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), response.getStatus());
+        Assertions.assertThat(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode()).isEqualTo(response.getStatus());
         // make sure that a valid json error response is returned
-        assertEquals(MediaType.APPLICATION_JSON_TYPE, response.getMediaType());
+        Assertions.assertThat(MediaType.APPLICATION_JSON_TYPE).isEqualTo(response.getMediaType());
         JsonNode responseBody = new ObjectMapper().readTree(response.readEntity(String.class));
         Assertions.assertThat(responseBody).isNotNull();
         Assertions.assertThat(responseBody.get("errorCode").asText()).isEqualTo(WsError.CONTENT_SIZE_LIMIT_EXCEEDED.name());
@@ -55,20 +53,20 @@ public class ContentSizeLimitTest  extends JerseyTest {
         byte[] data = new byte[ContentSizeLimitFeature.DEFAULT_MAX_SIZE + 1];
         Builder request = target("/test/upload-default").request();
         request.header(HttpHeaders.CONTENT_LENGTH, null);
-        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM)).getStatus());
+        Assertions.assertThat(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode()).isEqualTo(request.post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM)).getStatus());
     }
 
     @Test
     public void checkContentSize_withoutBody_whenDefaultLimit_shouldReturn200() {
         Builder request = target("/test/upload-default").request();
-        assertEquals(Response.Status.OK.getStatusCode(), request.get().getStatus());
+        Assertions.assertThat(Response.Status.OK.getStatusCode()).isEqualTo(request.get().getStatus());
     }
 
     @Test
     public void checkContentSize_withBody_whenWithinCustomLimit_shouldReturn200() {
         byte[] data = "12345".getBytes();
         Response response = target("/test/upload-custom").request().post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM));
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        Assertions.assertThat(Response.Status.OK.getStatusCode()).isEqualTo(response.getStatus());
     }
 
     @Test
@@ -77,13 +75,13 @@ public class ContentSizeLimitTest  extends JerseyTest {
         byte[] data = new byte[TestContentSizeResource.CUSTOM_MAX_SIZE + 1];
         Builder request = target("/test/upload-custom").request();
         Entity<byte[]> entity = Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM);
-        assertEquals(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode(), request.post(entity).getStatus());
+        Assertions.assertThat(Response.Status.REQUEST_ENTITY_TOO_LARGE.getStatusCode()).isEqualTo(request.post(entity).getStatus());
     }
 
     @Test
     public void checkContentSize_withoutBody_whenCustomLimit_shouldReturn200() {
         Builder request = target("/test/upload-custom").request();
-        assertEquals(Response.Status.OK.getStatusCode(), request.get().getStatus());
+        Assertions.assertThat(Response.Status.OK.getStatusCode()).isEqualTo(request.get().getStatus());
     }
 
     @Test
@@ -92,6 +90,6 @@ public class ContentSizeLimitTest  extends JerseyTest {
         Integer customMaxSize = 300;
         ContentSizeLimitFeatureFactory contentControlFeatureFactory = new ContentSizeLimitFeatureFactory(customMaxSize);
         ContentSizeLimitFeature contentSizeLimitFeature = contentControlFeatureFactory.provide();
-        assertEquals(customMaxSize, contentSizeLimitFeature.getContentSizeLimit());
+        Assertions.assertThat(customMaxSize).isEqualTo(contentSizeLimitFeature.getContentSizeLimit());
     }
 }

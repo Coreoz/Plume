@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

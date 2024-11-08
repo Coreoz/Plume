@@ -40,9 +40,9 @@
         <maven-model.version>3.9.9</maven-model.version>
         <throwing-function.version>1.5.1</throwing-function.version>
 
-        <junit.version>4.13.2</junit.version>
+        <junit.version>5.11.3</junit.version>
         <assertj.version>3.26.3</assertj.version>
-        <guice-runner.version>1.1</guice-runner.version>
+        <mockito.version>5.14.2</mockito.version>
     </properties>
 
     <dependencyManagement>
@@ -273,6 +273,16 @@
                 <version>${jersey.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.glassfish.jersey.test-framework</groupId>
+                <artifactId>jersey-test-framework-core</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+                <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.swagger.core.v3</groupId>
 				<artifactId>swagger-annotations-jakarta</artifactId>
                 <version>${swagger.version}</version>
@@ -332,8 +342,8 @@
 
             <!-- Tests -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
                 <version>${junit.version}</version>
             </dependency>
             <dependency>
@@ -342,9 +352,9 @@
                 <version>${assertj.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.carlosbecker</groupId>
-                <artifactId>guice-junit-test-runner</artifactId>
-                <version>${guice-runner.version}</version>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
