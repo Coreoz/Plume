@@ -8,38 +8,28 @@
 		<version>4.2.4-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plume-conf</artifactId>
+	<artifactId>plume-test</artifactId>
 	<packaging>jar</packaging>
-	<name>Plume Conf</name>
-	<description>File configuration with Typesafe Config</description>
+	<name>Plume Test</name>
+	<description>Basic test dependencies and mocks</description>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
 		<dependency>
-			<groupId>com.typesafe</groupId>
-			<artifactId>config</artifactId>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.coreoz</groupId>
-            <artifactId>plume-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+            <artifactId>guice-junit</artifactId>
+        </dependency>
     </dependencies>
 
 	<dependencyManagement>
