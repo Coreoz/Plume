@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import com.coreoz.plume.db.guice.GuiceTest;
+import com.coreoz.test.GuiceTest;
 import jakarta.inject.Inject;
 
 import org.assertj.core.api.Assertions;

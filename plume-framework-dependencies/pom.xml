@@ -43,6 +43,7 @@
         <junit.version>5.11.3</junit.version>
         <assertj.version>3.26.3</assertj.version>
         <mockito.version>5.14.2</mockito.version>
+        <guice-junit.version>1.0.0</guice-junit.version>
     </properties>
 
     <dependencyManagement>
@@ -355,6 +356,11 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.coreoz</groupId>
+                <artifactId>guice-junit</artifactId>
+                <version>${guice-junit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

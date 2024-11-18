@@ -1,10 +1,10 @@
 package com.coreoz.plume.db.querydsl.crud;
 
-import com.coreoz.plume.db.guice.GuiceTest;
 import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
 import com.coreoz.plume.db.querydsl.db.User;
 import com.coreoz.plume.db.querydsl.db.UserDao;
 import com.coreoz.plume.db.querydsl.transaction.TransactionInstancesHolder;
+import com.coreoz.test.GuiceTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
