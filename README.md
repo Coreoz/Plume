@@ -94,6 +94,10 @@ through a [Config](https://github.com/typesafehub/config) configuration.
 Enables to easily execute recurring tasks/jobs through
 [Wisp Scheduler](https://github.com/Coreoz/Wisp).
 
+#### [Plume test](plume-test/)
+
+Provide common Plume dependencies for tests and integration tests mocks.
+
 ### Database modules
 
 #### [Plume Database](plume-db/)
