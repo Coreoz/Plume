@@ -10,7 +10,8 @@ import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.querydsl.core.types.Order;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -108,28 +109,32 @@ public class SqlPaginatedQueryTest {
         assertThat(page.hasMore()).isFalse(); // No more items because page size exceeds total results
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void fetch_page_with_invalid_negative_page_number_should_throw_exception() {
-        SqlPaginatedQuery
-            .fromQuery(
-                transactionManagerQuerydsl.selectQuery()
-                    .select(QUser.user)
-                    .from(QUser.user)
-            )
-            .withSort(QUser.user.name, Order.ASC)
-            .fetchPage(-1, 10); // Invalid negative page number
+        Assertions.assertThatThrownBy(() -> {
+            SqlPaginatedQuery
+                .fromQuery(
+                    transactionManagerQuerydsl.selectQuery()
+                        .select(QUser.user)
+                        .from(QUser.user)
+                )
+                .withSort(QUser.user.name, Order.ASC)
+                .fetchPage(-1, 10); // Invalid negative page number
+        }).isOfAnyClassIn(IllegalArgumentException.class);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void fetch_page_with_invalid_negative_page_size_should_throw_exception() {
-        SqlPaginatedQuery
-            .fromQuery(
-                transactionManagerQuerydsl.selectQuery()
-                    .select(QUser.user)
-                    .from(QUser.user)
-            )
-            .withSort(QUser.user.name, Order.ASC)
-            .fetchPage(1, -10); // Invalid negative page size
+        Assertions.assertThatThrownBy(() -> {
+            SqlPaginatedQuery
+                .fromQuery(
+                    transactionManagerQuerydsl.selectQuery()
+                        .select(QUser.user)
+                        .from(QUser.user)
+                )
+                .withSort(QUser.user.name, Order.ASC)
+                .fetchPage(1, -10); // Invalid negative page size
+        }).isOfAnyClassIn(IllegalArgumentException.class);
     }
 
     @Test

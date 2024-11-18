@@ -1,27 +1,22 @@
 package com.coreoz.plume.db.querydsl.crud;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.sql.SQLException;
-
-import jakarta.inject.Inject;
-import javax.sql.DataSource;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.carlosbecker.guice.GuiceModules;
-import com.carlosbecker.guice.GuiceTestRunner;
 import com.coreoz.plume.db.querydsl.DbQuerydslTestModule;
 import com.coreoz.plume.db.querydsl.db.User;
 import com.coreoz.plume.db.querydsl.db.UserDao;
 import com.coreoz.plume.db.querydsl.transaction.TransactionInstancesHolder;
+import com.coreoz.test.GuiceTest;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.Test;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Ensure that transaction management behave as expected for daos
  */
-@RunWith(GuiceTestRunner.class)
-@GuiceModules(DbQuerydslTestModule.class)
+@GuiceTest(DbQuerydslTestModule.class)
 public class CrudDaoQuerydslTransactionTest {
 
 	@Inject

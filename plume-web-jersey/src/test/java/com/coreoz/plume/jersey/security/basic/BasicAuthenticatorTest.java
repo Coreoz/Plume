@@ -4,11 +4,9 @@ import com.google.common.net.HttpHeaders;
 import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.container.ContainerRequestContext;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Base64;
 
@@ -16,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 public class BasicAuthenticatorTest {
     private static final String REALM = "TestRealm";
     private static final String VALID_USERNAME = "user";
@@ -26,7 +23,7 @@ public class BasicAuthenticatorTest {
 
     private ContainerRequestContext mockRequestContext;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockRequestContext = Mockito.mock(ContainerRequestContext.class);
     }

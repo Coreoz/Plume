@@ -19,20 +19,21 @@
 			<artifactId>guice</artifactId>
 			<optional>true</optional>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-test</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
@@ -42,22 +43,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.carlosbecker</groupId>
-			<artifactId>guice-junit-test-runner</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>guice</artifactId>
-					<groupId>com.google.inject</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>javax.inject</artifactId>
-					<groupId>javax.inject</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
+    </dependencies>
 
 	<dependencyManagement>
 		<dependencies>

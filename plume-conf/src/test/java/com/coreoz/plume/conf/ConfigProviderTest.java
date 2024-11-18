@@ -1,11 +1,11 @@
 package com.coreoz.plume.conf;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
+import static org.assertj.core.api.Fail.fail;
 
 import com.typesafe.config.Config;
+
+import org.junit.jupiter.api.Test;
 
 public class ConfigProviderTest {
 
@@ -16,7 +16,7 @@ public class ConfigProviderTest {
 		assertThat(config.getString("generic.property")).isEqualTo("Text property");
 		assertThat(config.getIntList("generic.to-be-overriden")).containsExactly(4, 5);
 	}
-	
+
 	@Test
 	public void check_that_failed_include_raises_exception() {
 		try {

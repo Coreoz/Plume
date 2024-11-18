@@ -7,7 +7,7 @@ import com.dumbster.smtp.SmtpMessage;
 import com.google.inject.Guice;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.email.EmailBuilder;
