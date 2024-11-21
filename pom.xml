@@ -65,8 +65,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-		<javadoc.java-version>8</javadoc.java-version>
-		<additionalparam>-Xdoclint:none</additionalparam>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/samples/target/site/ jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
@@ -115,10 +113,9 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<stylesheet>java</stylesheet>
-							<source>${javadoc.java-version}</source>
-						</configuration>
+                        <configuration>
+                            <doclint>all,-missing</doclint>
+                        </configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>

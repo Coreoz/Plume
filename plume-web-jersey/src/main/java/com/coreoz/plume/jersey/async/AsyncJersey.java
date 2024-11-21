@@ -22,14 +22,14 @@ public class AsyncJersey {
 	 * that should be called when a {@link CompletableFuture} is terminated.<br>
 	 * <br>
 	 * Usage example:
-	 * <code><pre>
+	 * <code>
 	 * &commat;GET
 	 * public void fetchAsync(@Suspended AsyncResponse asyncResponse) {
 	 *   asyncService
 	 *     .fetchDataAsync()
 	 *     .whenCompleteAsync(toAsyncConsumer(asyncResponse));
 	 * }
-	 * </pre></code>
+	 * </code>
 	 */
     @Nonnull
 	public static <T, U extends Throwable> BiConsumer<T, U> toAsyncConsumer(@Nonnull AsyncResponse asyncResponse) {

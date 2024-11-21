@@ -18,8 +18,8 @@ import java.util.List;
  * @param <U> The type of elements contained in the request.
  * <br>
  * Usage example:
- * <code><pre>
- * public Page<User> fetchUsers() {
+ * <code>
+ * public Page&lt;User&gt; fetchUsers() {
  *   return SqlPaginatedQuery
  *             .fromQuery(
  *                 this.transactionManagerQuerydsl.selectQuery()
@@ -29,7 +29,7 @@ import java.util.List;
  *             .withSort(QUser.user.name, Order.DESC)
  *             .fetchPage(1, 10);
  * }
- * </pre></code>
+ * </code>
  */
 public class SqlPaginatedQuery<U> {
 

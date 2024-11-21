@@ -31,11 +31,11 @@ public record Page<T>(
      * @param <U> The type of elements to be mapped to in the page.
      * <br>
      * Usage example:
-     * <code><pre>
-     * public Page<UserUpdated> fetchUsers() {
-     *   return this.userService.fetchPage(1, 10).map(user -> new UserUpdated(user));
+     * <code>
+     * public Page&lt;UserUpdated&gt; fetchUsers() {
+     *   return this.userService.fetchPage(1, 10).map(user -&gt; new UserUpdated(user));
      * }
-     * </pre></code>
+     * </code>
      */
     public <U> Page<U> map(@Nonnull Function<T, U> mapper) {
         return new Page<>(
