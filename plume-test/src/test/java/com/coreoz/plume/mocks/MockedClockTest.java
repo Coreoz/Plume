@@ -76,16 +76,15 @@ class MockedClockTest {
     }
 
     @Test
-    void setTickingClockFromInstant__when_instantProvided__should_setOffsetClock() {
+    void setTickingClockFromInstant__when_instantProvided__should_setOffsetClock() throws InterruptedException {
         // Arrange
         MockedClock mockedClock = new MockedClock();
         Instant futureInstant = Instant.now().plusSeconds(10);
 
         // Act
         mockedClock.setTickingClockFromInstant(futureInstant);
+        Thread.sleep(1);
 
-        // Assert
-        Instant now = Instant.now();
-        assertThat(mockedClock.instant()).isBetween(now, futureInstant);
+        assertThat(mockedClock.instant()).isAfter(futureInstant);
     }
 }
