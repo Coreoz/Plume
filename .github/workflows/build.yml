@@ -47,5 +47,3 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
         run: mvn -B clean verify -P coverage org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Coreoz_Plume -Dsonar.organization=coreoz
-      - name: Maven release analysis
-        run: mvn install -P release
