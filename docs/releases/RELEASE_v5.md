@@ -70,6 +70,27 @@ For example:
 - maven-jar-plugin
 - maven-javadoc-plugin
 
+#### Flyway specific module
+Flyway uses a modular system since v10, if used:
+- The module `flyway-core` must be included
+- An additional module may be required depending on the database used, for example:
+  - `flyway-mysql` for MySQL
+  - `flyway-database-postgresql` for PostgreSQL
+
+So the correct module depending on the database used must be referenced. See [the list of available module](https://github.com/flyway/flyway/issues/3780) to choose the module to add. 
+
+The versions of Flyway modules for MySQL, PostgreSQL, Oracle and SQL Server are referenced in Plume dependency POM. So for example, with MySQL it can be used like this:
+```xml
+<dependency>
+  <groupId>org.flywaydb</groupId>
+  <artifactId>flyway-core</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.flywaydb</groupId>
+  <artifactId>flyway-mysql</artifactId>
+</dependency>
+```
+
 ### Swagger upgrade
 Swagger has been upgraded, and it is not possible anymore to use the query parameter `url`: https://github.com/swagger-api/swagger-ui/issues/7702
 
@@ -162,6 +183,8 @@ If JJwt is manipulated directly, some changes are required: https://github.com/j
 A migration sample can be found in the [Plume Admin JJwt migration](https://github.com/Coreoz/Plume-admin/commit/2b64ca61ddb30f49159aa2a3c3bfed9ebf736a9c).
 
 ### Transaction manager
+No migration is required except if `TransactionManager` or `TransactionManagerQuerydsl` are created manually.
+
 In `QueryDSLGenerator`, the data source must be provided in the Guice injector creation: `Injector injector = Guice.createInjector(new GuiceConfModule(), new DataSourceModule());`
 
 Moreover, if `TransactionManager` or `TransactionManagerQuerydsl` were created manually (for example, if multiple databases are used), their creation must be updated using the `HikariDataSources.fromConfig()` method, e.g. : `HikariDataSources.fromConfig(config, "db.hikari")` to create the `DataSource` argument.
