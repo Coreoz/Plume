@@ -18,7 +18,7 @@ public class TestContentSizeResource {
 
     @GET
     @Path("/upload-default")
-    public Response getDefaultLimit(byte[] data) {
+    public Response getDefaultLimit() {
         return Response.ok("get successful").build();
     }
 
@@ -32,7 +32,7 @@ public class TestContentSizeResource {
     @GET
     @Path("/upload-custom")
     @ContentSizeLimit(CUSTOM_MAX_SIZE)
-    public Response getCustomLimit(byte[] data) {
+    public Response getCustomLimit() {
         return Response.ok("get successful").build();
     }
 

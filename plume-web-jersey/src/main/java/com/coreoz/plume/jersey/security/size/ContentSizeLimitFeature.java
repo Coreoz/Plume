@@ -78,7 +78,7 @@ public class ContentSizeLimitFeature implements DynamicFeature {
 
         public static final class SizeLimitingInputStream extends InputStream {
             private long length = 0;
-            private int mark = 0;
+            private long mark = 0;
 
             private final int maxSize;
 
@@ -129,14 +129,13 @@ public class ContentSizeLimitFeature implements DynamicFeature {
 
             @Override
             public synchronized void mark(final int readlimit) {
-                mark += readlimit;
+                mark = length; // Save the current position as the mark
                 delegateInputStream.mark(readlimit);
             }
 
             @Override
             public synchronized void reset() throws IOException {
-                this.length = 0;
-                readAndCheck(mark);
+                this.length = mark;
                 delegateInputStream.reset();
             }
 
