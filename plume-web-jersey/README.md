@@ -29,30 +29,20 @@ Any custom annotation can be added (as long as the corresponding Jersey access c
 
 Content size limit
 ------------------
-In order to protect the backend against attack that would send huge content, it is possible to limit the size of the content that can be sent to the backend.
+To protect the backend against attack that would send huge content, it is possible to limit the size of the content that can be sent to the backend.
 
 To do so, register the `ContentSizeLimitFeature` in Jersey: `resourceConfig.register(ContentSizeLimitFeature.class);`
-By default the content size of body is limited to 500 KB. This limit can be overridden for the whole api by using the `ContentSizeLimitFeatureFactory` to specify your own limit.
-
-Usage example:
-```java
-resourceConfig.register(new AbstractBinder() {
-    @Override
-    protected void configure() {
-        bindFactory(new ContentSizeLimitFeatureFactory(1000 * 1024 /* 1MB */)).to(ContentSizeLimitFeature.class);
-    }
-});
-```
+By default the content size of body is limited to `500 KB`. This limit can be overridden for the whole api by specifying your own limit, for example: `resourceConfig.register(new ContentSizeLimitFeature(1000 * 1024 /* 1MB */));`
 
 You can also override only a specific endpoint by using the `@ContentSizeLimit` annotation:
 ```java
 @POST
-	@Path("/test")
-	@Operation(description = "Example web-service")
-    @ContentSizeLimit(1024 * 1000 * 5) // 5MB
-	public void test(Test test) {
-        logger.info("Test: {}", test.getName());
-	}
+@Path("/test")
+@Operation(description = "Example web-service")
+@ContentSizeLimit(1024 * 1000 * 5) // 5MB
+public void test(Test test) {
+    logger.info("Test: {}", test.getName());
+}
 ```
 
 Data validation
