@@ -29,11 +29,12 @@
         <flyway.version>10.19.0</flyway.version>
         <h2.version>2.3.232</h2.version>
         <jackson.version>2.18.0</jackson.version>
-        <jersey.version>3.1.9</jersey.version>
+        <jersey.version>3.0.17</jersey.version>
         <swagger.version>2.2.23</swagger.version>
         <hk2-guice-bridge.version>3.1.1</hk2-guice-bridge.version>
         <commons-validator.version>1.9.0</commons-validator.version>
         <jakarta-annotation.version>3.0.0</jakarta-annotation.version>
+        <jakarta-servlet.version>6.1.0</jakarta-servlet.version>
         <dropwizard-metrics.version>4.2.28</dropwizard-metrics.version>
         <classgraph.version>4.8.177</classgraph.version>
         <maven-model.version>3.9.9</maven-model.version>
@@ -206,6 +207,16 @@
                 <version>${flyway.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-oracle</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${h2.version}</version>
@@ -307,11 +318,16 @@
                 <artifactId>commons-validator</artifactId>
                 <version>${commons-validator.version}</version>
             </dependency>
-            <!-- XML dependencies that were included in JDK before version 11 -->
+            <!-- Jakarta dependencies -->
             <dependency>
                 <groupId>jakarta.annotation</groupId>
                 <artifactId>jakarta.annotation-api</artifactId>
                 <version>${jakarta-annotation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${jakarta-servlet.version}</version>
             </dependency>
 
             <!-- metrics -->
