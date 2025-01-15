@@ -153,7 +153,7 @@ public class ContentSizeLimitFeature implements DynamicFeature {
                     } catch (IOException e) {
                         logger.error("Error while closing the input stream", e);
                     }
-                    logger.warn("Client tried to send a request body that is too large while sending a content-length headers that fits the max allowed request body size");
+                    logger.warn("Client tried to send a request body that is larger than the request content-length header value");
                     throw makeEntityTooLargeException();
                 }
             }
