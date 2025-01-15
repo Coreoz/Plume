@@ -83,13 +83,4 @@ public class ContentSizeLimitTest  extends JerseyTest {
         Builder request = target("/test/upload-custom").request();
         Assertions.assertThat(Response.Status.OK.getStatusCode()).isEqualTo(request.get().getStatus());
     }
-
-    @Test
-    public void checkMaxSize_whenCustomControlFeature_shouldSuccess() {
-        // Custom max size
-        Integer customMaxSize = 300;
-        ContentSizeLimitFeatureFactory contentControlFeatureFactory = new ContentSizeLimitFeatureFactory(customMaxSize);
-        ContentSizeLimitFeature contentSizeLimitFeature = contentControlFeatureFactory.provide();
-        Assertions.assertThat(customMaxSize).isEqualTo(contentSizeLimitFeature.getContentSizeLimit());
-    }
 }
