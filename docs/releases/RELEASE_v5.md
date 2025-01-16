@@ -200,6 +200,10 @@ To do that:
 - In `GrizzlySetup`, in the `start()` method:
     - add the following dependency in the method signature: `GrizzlyThreadPoolProbe grizzlyThreadPoolProbe`
     - declare the prob in the http server configuration: `httpServer.getServerConfiguration().getMonitoringConfig().getThreadPoolConfig().addProbes(grizzlyThreadPoolProbe);`
+- In `WebApplication`, fill the new `GrizzlySetup` dependency using `injector.getInstance(GrizzlyThreadPoolProbe.class)`
 - In `MonitoringWs`, in the constructor:
     - add the following dependencies in the method signature: `GrizzlyThreadPoolProbe grizzlyThreadPoolProbe` and `HikariDataSource hikariDataSource`
     - Use the metrics: `this.metricsStatusProvider = new MetricsCheckBuilder().registerJvmMetrics().registerGrizzlyMetrics(grizzlyThreadPoolProbe).registerHikariMetrics(hikariDataSource).build()`
+
+The [Plume showcase project](https://github.com/Coreoz/Plume-showcase) has implemented this monitoring.
+Browsing the source code can help to verify the required changes. 
