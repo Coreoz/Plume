@@ -177,6 +177,10 @@ Enabling this feature will improve the robustness of the application, but it can
 
 Enabling this feature has a frontend impact: the new I18N error key `CONTENT_SIZE_LIMIT_EXCEEDED` will be returned when the request content size exceeds the limit.
 
+### Improved security: set Jackson limits for API consumption
+It is not mandatory for the upgrade, but it is advised to set limits to the JSON parser used for API consumption.
+If okhttp and/or retrofit are used with Jackson, the Plume Web Jersey module documentation shows [how Jackson can be configured to set these parsing limits](../../plume-web-jersey/README.md#jackson)
+
 ### JJwt update
 If JJwt is manipulated directly, some changes are required: https://github.com/jwtk/jjwt/blob/0.12.0/CHANGELOG.md
 
@@ -194,7 +198,10 @@ The `DataSource` module is now separated from the `TransactionManager`, so:
 - The line: `Injector injector = Guice.createInjector(new GuiceConfModule());`
 - Must be replaced by: `Injector injector = Guice.createInjector(new GuiceConfModule(), new DataSourceModule());`
 
-### Monitoring
+### Monitoring - Remove Guice module
+In the application module, often in the `ApplicationModule` file, the module `GuiceJacksonWithMetricsModule` was required for metrics. This is not the case anymore, and this module has been deprecated for removal in Plume 6.
+
+### Monitoring - HikariCP and Grizzly
 HikariCP threads pool and Grizzly threads pool can now be easily monitored.
 To do that:
 - In `GrizzlySetup`, in the `start()` method:

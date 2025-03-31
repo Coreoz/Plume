@@ -132,6 +132,8 @@ a good choice is to use:
 - [OkHttp](http://square.github.io/okhttp/),
 - or [Retrofit](https://square.github.io/retrofit/) if you need to query a standard REST API.
 
+With these libraries, a JSON parser is often needed. To enforce security, it is a good practice to set parsing limits: [see how Jackson can be configured to set these parsing limits](plume-web-jersey/README.md#jackson). 
+
 Upgrades
 --------
 ### Upgrade from 3.x to 4.x

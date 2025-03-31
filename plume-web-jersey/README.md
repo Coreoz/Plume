@@ -18,6 +18,30 @@ The module `GuiceJacksonModule` provides an injectable Jackson `ObjectMapper` wi
 - a support for Java 8 Time objects,
 - unknown attributes handling non-mandatory.
 
+This module can be customized/replaced, especially for security reasons to avoid having large objects/depth as parameters:
+
+**1. Object mapper with security limits**
+```java
+new ObjectMapper(new JsonFactory().setStreamReadConstraints(
+    StreamReadConstraints
+        .builder()
+        .maxNestingDepth(6)
+        .maxStringLength(100_000)
+        .build()
+))
+    .registerModule(new JavaTimeModule())
+    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+    .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+    .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+```
+
+**2. Create a `CustomObjectMapperProvider` based on the `ObjectMapperProvider` class**
+
+**3. In the `ApplicationModule` class, use the custom object mapper**
+```java
+bind(ObjectMapper.class).toProvider(CustomObjectMapperProvider.class);
+```
+
 Explicit access control
 -----------------------
 In order to avoid leaking an API that should have been private, a Jersey feature enables to force developers to always specify the access control rule that must set for an API.

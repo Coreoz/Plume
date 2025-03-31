@@ -15,8 +15,9 @@ public class JerseyMonitoringObjectMapperProvider implements Provider<ObjectMapp
     private final ObjectMapper objectMapper;
 
     @Inject
-    public JerseyMonitoringObjectMapperProvider(ObjectMapperProvider objectMapperProvider) {
-        this.objectMapper = objectMapperProvider.get()
+    public JerseyMonitoringObjectMapperProvider(ObjectMapper baseObjectMapper) {
+        this.objectMapper = baseObjectMapper
+            .copy()
             .registerModule(new HealthCheckModule())
             .registerModule(new MetricsModule(
                 TimeUnit.SECONDS,

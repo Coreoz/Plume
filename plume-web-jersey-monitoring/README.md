@@ -17,14 +17,6 @@ Add the dependency to the `pom.xml` file
 </dependency>
 ```
 
-### Install Guice modules
-In your application module replace `GuiceJacksonModule`by the `GuiceJacksonWithMetricsModule`
-
-~~`install(new GuiceJacksonModule());`~~
-```java
-install(new GuiceJacksonWithMetricsModule());
-```
-
 ### Add the monitoring API
 See [monitoring usage example](#usage-example).
 
@@ -83,8 +75,9 @@ Usage example
 @Singleton
 public class MonitoringWs {
     private final ApplicationInfo applicationInfo;
-    private final Provider<HealthStatus> healthStatusProvider;
-    private final Provider<Map<String, Metric>> metricsStatusProvider;
+    private final Provider<HealthStatus> healthStatus;
+    private final Provider<Map<String, Metric>> metrics;
+    private final ObjectWriter metricsJsonWriter;
 
     private final BasicAuthenticator<String> basicAuthenticator;
 
@@ -94,16 +87,17 @@ public class MonitoringWs {
         TransactionManager transactionManager,
         GrizzlyThreadPoolProbe grizzlyThreadPoolProbe,
         HikariDataSource hikariDataSource,
-        InternalApiAuthenticator apiAuthenticator
+        InternalApiAuthenticator apiAuthenticator,
+        JerseyMonitoringObjectMapperProvider metricsObjectMapperProvider
     ) {
         this.applicationInfo = applicationInfoProvider.get();
         // Registering health checks
-        this.healthStatusProvider = new HealthCheckBuilder()
+        this.healthStatus = new HealthCheckBuilder()
             .registerDatabaseHealthCheck(transactionManager)
             .build();
 
         // Registering metrics to monitor
-        this.metricsStatusProvider = new MetricsCheckBuilder()
+        this.metrics = new MetricsCheckBuilder()
             .registerJvmMetrics()
             .registerGrizzlyMetrics(grizzlyThreadPoolProbe)
             .registerHikariMetrics(hikariDataSource)
@@ -111,28 +105,32 @@ public class MonitoringWs {
 
         // Require authentication to access monitoring endpoints
         this.basicAuthenticator = apiAuthenticator.get();
+        this.metricsJsonWriter = metricsObjectMapperProvider.get().writer();
     }
 
     @GET
     @Path("/info")
-    public ApplicationInfo info(@Context ContainerRequestContext requestContext) {
+    @SneakyThrows
+    public String info(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
-        return this.applicationInfo;
+        return metricsJsonWriter.writeValueAsString(this.applicationInfo);
     }
 
     @GET
     @Path("/health")
-    public HealthStatus health(@Context ContainerRequestContext requestContext) {
+    @SneakyThrows
+    public String health(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
-        return this.healthStatusProvider.get();
+        return metricsJsonWriter.writeValueAsString(this.healthStatus.get());
     }
 
     @GET
     @Path("/metrics")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, Metric> metrics(@Context ContainerRequestContext requestContext) {
+    @SneakyThrows
+    public String metrics(@Context ContainerRequestContext requestContext) {
         basicAuthenticator.requireAuthentication(requestContext);
-        return metricsStatusProvider.get();
+        return metricsJsonWriter.writeValueAsString(metrics.get());
     }
 }
 ```
