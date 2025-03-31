@@ -220,3 +220,23 @@ To do that:
 
 The [Plume showcase project](https://github.com/Coreoz/Plume-showcase) has implemented this monitoring.
 Browsing the source code can help to verify the required changes. 
+
+### Jaxb
+The jaxb dependencies have been removed. Most of the time, all the dependencies that rely on this library will be removed/updated during the Plume 5 migration. In some rare cases, some or all these dependencies need to be added:
+```xml
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.0</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-core</artifactId>
+    <version>2.3.0</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.3.0</version>
+</dependency>
+```
