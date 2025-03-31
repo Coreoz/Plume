@@ -54,8 +54,14 @@ Plume file latest version is now included in Plume dependencies (with the Jakart
 #### Guice Bridge
 The Guice exclusion from the `guice-bridge` dependency can be removed.
 
-#### Remove javax.servlet-api
-The dependency `javax.servlet-api` can be removed.
+#### Replace javax.servlet-api by jakarta.servlet-api
+The dependency `javax.servlet-api` should be replaced by:
+```xml
+<dependency>
+  <groupId>jakarta.servlet</groupId>
+  <artifactId>jakarta.servlet-api</artifactId>
+</dependency>
+```
 
 #### Test dependencies
 Tests dependencies junit, assertj, mockito and `guice-junit-test-runner<` can be replaced by:
