@@ -221,6 +221,14 @@ To do that:
 The [Plume showcase project](https://github.com/Coreoz/Plume-showcase) has implemented this monitoring.
 Browsing the source code can help to verify the required changes. 
 
+### Simple mail java update
+Simple mail java now enforces SMTP server identity verification. While this is a better security option, some SMTP servers do not offer this option easily. In these situations, this security configuration option can be disabled:
+```hocon
+mail."defaults.verifyserveridentity"=false
+```
+
+For more information about this security change, see <https://www.simplejavamail.org/security.html#section-transport-strategy-smtp>.
+
 ### Jaxb
 The jaxb dependencies have been removed. Most of the time, all the dependencies that rely on this library will be removed/updated during the Plume 5 migration. In some rare cases, some or all these dependencies need to be added:
 ```xml
