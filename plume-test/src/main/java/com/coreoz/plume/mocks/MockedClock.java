@@ -52,6 +52,22 @@ public class MockedClock extends Clock {
     }
 
     /**
+     * Advance the current clock to a duration and set it as a constant time, see {@link #setConstantInstant(Instant)}
+     * @param timeToAdvance The time to advance
+     */
+    public MockedClock advanceTime(Duration timeToAdvance) {
+        return setConstantInstant(instant().plus(timeToAdvance));
+    }
+
+    /**
+     * Advance the current clock to a duration in millis and set it as a constant time, see {@link #setConstantInstant(Instant)}
+     * @param timeInMillis The time to advance in milliseconds
+     */
+    public MockedClock advanceTime(long timeInMillis) {
+        return setConstantInstant(instant().plusMillis(timeInMillis));
+    }
+
+    /**
      * Execute a function for which for time does not change
      * @param toExecuteWithConstantTime The function to execute
      */
