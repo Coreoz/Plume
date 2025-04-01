@@ -258,7 +258,7 @@ Enabling this feature has a frontend impact: the new I18N error key `CONTENT_SIZ
 
 ### Improved security: set Jackson limits for API consumption
 It is not mandatory for the upgrade, but it is advised to set limits to the JSON parser used for API consumption.
-If okhttp and/or retrofit are used with Jackson, the Plume Web Jersey module documentation shows [how Jackson can be configured to set these parsing limits](../../plume-web-jersey/README.md#jackson)
+If okhttp and/or retrofit are used with Jackson, the Plume Web Jersey module documentation shows [how Jackson can be configured to set these parsing limits](../../plume-web-jersey/README.md#jackson).
 
 ### JJwt update
 If JJwt is manipulated directly, some changes are required: https://github.com/jwtk/jjwt/blob/0.12.0/CHANGELOG.md
