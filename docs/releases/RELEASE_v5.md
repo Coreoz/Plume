@@ -277,8 +277,9 @@ The `DataSource` module is now separated from the `TransactionManager`, so:
 - The line: `Injector injector = Guice.createInjector(new GuiceConfModule());`
 - Must be replaced by: `Injector injector = Guice.createInjector(new GuiceConfModule(), new DataSourceModule());`
 
-### Monitoring - Remove Guice module
+### Monitoring - Jackson metrics Guice module removal
 In the application module, often in the `ApplicationModule` file, the module `GuiceJacksonWithMetricsModule` was required for metrics. This is not the case anymore, and this module has been deprecated for removal in Plume 6.
+So in `ApplicationModule`, the `GuiceJacksonWithMetricsModule` should be replaced by the `GuiceJacksonModule`.
 
 ### Monitoring - HikariCP and Grizzly
 HikariCP threads pool and Grizzly threads pool can now be easily monitored.
