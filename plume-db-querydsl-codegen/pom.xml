@@ -22,12 +22,6 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-sql-codegen</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>javax.inject</artifactId>
-                    <groupId>javax.inject</groupId>
-                </exclusion>
-            </exclusions>
 		</dependency>
 
 		<dependency>

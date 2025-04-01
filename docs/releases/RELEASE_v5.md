@@ -97,6 +97,79 @@ The versions of Flyway modules for MySQL, PostgreSQL, Oracle and SQL Server are 
 </dependency>
 ```
 
+#### Querydsl generation
+Since Querydsl still relies on `javax.inject`, so this dependency needs to be excluded.
+
+Moreover, just marking `plume-db-querydsl-codegen` as optional does not exclude this dependency and all the transitional dependencies from the final build :(.
+
+So the best solution to be able to still execute the Querydsl code generation and exclude all these build dependencies from the final build is to:
+- Put the `plume-db-querydsl-codegen` dependency as provided: so the project still builds correctly in the IDE. But in the declaration of this dependency, `javax.inject` must be excluded so it is not proposed by the IDE during auto-complete for `@Singleton` or `@Inject` annotations
+- Add a dedicated profile in the `pom.xml` file where the `plume-db-querydsl-codegen` is fully included
+
+So here are the expected changes:
+**1. Replace the `plume-db-querydsl-codegen` with:**
+```xml
+<!-- Querydsl code generation, using the provided scope to avoid compilation error in the IDE -->
+<dependency>
+    <groupId>com.coreoz</groupId>
+    <artifactId>plume-db-querydsl-codegen</artifactId>
+    <scope>provided</scope>
+    <exclusions>
+        <!-- Querydsl codegen still relies on javax.inject for now -->
+        <exclusion>
+            <artifactId>javax.inject</artifactId>
+            <groupId>javax.inject</groupId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+**2. After the `</dependencies>` block, add the querydsl-code-generation profile:**
+```xml
+<profiles>
+    <!-- Profile for querydsl code generation -->
+    <profile>
+        <id>querydsl-code-generation</id>
+        <dependencies>
+            <dependency>
+                <groupId>com.coreoz</groupId>
+                <artifactId>plume-db-querydsl-codegen</artifactId>
+            </dependency>
+        </dependencies>
+    </profile>
+</profiles>
+```
+**3. After the migration, to use Querydsl code generation, follow these steps in Intellij:**
+1. Click on the Maven pane on the right
+2. In the Profiles block, select the `querydsl-code-generation` profile
+3. Update the Maven project
+4. Run the `QuerydslGenerator` as before
+
+Here is a picture summing up these steps:
+![Querydsl code generation steps in Intellij](../../plume-db-querydsl-codegen/docs/querydsl-codegen-profile.png)
+
+#### Clean up runtime dependencies
+Guava includes some unnecessary run dependencies (findbugs, error prone, j2objc annotations and checker qual). To remove them from the production build, add the `distDependencyExcludes` configuration in the `com.google.code.play2-maven-plugin` plugin:
+```xml
+<!-- build a zip with all the dependencies and starting scripts -->
+<plugin>
+    <groupId>com.google.code.play2-maven-plugin</groupId>
+    <artifactId>play2-maven-plugin</artifactId>
+    <version>1.0.0-rc5</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>dist-exploded</goal>
+            </goals>
+            <phase>package</phase>
+        </execution>
+    </executions>
+    <configuration>
+        <!-- Exclude guava build dependencies from runtime -->
+        <distDependencyExcludes>com.google.code.findbugs:jsr305,com.google.errorprone:error_prone_annotations,com.google.j2objc:j2objc-annotations,org.checkerframework:checker-qual</distDependencyExcludes>
+    </configuration>
+</plugin>
+```
+
 ### Swagger upgrade
 Swagger has been upgraded, and it is not possible anymore to use the query parameter `url`: https://github.com/swagger-api/swagger-ui/issues/7702
 
