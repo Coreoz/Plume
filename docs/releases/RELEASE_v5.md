@@ -98,15 +98,16 @@ The versions of Flyway modules for MySQL, PostgreSQL, Oracle and SQL Server are 
 ```
 
 #### Querydsl generation
-Since Querydsl still relies on `javax.inject`, so this dependency needs to be excluded.
+Since Querydsl still relies on `javax.inject`, this dependency needs to be excluded.
 
-Moreover, just marking `plume-db-querydsl-codegen` as optional does not exclude this dependency and all the transitional dependencies from the final build :(.
+Moreover, just marking `plume-db-querydsl-codegen` as optional does not exclude this dependency and all the transitional dependencies from the final build :(
 
 So the best solution to be able to still execute the Querydsl code generation and exclude all these build dependencies from the final build is to:
 - Put the `plume-db-querydsl-codegen` dependency as provided: so the project still builds correctly in the IDE. But in the declaration of this dependency, `javax.inject` must be excluded so it is not proposed by the IDE during auto-complete for `@Singleton` or `@Inject` annotations
 - Add a dedicated profile in the `pom.xml` file where the `plume-db-querydsl-codegen` is fully included
 
 So here are the expected changes:
+
 **1. Replace the `plume-db-querydsl-codegen` with:**
 ```xml
 <!-- Querydsl code generation, using the provided scope to avoid compilation error in the IDE -->
