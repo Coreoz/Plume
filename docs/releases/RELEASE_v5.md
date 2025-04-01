@@ -43,7 +43,7 @@ There are multiple updates to do in the `pom.xml` file.
 Use at least Java 17 if it is not already the case. Java 21 or Java 23 can also be used.
 
 #### Plume version
-Reference the new Plume version: `5.0.0-beta2`.
+Reference the new Plume version: `5.0.0-RC1`.
 
 #### Swagger dependency
 Replace the Swagger artifact name `swagger-jaxrs2` by `swagger-jaxrs2-jakarta` (the group id `io.swagger.core.v3` remains the same).
