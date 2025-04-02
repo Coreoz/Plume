@@ -65,3 +65,14 @@ public class EmailService {
   }
 }
 ```
+
+Troubleshooting
+---------------
+Simple Java Mail enforces SMTP server connection using TLS and identity verification. While this is a better security option, some SMTP servers do not offer TLS, or they are using a self-signed certificate. In these situations, these security configuration options can be disabled (if possible, only on non-production environments):
+```hocon
+# For self-signed SMTP server
+mail."defaults.verifyserveridentity"=false
+# For SMTP server not providing TLS connection
+mail."opportunistic.tls"=false
+```
+More details are available in the [security page of Simple Java Mail](https://www.simplejavamail.org/security.html).

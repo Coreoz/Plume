@@ -64,8 +64,8 @@ The dependency `javax.servlet-api` should be replaced by:
 ```
 
 #### Test dependencies
-Tests dependencies junit, assertj, mockito and `guice-junit-test-runner<` can be replaced by:
-plume-db-test
+Tests dependencies `junit`, `assertj`, `mockito` and `guice-junit-test-runner` can be replaced by:
+`plume-test`
 
 #### Plugin versions
 Maven plugins versions can be updated, especially if there is an incompatibility with the Java version used.
@@ -106,7 +106,7 @@ So the best solution to be able to still execute the Querydsl code generation an
 - Put the `plume-db-querydsl-codegen` dependency as provided: so the project still builds correctly in the IDE. But in the declaration of this dependency, `javax.inject` must be excluded so it is not proposed by the IDE during auto-complete for `@Singleton` or `@Inject` annotations
 - Add a dedicated profile in the `pom.xml` file where the `plume-db-querydsl-codegen` is fully included
 
-So here are the expected changes:
+So here are the changes to be made:
 
 **1. Replace the `plume-db-querydsl-codegen` with:**
 ```xml
@@ -297,9 +297,12 @@ The [Plume showcase project](https://github.com/Coreoz/Plume-showcase) has imple
 Browsing the source code can help to verify the required changes. 
 
 ### Simple mail java update
-Simple mail java now enforces SMTP server identity verification. While this is a better security option, some SMTP servers do not offer this option easily. In these situations, this security configuration option can be disabled:
+Simple Java Mail enforces SMTP server connection using TLS and identity verification. While this is a better security option, some SMTP servers do not offer TLS, or they are using a self-signed certificate. In these situations, these security configuration options can be disabled (if possible, only on non-production environments):
 ```hocon
+# For self-signed SMTP server
 mail."defaults.verifyserveridentity"=false
+# For SMTP server not providing TLS connection
+mail."opportunistic.tls"=false
 ```
 
 For more information about this security change, see <https://www.simplejavamail.org/security.html#section-transport-strategy-smtp>.
