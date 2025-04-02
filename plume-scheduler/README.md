@@ -68,3 +68,12 @@ In your application main method `WebApplication.main()` start the jobs:
 injector.getInstance(ScheduledJobs.class).scheduleJobs();
 ```
 
+Using Cron expressions
+----------------------
+See the [Wisp Cron documentation](https://github.com/Coreoz/Wisp#cron) for usage and add the cron parsing dependency:
+```xml
+<dependency>
+    <groupId>ch.eitchnet</groupId>
+    <artifactId>cron</artifactId>
+</dependency>
+```
