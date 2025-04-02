@@ -297,7 +297,7 @@ The [Plume showcase project](https://github.com/Coreoz/Plume-showcase) has imple
 Browsing the source code can help to verify the required changes. 
 
 ### Simple mail java update
-Simple Java Mail enforces SMTP server connection using TLS and identity verification. While this is a better security option, some SMTP servers do not offer TLS, or they are using a self-signed certificate. In these situations, these security configuration options can be disabled (if possible, only on non-production environments):
+Simple Java Mail enforces SMTP server connection using TLS and identity verification. While this is a better security option, some SMTP servers do not offer TLS, or they are using a self-signed certificate. In these situations, these security configuration options can be disabled (if possible, only in non-production environments):
 ```hocon
 # For self-signed SMTP server
 mail."defaults.verifyserveridentity"=false
