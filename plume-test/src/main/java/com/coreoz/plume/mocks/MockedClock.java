@@ -1,5 +1,7 @@
 package com.coreoz.plume.mocks;
 
+import jakarta.inject.Singleton;
+
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
@@ -10,6 +12,7 @@ import java.time.ZonedDateTime;
 /**
  * A mocked {@link Clock} object for unit tests on code that uses a {@link Clock}
  */
+@Singleton
 public class MockedClock extends Clock {
     private Clock baseClock = Clock.systemDefaultZone();
 

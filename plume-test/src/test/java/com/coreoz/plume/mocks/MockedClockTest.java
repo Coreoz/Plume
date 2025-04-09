@@ -1,14 +1,40 @@
 package com.coreoz.plume.mocks;
 
+import com.coreoz.test.GuiceTest;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@GuiceTest({})
 class MockedClockTest {
     static final Instant fixedInstant = Instant.parse("2000-01-01T10:00:00Z");
     static final Clock fixedClock = Clock.fixed(fixedInstant, ZoneId.systemDefault());
+
+    static Clock clockInstance;
+
+    @Inject
+    MockedClock currentClock;
+
+    @BeforeEach
+    void setupClockInstance() {
+        if (clockInstance == null) {
+            clockInstance = currentClock;
+        }
+    }
+
+    @Test
+    void test_same_clock_instance_1() {
+        assertThat(currentClock).isSameAs(clockInstance);
+    }
+
+    @Test
+    void test_same_clock_instance_2() {
+        assertThat(currentClock).isSameAs(clockInstance);
+    }
 
     @Test
     void changeClock__when_newClockProvided__should_useNewClock() {
