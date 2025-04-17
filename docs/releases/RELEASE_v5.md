@@ -51,6 +51,15 @@ Replace the Swagger artifact name `swagger-jaxrs2` by `swagger-jaxrs2-jakarta` (
 #### Plume file
 Plume file latest version is now included in Plume dependencies (with the Jakarta upgrade), so the Plume file version should be deleted in the properties and in the dependencies.
 
+#### Plume scheduler and cron
+The version of the cron library is now managed in Plume dependencies, so the version number can be removed:
+```xml
+<dependency>
+   <groupId>ch.eitchnet</groupId>
+   <artifactId>cron</artifactId>
+</dependency>
+```
+
 #### Guice Bridge
 The Guice exclusion from the `guice-bridge` dependency can be removed.
 
