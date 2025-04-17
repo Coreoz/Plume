@@ -1,7 +1,5 @@
 This release is the biggest Plume release, by features and by breaking changes. We strived to make the upgrade as fast as possible and as documented as possible. On most projects, the migration should not take more than 1 hour of work. However, what can be time-consuming is to upgrade other dependencies that haven't yet migrated to Jakarta EE (mostly dependency injection or Jersey web-service). If there is an upgrade issue, please [reach out](https://github.com/Coreoz/Plume/discussions).
 
-About the beta release: no big change is expected before the final release version. This beta version has been tested, but since the changes of this release are bigger than usual, we prefer to release first a non-final version that is more likely to contain small bugs that we will fix in the final version. Please share all the issues you might encounter with this beta version.
-
 Changelog
 -------------
 - Java EE -> Jakarta EE
