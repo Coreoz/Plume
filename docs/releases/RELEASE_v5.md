@@ -1,5 +1,9 @@
 This release is the biggest Plume release, by features and by breaking changes. We strived to make the upgrade as fast as possible and as documented as possible. On most projects, the migration should not take more than 1 hour of work. However, what can be time-consuming is to upgrade other dependencies that haven't yet migrated to Jakarta EE (mostly dependency injection or Jersey web-service). If there is an upgrade issue, please [reach out](https://github.com/Coreoz/Plume/discussions).
 
+After the migration, a full testing phase should be performed, although the main regression risks associated with this upgrade are:
+- Parts of the migrated application that would send large files or JSON objects: file upload, rich text, etc.
+- File management if you need to migrate Plume File from v2 or v1
+
 Changelog
 -------------
 - Java EE -> Jakarta EE
@@ -19,7 +23,7 @@ Upgrade instructions from 4.x to 5.x
 -------------------------------------
 These instructions are meant to be followed one step after the other.
 
-If Plume file v1 is used, the guide will need to be followed after finishing migrating [upgrade to Plume file latest version](https://github.com/Coreoz/Plume-file/releases).
+If Plume file is used, this guide will need to be followed after finishing migrating [upgrade to Plume file latest version](https://github.com/Coreoz/Plume-file/releases).
 
 ### Jakarta EE
 - Either Intellij using the main menu (on the top bar): Refactor > Migrate Packages and Classes... > Java EE to Jakarta EE
@@ -35,7 +39,7 @@ This automatic upgrade just does the bare minimum upgrade, mostly packages updat
 It's better than nothing, but keep in mind that some manuel update will need to be done later.
 
 ### pom.xml file update
-There are multiple updates to do in the `pom.xml` file.
+There are several updates to the `pom.xml` file that are described below.
 
 #### Java version
 Use at least Java 17 if it is not already the case. Java 21 or Java 23 can also be used.
