@@ -68,6 +68,9 @@ In your application main method `WebApplication.main()` start the jobs:
 injector.getInstance(ScheduledJobs.class).scheduleJobs();
 ```
 
+**In production, it is generally a good practice to configure the
+[monitor for long running jobs detection](https://github.com/Coreoz/Wisp#long-running-jobs-detection)**.
+
 Using Cron expressions
 ----------------------
 See the [Wisp Cron documentation](https://github.com/Coreoz/Wisp#cron) for usage and add the cron parsing dependency:
