@@ -10,12 +10,18 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 import java.util.List;
+import java.util.concurrent.CompletionException;
 
 @Slf4j
 @Provider
 public class WsResultExceptionMapper implements ExceptionMapper<Throwable> {
 	@Override
 	public Response toResponse(Throwable e) {
+        if (e instanceof CompletionException) {
+            // In case an exception occurs on a future, handle only the root cause of the Exception
+            return toResponse(e.getCause());
+        }
+
 		if (e instanceof WsException wsException) {
             return Response
 				.status(Status.BAD_REQUEST)
