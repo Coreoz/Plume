@@ -5,6 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Handle long identifiers generation that should be unique.
+ * <p>
+ * <strong>Security Warning:</strong> This generator is not cryptographically secure.
+ * It is designed for generating database primary keys or internal identifiers.
+ * It MUST NOT be used to generate security tokens, passwords, session IDs, or any
+ * value that requires cryptographic unpredictability.
  *
  * @author <a href="mike@baroukh.com">Mike Baroukh</a>
  */
