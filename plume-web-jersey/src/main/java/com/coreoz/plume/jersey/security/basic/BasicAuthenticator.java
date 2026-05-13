@@ -143,7 +143,7 @@ public class BasicAuthenticator<U> {
 		String[] decodedCredentials = new String(
 			Base64.getDecoder().decode(authorizationHeader.substring(BASIC_PREFIX.length())),
 			StandardCharsets.UTF_8
-		).split(":");
+		).split(":", 2);
 
 		if(decodedCredentials.length != 2) {
 			logger.debug(

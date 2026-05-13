@@ -76,6 +76,17 @@ public class BasicAuthenticatorTest {
         assertThat(credentials).isNull();
     }
 
+
+    @Test
+    public void parseBasicHeader__when_passwordContainsColon__should_returnCredentials() {
+        String validAuthHeader = createBasicAuthHeader(VALID_USERNAME, "password:with:colon");
+        Credentials credentials = BasicAuthenticator.parseBasicHeader(validAuthHeader);
+
+        assertThat(credentials).isNotNull();
+        assertThat(credentials.getUsername()).isEqualTo(VALID_USERNAME);
+        assertThat(credentials.getPassword()).isEqualTo("password:with:colon");
+    }
+
     // Helper to create a Basic Auth header
     private static String createBasicAuthHeader(String username, String password) {
         String auth = username + ":" + password;
