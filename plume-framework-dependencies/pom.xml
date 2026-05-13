@@ -42,7 +42,7 @@
         <throwing-function.version>1.5.1</throwing-function.version>
 
         <junit.version>5.11.3</junit.version>
-        <assertj.version>3.26.3</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <mockito.version>5.14.2</mockito.version>
         <guice-junit.version>1.0.1</guice-junit.version>
     </properties>
