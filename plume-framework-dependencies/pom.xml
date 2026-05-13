@@ -29,7 +29,7 @@
         <querydsl.version>5.1.0</querydsl.version>
         <flyway.version>10.19.0</flyway.version>
         <h2.version>2.3.232</h2.version>
-        <jackson.version>2.18.0</jackson.version>
+        <jackson.version>2.18.6</jackson.version>
         <jersey.version>3.0.17</jersey.version>
         <swagger.version>2.2.23</swagger.version>
         <hk2-guice-bridge.version>3.1.1</hk2-guice-bridge.version>
