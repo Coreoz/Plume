@@ -3,11 +3,16 @@ package com.coreoz.plume.db.querydsl.generation;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.coreoz.plume.db.querydsl.crud.CrudEntityQuerydsl;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.databind.util.Converter;
+import com.querydsl.codegen.BeanSerializer;
+import com.querydsl.codegen.CodegenModule;
 import com.querydsl.codegen.EntityType;
 import com.querydsl.codegen.Property;
 import com.querydsl.codegen.SerializerConfig;
@@ -20,8 +25,25 @@ public class IdBeanSerializer extends ExtendedBeanSerializer {
 
 	private boolean useJacksonAnnotation;
 
+	/**
+	 * Plume is based on Jakarta EE, so the {@code @Generated} annotation of the
+	 * generated classes must use the Jakarta namespace.
+	 */
 	public IdBeanSerializer() {
-		setPrintSupertype(true);
+		this(jakarta.annotation.Generated.class);
+	}
+
+	/**
+	 * Used when the serializer is instantiated by Querydsl dependency injection
+	 * (e.g. with {@code MetaDataExporter.setBeanSerializerClass()}), so the
+	 * {@code generatedAnnotationClass} configured on the exporter is honored.
+	 */
+    @Inject
+    public IdBeanSerializer(
+        @Named(CodegenModule.GENERATED_ANNOTATION_CLASS) Class<? extends Annotation> generatedAnnotationClass
+    ) {
+        super(BeanSerializer.DEFAULT_JAVADOC_SUFFIX, generatedAnnotationClass);
+        setPrintSupertype(true);
 
 		this.useJacksonAnnotation = false;
 	}
